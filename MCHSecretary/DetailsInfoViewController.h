@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "AppPacketInfo.h"
-#import "CWStarRateView.h"
 #import "DetailSegmentView.h"
 #import "DetailDescribeView.h"
 #import "DetailCommentView.h"
@@ -21,6 +20,10 @@ UIScrollViewDelegate,
 DetailSegmentDeleget
 >
 
+{
+UIView *topview;
+}
+
 @property (nonatomic, strong) AppPacketInfo *appInfo;
 
 
@@ -28,15 +31,14 @@ DetailSegmentDeleget
 
 @property (weak, nonatomic) IBOutlet UIScrollView *detailScrollView;
 
+//折扣值
+@property (weak, nonatomic) IBOutlet UIButton *zhekouBtn;
+
 @property (weak, nonatomic) IBOutlet UIImageView *appSmallIcon;
 
 @property (weak, nonatomic) IBOutlet UILabel *appName;
 
-@property (weak, nonatomic) IBOutlet CWStarRateView *appStarValue;
-
-@property (weak, nonatomic) IBOutlet UILabel *appCommentNum;
-
-@property (weak, nonatomic) IBOutlet UILabel *appDownAndSize;
+@property (weak, nonatomic) IBOutlet UILabel *descriptLab;
 
 @property (weak, nonatomic) IBOutlet DetailSegmentView *segmentView;
 

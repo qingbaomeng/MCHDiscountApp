@@ -19,6 +19,7 @@
 		5A28F8C11D7037AE00D58BB5 /* OpenServerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28F8C01D7037AE00D58BB5 /* OpenServerItem.m */; };
 		5A28F8C41D703B1D00D58BB5 /* OpenServerFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28F8C31D703B1D00D58BB5 /* OpenServerFrame.m */; };
 		5A28F8C71D703EF900D58BB5 /* OpenServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28F8C61D703EF900D58BB5 /* OpenServerCell.m */; };
+		5A36CE191D792A58001613BE /* detail_zhekou.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A36CE181D792A58001613BE /* detail_zhekou.png */; };
 		5A5231291D74074200D01412 /* OpenServerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5231281D74074200D01412 /* OpenServerHeaderView.m */; };
 		5A52312C1D743E8C00D01412 /* appinstall.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A52312A1D743E8C00D01412 /* appinstall.png */; };
 		5A52312D1D743E8C00D01412 /* discount.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A52312B1D743E8C00D01412 /* discount.png */; };
@@ -224,6 +225,7 @@
 		5A28F8C31D703B1D00D58BB5 /* OpenServerFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenServerFrame.m; path = Frame/OpenServerFrame.m; sourceTree = "<group>"; };
 		5A28F8C51D703EF900D58BB5 /* OpenServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenServerCell.h; path = Cells/OpenServerCell.h; sourceTree = "<group>"; };
 		5A28F8C61D703EF900D58BB5 /* OpenServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenServerCell.m; path = Cells/OpenServerCell.m; sourceTree = "<group>"; };
+		5A36CE181D792A58001613BE /* detail_zhekou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = detail_zhekou.png; path = Images/detail_zhekou.png; sourceTree = "<group>"; };
 		5A5231271D74074200D01412 /* OpenServerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenServerHeaderView.h; path = CustomView/OpenServerHeaderView.h; sourceTree = "<group>"; };
 		5A5231281D74074200D01412 /* OpenServerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenServerHeaderView.m; path = CustomView/OpenServerHeaderView.m; sourceTree = "<group>"; };
 		5A52312A1D743E8C00D01412 /* appinstall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appinstall.png; path = Images/appinstall.png; sourceTree = "<group>"; };
@@ -855,6 +857,7 @@
 				B7E759851D5DA97E008C7ED8 /* choice_subject.png */,
 				B7E759861D5DA97E008C7ED8 /* choice_type.png */,
 				B7E759811D5DA8A4008C7ED8 /* choice_download.png */,
+				5A36CE181D792A58001613BE /* detail_zhekou.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1226,6 +1229,7 @@
 				B78FA1C41D531E100092A043 /* LaunchScreen.storyboard in Resources */,
 				5A74C3341D76D9E600CBC262 /* barBtn_mine_unselect@2x.png in Resources */,
 				5A5E0E241D7816AB00E60A46 /* share.png in Resources */,
+				5A36CE191D792A58001613BE /* detail_zhekou.png in Resources */,
 				5AEFAB341D6BF9C4007DEADE /* star_gray_bottom@2x.png in Resources */,
 				5A5E0E251D7816AB00E60A46 /* update.png in Resources */,
 				B7E759A01D5DB8B6008C7ED8 /* tabbtn_app_unselect.png in Resources */,

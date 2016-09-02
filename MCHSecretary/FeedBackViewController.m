@@ -46,7 +46,7 @@ UITextField *textField;
     
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(20, 25, BarWIDTH*2, BarWIDTH);
-    [leftBtn setImage:[UIImage imageNamed:@"导航栏-箭头"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [leftBtn setTitle:@"帮助" forState:UIControlStateNormal];
     [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [leftBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
