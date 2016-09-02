@@ -94,8 +94,7 @@
     topview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, TopViewH)];
     [topview setBackgroundColor:TopBackColor];
     [self.view addSubview:topview];
-    
-    
+
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(20, 25, BarWIDTH*2, BarWIDTH);
     [leftBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];

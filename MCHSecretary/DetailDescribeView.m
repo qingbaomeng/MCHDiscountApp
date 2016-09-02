@@ -132,12 +132,12 @@ UIView *bgView;
     [txtDescribe setFrame:CGRectMake(15, LineY, descMax.width, descMax.height)];
     descriptLine.hidden = YES;
     moreButton.hidden = YES;
-    bgView.frame = CGRectMake(0,txtDescribe.frame.origin.y + descMax.height + 15, kScreenWidth, ContentTextSize * 4 +120);
+    bgView.frame = CGRectMake(0,txtDescribe.frame.origin.y + descMax.height + 15, kScreenWidth, ContentTextSize * 4 +160);
 }
 //版本信息
 -(void)addVerisionView:(AppPacketInfo*)info position:(CGFloat)posY extend:(BOOL)isextend{
     
-    bgView = [[UIView alloc]initWithFrame:CGRectMake(0, posY, kScreenWidth, ContentTextSize * 4 +120)];
+    bgView = [[UIView alloc]initWithFrame:CGRectMake(0, posY, kScreenWidth, ContentTextSize * 4 +160)];
     [self addSubview:bgView];
     
       UILabel *lblVerision = [[UILabel alloc] init];
