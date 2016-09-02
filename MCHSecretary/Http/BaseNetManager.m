@@ -88,7 +88,7 @@ DialogTipView *dialogView;
             }
             
         } else {
-            NSLog(@"error=%@",error);
+            NSLog(@"[BaseNetManager] error=%@",error);
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self removeIndicatorView];
                 
@@ -115,7 +115,7 @@ DialogTipView *dialogView;
     completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
         //             NSLog(@"response : %@", response);
         if (data && (error == nil)) {
-            NSLog(@"data=%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            NSLog(@"[BaseNetManager] data=%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
             long status = (long)httpResponse.statusCode;
@@ -147,7 +147,7 @@ DialogTipView *dialogView;
                 });
             }
         } else {
-            NSLog(@"error=%@",error);
+            NSLog(@"[BaseNetManager] error=%@",error);
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self removeIndicatorView];
                 

@@ -18,6 +18,7 @@
 #define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 
 #define appdetailinfourl @"/openserver.html"
+//searchopenserver.html
 
 @implementation OpenServerGameRequest
 

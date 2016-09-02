@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NomalCell.h"
+#import "OpenServerSearchCell.h"
 
 @interface SearchViewController : UIViewController
 <
 UITextFieldDelegate,
 UITableViewDelegate,
 UITableViewDataSource,
-DownloadAppDelegate
+OpenServerSearchDelegate
 >
 
 @property (strong, nonatomic) NSMutableArray *listItemArray;
+@property (strong, nonatomic) NSMutableArray *listsearchItemArray;
 
 -(void) searchOpenServerGame;
 

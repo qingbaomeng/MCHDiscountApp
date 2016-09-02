@@ -11,7 +11,7 @@
 
 @protocol OpenServerSearchDelegate <NSObject>
 
--(void) startDownloadApp:(NSInteger)section index:(NSInteger)index;
+-(void) startDownloadApp:(NSInteger)index;
 
 -(void) showAllOpenServerInfo:(NSInteger)index;
 
@@ -27,7 +27,7 @@
 
 @property (nonatomic, weak) id<OpenServerSearchDelegate> delegate;
 
--(void) setOpenServerSearchFrame:(OpenServerSearchFrame *)openServerSearchFrame section:(NSInteger)section pos:(NSInteger)index;
+-(void) setOpenServerSearchFrame:(OpenServerSearchFrame *)openServerSearchFrame pos:(NSInteger)index openserver:(BOOL)isshow;
 
 
 @end

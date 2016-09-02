@@ -13,5 +13,6 @@
 
 @property (nonatomic, assign) CGFloat posX;
 @property (nonatomic, assign) CGFloat posY;
-
+@property (nonatomic, assign) CGFloat posW;
+@property (nonatomic, copy) NSString *openTime;
 @end

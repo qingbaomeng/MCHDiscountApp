@@ -55,8 +55,6 @@
 @property (nonatomic, copy) NSString *compatible;
 //折扣
 @property (nonatomic, copy) NSString *appDiscount;
-//开服信息
-@property (nonatomic, strong) NSArray *openServerArray;
 
 
 

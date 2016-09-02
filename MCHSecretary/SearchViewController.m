@@ -13,12 +13,15 @@
 #import "MJRefresh.h"
 #import "FileUtils.h"
 
-#import "NomalFrame.h"
-#import "AppPacketInfo.h"
-#import "ChoiceListItem.h"
-#import "ChoiceCycleAppRequest.h"
+
+#import "OpenServerSearchFrame.h"
 
 #import "DetailsInfoViewController.h"
+#import "OpenServerSearchFrame.h"
+#import "OpenServerEntity.h"
+#import "SearchOpenServerRequest.h"
+#import "SearchAppRequest.h"
+
 
 #define AppSearchHisFile @"appsearch.txt"
 #define OpenServerHisFile @"openserver.txt"
@@ -73,7 +76,7 @@
 
 @implementation SearchViewController
 
-@synthesize listItemArray;
+@synthesize listItemArray, listsearchItemArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,6 +93,7 @@
     
     appSearchHisArray = [[NSMutableArray alloc] init];
     listItemArray = [[NSMutableArray alloc] init];
+    listsearchItemArray = [[NSMutableArray alloc] init];
     
     [self initSearchKey];
     
@@ -360,37 +364,47 @@
     appInfoTable = [[UITableView alloc] initWithFrame:CGRectMake(0, posy, kScreenWidth, tableH)];
     appInfoTable.delegate = self;
     appInfoTable.dataSource = self;
+    appInfoTable.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);;
     
     [self.view addSubview:appInfoTable];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    if(isSearchOpenServerGame){
+//        return 1;
+//    }
+//    return listItemArray.count;
+//}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(isSearchOpenServerGame){
+         return listsearchItemArray.count;
+    }
     return listItemArray.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    ChoiceListItem *listitem = listItemArray[section];
-    //    NSLog(@"%ld, %ld", (long)section, (long)listitem.itemNumber);
-    if(listitem.cellType == CellStyle_Cycle){
-        return 1;
-    }
-    return listitem.appInfoArray.count;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChoiceListItem *listitem = listItemArray[indexPath.section];
-    NomalCell *appcell = [NomalCell cellWithTableView:tableView];
-    NomalFrame *frame = listitem.appInfoArray[indexPath.row];
-    [appcell setNomalFrame:frame section:indexPath.section pos:indexPath.row];
-    appcell.delegate = self;
-    return appcell;
+    if(isSearchOpenServerGame){
+        OpenServerSearchFrame *serverFrame = listsearchItemArray[indexPath.row];
+        OpenServerSearchCell * serverCell = [OpenServerSearchCell cellWithTableView:tableView];;
+        serverCell.delegate = self;
+        [serverCell setOpenServerSearchFrame:serverFrame pos:indexPath.row openserver:YES];
+        return serverCell;
+    }
+    OpenServerSearchFrame *frame = listItemArray[indexPath.row];
+    OpenServerSearchCell * cell = [OpenServerSearchCell cellWithTableView:tableView];
+    [cell setOpenServerSearchFrame:frame pos:indexPath.row openserver:NO];
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChoiceListItem *listitem = listItemArray[indexPath.section];
-    NomalFrame *frame = listitem.appInfoArray[indexPath.row];
+    if(isSearchOpenServerGame){
+        OpenServerSearchFrame *serverFrame = listsearchItemArray[indexPath.row];
+        return serverFrame.cellHeight;
+    }
+    OpenServerSearchFrame *frame = listItemArray[indexPath.row];
     return frame.cellHeight;
 }
 
@@ -406,9 +420,25 @@
 
 //搜索app
 -(void) requestAppInfo{
+    if(isSearchOpenServerGame){
+        [[[SearchOpenServerRequest alloc] init] searchOpenServerInfo:^(NSMutableArray *opserverArray) {
+            [listsearchItemArray removeAllObjects];
+            if(opserverArray != nil){
+                [listsearchItemArray addObjectsFromArray:opserverArray];
+                [self addScrollView];
+            }else{
+                [self addRecommentView:YES];
+            }
+            
+        } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+            [self addRecommentView:YES];
+            NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+            NSLog(@"errorMsg:%@", errorMsg);
+        }];
+        return;
+    }
     
-    
-    [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
+    [[[SearchAppRequest alloc] init] searchOpenServerInfo:^(NSMutableArray *result) {
         //        NSLog(@"success dic:%@", dic);
         [listItemArray removeAllObjects];
 //        result = nil;
@@ -424,6 +454,9 @@
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
         NSLog(@"errorMsg:%@", errorMsg);
     }];
+    
+    
+    
 }
 
 //显示搜索
@@ -439,6 +472,12 @@
 
 //添加搜索文本框
 -(void)addSearchInputView{
+    if(imageIcon){
+        [imageIcon removeFromSuperview];
+    }
+    if(searchField){
+        [searchField removeFromSuperview];
+    }
     CGFloat searchH = 15;
     CGFloat searchY = (backView.frame.size.height - searchH) / 2;
     
@@ -536,18 +575,30 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - DownloadAppDelegate
+#pragma mark - OpenServerSearchDelegate
 
--(void) startDownloadApp:(NSInteger)section index:(NSInteger)index{
-    if(listItemArray.count <= section){
-        return;
-    }
-    ChoiceListItem *listitem = listItemArray[section];;
+-(void) startDownloadApp:(NSInteger)index{
+
+    NSString *downUrl = @"";
     
-    NomalFrame *frame = [listitem.appInfoArray objectAtIndex:index];
-    NSString *downUrl = frame.packetInfo.downloadUrl;
+    if(isSearchOpenServerGame && index < listsearchItemArray.count){
+        OpenServerSearchFrame *serverFrame = listsearchItemArray[index];
+        downUrl = serverFrame.packetInfo.downloadUrl;
+    }else if(!isSearchOpenServerGame && index < listItemArray.count){
+        OpenServerSearchFrame *frame = listItemArray[index];
+        downUrl = frame.packetInfo.downloadUrl;
+    }
+    
+    
     NSLog(@"%ld_url: %@", (long)index, downUrl);
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
+}
+
+-(void) showAllOpenServerInfo:(NSInteger)index{
+    NSLog(@"22222");
+    if (appInfoTable) {
+        [appInfoTable reloadData];
+    }
 }
 
 @end

@@ -16,7 +16,7 @@
 @synthesize smallImageUrl, packetName, packetSize, appDescribe, appDownloadNum, downloadUrl;
 @synthesize largeImageUrl, describeimageUrl, commentNumber, starAverage, describeImages;
 @synthesize contentDescribe, updateLogs, versionInfo;
-@synthesize updateData, appType, language, developCompany, compatible, appDiscount, openServerArray;
+@synthesize updateData, appType, language, developCompany, compatible, appDiscount;
 
 -(id) init{
     if (self = [super init]) {
@@ -32,7 +32,6 @@
         starAverage = 0;
         describeImages = @"";
         appDiscount = @"";
-        openServerArray = [[NSArray alloc] init];
     }
     return self;
 }

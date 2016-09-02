@@ -13,7 +13,7 @@
 
 @implementation OpenServerEntity
 
-@synthesize packetName, smallImageUrl, serverDesc, appDiscount;
+@synthesize packetName, smallImageUrl, serverDesc, appDiscount, openServerArray, downloadUrl;
 
 -(id) init{
     if (self = [super init]) {
@@ -21,6 +21,8 @@
         packetName = @"";
         serverDesc = @"";
         appDiscount = @"";
+        downloadUrl = @"";
+        openServerArray = [[NSArray alloc] init];
     }
     return self;
 }
@@ -56,6 +58,13 @@
         appDiscount = @"";
     }
     
+    NSString *openserverStr = checkNull([dict objectForKey:@"openservertime"]);
+    
+    if(![StringUtils isBlankString:openserverStr]){
+        openServerArray = [openserverStr componentsSeparatedByString:@"_"];
+    }else{
+        openServerArray = [[NSArray alloc] init];
+    }
 }
 
 

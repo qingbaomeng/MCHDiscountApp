@@ -18,8 +18,10 @@
 @property (nonatomic, copy) NSString *serverDesc;
 //折扣
 @property (nonatomic, copy) NSString *appDiscount;
-
-
+//开服信息
+@property (nonatomic, strong) NSArray *openServerArray;
+//折扣
+@property (nonatomic, copy) NSString *downloadUrl;
 
 - (id)initWithDict:(NSDictionary *)dict;
 

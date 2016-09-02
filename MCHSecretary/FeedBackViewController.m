@@ -46,7 +46,7 @@ UITextField *textField;
     
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(20, 25, BarWIDTH*2, BarWIDTH);
-    [leftBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"导航栏-箭头"] forState:UIControlStateNormal];
     [leftBtn setTitle:@"帮助" forState:UIControlStateNormal];
     [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [leftBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -56,7 +56,7 @@ UITextField *textField;
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(kScreenWidth - BarWIDTH - 20, 25, BarWIDTH *2, BarWIDTH);
-    [rightBtn setTitle:NSLocalizedString(@"Send", @"") forState:UIControlStateNormal];
+    [rightBtn setTitle:@"发送" forState:UIControlStateNormal];
     rightBtn.tag = 2;
     [rightBtn addTarget:self action:@selector(barbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [topview addSubview:rightBtn];

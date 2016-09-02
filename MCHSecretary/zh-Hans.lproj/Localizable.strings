@@ -17,6 +17,8 @@ SearchHistoary="我的搜索记录";
 SearchResult="啥都没找到，换个词试试呗!";
 InstallTitle="我的";
 ClearSearchHis="清除";
+NoOpenServerInfo="暂无任何该游戏的开服信息";
+ShowAllServer="展开查看全部开服V";
 
 SearchContent="大家都在搜";
 AppDownNumber="次下载";
@@ -58,6 +60,7 @@ Feedback="反馈";
 Update="更新";
 Send="发送";
 CheckUpdate="检查更新中...";
+
 
 /*
  * 网络状态

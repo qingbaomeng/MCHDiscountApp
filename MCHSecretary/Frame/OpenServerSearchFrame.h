@@ -10,11 +10,11 @@
 #import <UIKit/UIKit.h>
 
 
-@class AppPacketInfo;
+@class OpenServerEntity;
 
 @interface OpenServerSearchFrame : NSObject
 
-@property (nonatomic, strong) AppPacketInfo *packetInfo;
+@property (nonatomic, strong) OpenServerEntity *packetInfo;
 
 @property (nonatomic, assign) CGRect imageFrame;
 
@@ -32,8 +32,12 @@
 
 @property (nonatomic, strong) NSMutableArray *openServerFrameArray;
 
+@property (nonatomic, assign) CGRect showAllServerFrame;
+
 @property (nonatomic, assign) CGRect lineFrame;
 
 @property (nonatomic, assign) CGFloat cellHeight;
+
+-(void) setPacketInfo:(OpenServerEntity *)packetInfo openserver:(BOOL)isshow;
 
 @end

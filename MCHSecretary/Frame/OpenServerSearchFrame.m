@@ -7,7 +7,7 @@
 //
 
 #import "OpenServerSearchFrame.h"
-#import "AppPacketInfo.h"
+#import "OpenServerEntity.h"
 #import "OpenServerPostion.h"
 
 #import "StringUtils.h"
@@ -17,7 +17,11 @@
 
 @implementation OpenServerSearchFrame
 
--(void) setPacketInfo:(AppPacketInfo *)packetInfo{
+-(void) setPacketInfo:(OpenServerEntity *)packetInfo{
+    [self setPacketInfo:packetInfo openserver:NO];
+}
+
+-(void) setPacketInfo:(OpenServerEntity *)packetInfo  openserver:(BOOL)isshow{
     //    if(!packetInfo){
     //        return;
     //    }
@@ -45,12 +49,7 @@
     CGFloat descY = CGRectGetMaxY(self.middleFrame) + itempadding;
     self.describeFrame = CGRectMake(nameLabelX, descY, contentW, lblDescribeViewH);
     
-    CGFloat lineY = CGRectGetMaxY(self.imageFrame) + itempadding;
-    self.lineFrame = CGRectMake(0, lineY, mScreenWidth + 10, 1);
-    
-    self.cellHeight = CGRectGetMaxY(self.lineFrame);
-    
-    CGFloat downY = (self.cellHeight - 45) / 2;
+    CGFloat downY = itempadding + 7.5;
     CGFloat downX = mScreenWidth - rightDownW;
     self.downloadFrame = CGRectMake(downX, downY, 45, 45);
     
@@ -59,33 +58,55 @@
     
     //    CGFloat downTextY = CGRectGetMaxY(self.downloadFrame) + 5;
     //    self.downloadTextFrame = CGRectMake(mScreenWidth - rightDownW, downTextY, 30, lblMiddleViewH);
+    CGFloat lineY = CGRectGetMaxY(self.imageFrame) + itempadding;
     
-    if(_packetInfo.openServerArray && _packetInfo.openServerArray.count > 0){
-        int row = 0;
-        int col = 0;
-        CGFloat x, y;
-        CGFloat btnW = 100, btnH = 30;
-        for (int i = 0; i < _packetInfo.openServerArray.count; i++) {
-            row = i / 2;
-            col = i % 2;
+    if(isshow){
+        CGFloat btnW = (mScreenWidth - itempadding * 3) / 2, btnH = 30;
+        if(_packetInfo.openServerArray != nil && _packetInfo.openServerArray.count > 0){
+            int row = 0;
+            int col = 0;
+            CGFloat x, y;
             
-            x = col * (itempadding + btnW) + itempadding;
-            y = row * (itempadding + btnH) + padding;
+            for (int i = 0; i < _packetInfo.openServerArray.count; i++) {
+                row = i / 2;
+                col = i % 2;
+                
+                x = col * (itempadding + btnW) + itempadding;
+                y = row * (itempadding + btnH) + itempadding + CGRectGetMaxY(self.imageFrame);
+                
+                OpenServerPostion *pos = [[OpenServerPostion alloc] init];
+                [pos setPosX:x];
+                [pos setPosY:y];
+                [pos setPosW:(mScreenWidth - itempadding * 3) / 2];
+                [pos setOpenTime:_packetInfo.openServerArray[i]];
+                
+                [self.openServerFrameArray addObject:pos];
+            }
             
+        }else{
             OpenServerPostion *pos = [[OpenServerPostion alloc] init];
-            [pos setPosX:x];
-            [pos setPosY:y];
+            [pos setPosX:itempadding];
+            [pos setPosY:padding + CGRectGetMaxY(self.imageFrame)];
+            [pos setPosW:(mScreenWidth - itempadding * 2)];
+            [pos setOpenTime:NSLocalizedString(@"NoOpenServerInfo", @"")];
             
             [self.openServerFrameArray addObject:pos];
         }
         
-    }else{
-        OpenServerPostion *pos = [[OpenServerPostion alloc] init];
-        [pos setPosX:padding];
-        [pos setPosY:itempadding];
-        
-        [self.openServerFrameArray addObject:pos];
+        lineY += padding + btnH;
     }
+    
+    CGFloat allServerW = 13 * 9;
+    self.showAllServerFrame = CGRectMake(mScreenWidth - allServerW - 20, lineY - 6, allServerW, 13);
+    
+//    CGFloat lineY = CGRectGetMaxY(self.imageFrame) + itempadding;
+    CGFloat lineW = mScreenWidth - 10;
+    if(_packetInfo.openServerArray.count > 2){
+        lineW  = mScreenWidth - 10 - allServerW - 10;
+    }
+    self.lineFrame = CGRectMake(10, lineY, lineW, 1);
+    
+    self.cellHeight = CGRectGetMaxY(self.lineFrame) + 10;
     
     
 }
