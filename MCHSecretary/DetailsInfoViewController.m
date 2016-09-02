@@ -12,13 +12,15 @@
 
 #import "WebImage.h"
 #import "StringUtils.h"
-
+#define TopViewH 65
+#define BarWIDTH 30
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
-
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define GetColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 #define LineColor GetColor(230,230,230,1.0)
 #define TextColor GetColor(102,102,102,1.0)
 #define ButtonBackColor GetColor(0,122,255,1.0)
+#define TopBackColor GetColor(18,205,176,1.0)
 
 #define GetFont(s) [UIFont systemFontOfSize:s]
 #define TitleFont GetFont(18)
@@ -43,7 +45,7 @@
 
 @implementation DetailsInfoViewController
 
-@synthesize appSmallIcon, appName, appStarValue, appCommentNum, appDownAndSize, detailScrollView, infoView, segmentView;
+@synthesize appSmallIcon, appName, detailScrollView, infoView, segmentView;
 //@synthesize lblDescribe, lblVerision, lblUpdateRecord, txtDescribe, txtVerision, txtUpdateList;
 
 - (void)viewDidLoad {
@@ -51,7 +53,9 @@
     // Do any additional setup after loading the view.
     [self initView];
     
-    [self initNavigationView];
+    [self addTopView];
+    
+    [self addDownButton];
     
     [self initData];
 }
@@ -62,8 +66,8 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    [super.navigationController setToolbarHidden:NO animated:YES];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    [super.navigationController setToolbarHidden:YES animated:YES];
     [super viewWillAppear:animated];
 }
 
@@ -85,65 +89,60 @@
     
 }
 
-- (void)initNavigationView {
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"m_nav64"] forBarMetrics:UIBarMetricsDefault];
+-(void) addTopView{
+    topview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, TopViewH)];
+    [topview setBackgroundColor:TopBackColor];
+    [self.view addSubview:topview];
     
-    self.navigationItem.title = NSLocalizedString(@"DetailsTitle", @"");
-    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:18.0]};
-//    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"m_hot60"]];
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(20, 25, BarWIDTH*2, BarWIDTH);
+    [leftBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [leftBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    leftBtn.tag = 1;
+    [leftBtn addTarget:self action:@selector(barbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [topview addSubview:leftBtn];
     
-    //添加多个按钮
-    UIButton *leftImage = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftImage setFrame:CGRectMake(0, 0, 16, 25)];
-    [leftImage setImage:[UIImage imageNamed:@"viewback.png"] forState:UIControlStateNormal];
-    [leftImage addTarget:self action:@selector(btnBack:) forControlEvents:UIControlEventTouchUpInside];
-    leftImage.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
-    UIBarButtonItem *leftButtonImage = [[UIBarButtonItem alloc] initWithCustomView:leftImage];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(kScreenWidth -20-BarWIDTH, 25, BarWIDTH, BarWIDTH);
+    [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(barbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    button.tag = 2;
+    [topview addSubview:button];
+}
+-(void)barbuttonClick:(UIButton *)button
+{
+    if (button.tag == 1)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    if (button.tag == 2)
+    {
+        NSLog(@"分享");
+    }
+    else
+    {
+        NSLog(@"下载");
+    }
+}
+-(void)addDownButton
+{
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight - 50, kScreenWidth, 50)];
+    bgView.backgroundColor = [UIColor whiteColor];
     
-    UIButton *leftText = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftText setFrame:CGRectMake(0, 0, 32, 25)];
-    [leftText addTarget:self action:@selector(btnBack:) forControlEvents:UIControlEventTouchUpInside];
-    [leftText setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [leftText setTitle:NSLocalizedString(@"BackText", @"") forState:UIControlStateNormal];
-    leftText.titleEdgeInsets = UIEdgeInsetsMake(0, -25, 0, 0);
-    leftText.titleLabel.font = [UIFont systemFontOfSize:16];
-    UIBarButtonItem *leftButtonText = [[UIBarButtonItem alloc] initWithCustomView:leftText];
-    
-    NSArray* array = @[leftButtonImage,leftButtonText];
-    self.navigationItem.leftBarButtonItems = array;
-    
-    //定制返回按钮,这两个要一起用,为啥这么用，苹果言语不详
-//    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"m_ios"];
-//    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"m_ios"];
-    
-    UIBarButtonItem *btn4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-//    UIBarButtonItem *btn3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItem target:self action:nil];
-    
-//    CGFloat downloadW = kScreenWidth - 100;
     UIButton *btnDownload = [UIButton buttonWithType:UIButtonTypeCustom];
     btnDownload.layer.cornerRadius = 5;
-    [btnDownload setFrame:CGRectMake(0, 0, kScreenWidth - 100, 25)];
-    [btnDownload addTarget:self action:@selector(btnBack:) forControlEvents:UIControlEventTouchUpInside];
+    [btnDownload setFrame:CGRectMake(50, 10, kScreenWidth - 100, 30)];
+    [btnDownload addTarget:self action:@selector(barbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [btnDownload setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnDownload setTitle:NSLocalizedString(@"AppDetailDownload", @"") forState:UIControlStateNormal];
-//    btnDownload.titleEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
-    [btnDownload setBackgroundColor:ButtonBackColor];
-    btnDownload.titleLabel.font = [UIFont systemFontOfSize:13];
-    UIBarButtonItem *barbtnDownload = [[UIBarButtonItem alloc] initWithCustomView:btnDownload];
+    [btnDownload setBackgroundColor:TopBackColor];
+    btnDownload.tag = 3;
+    btnDownload.titleLabel.font = [UIFont systemFontOfSize:15];
+    [bgView addSubview:btnDownload];
     
-    UIButton *btnStar = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnStar setFrame:CGRectMake(0, 0, 25, 25)];
-    [btnStar setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
-    [btnStar addTarget:self action:@selector(btnBack:) forControlEvents:UIControlEventTouchUpInside];
-//    btnStar.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
-    UIBarButtonItem *barbtnStar = [[UIBarButtonItem alloc] initWithCustomView:btnStar];
-    
-    
-    NSArray *toolArray = [[NSArray alloc]initWithObjects:btn4, barbtnDownload, barbtnStar, nil];
-    self.toolbarItems = toolArray;
-    
+    [self.view addSubview:bgView];
 }
 
 -(void) initData{
@@ -171,14 +170,14 @@
     nameRect.size = nameSize;
     appName.frame = nameRect;
     
-    [appStarValue initStarConfig:StarStyle_Yellow numberOfStars:3];
-    
-    NSString *commnetStr = [NSString stringWithFormat:@"(%@%@)", info.commentNumber, NSLocalizedString(@"AppComment", @"")];
-    [appCommentNum setText:commnetStr];
-    
-    NSString *packetDown = [NSString stringWithFormat:@"%@%@", info.appDownloadNum, NSLocalizedString(@"AppDownNumber", @"")];
-    NSString *packetSize = [NSString stringWithFormat:@"%@MB", info.packetSize];
-    [appDownAndSize setText:[NSString stringWithFormat:@"%@ · %@", packetSize, packetDown]];
+//    [appStarValue initStarConfig:StarStyle_Yellow numberOfStars:3];
+//    
+//    NSString *commnetStr = [NSString stringWithFormat:@"(%@%@)", info.commentNumber, NSLocalizedString(@"AppComment", @"")];
+//    [appCommentNum setText:commnetStr];
+//    
+//    NSString *packetDown = [NSString stringWithFormat:@"%@%@", info.appDownloadNum, NSLocalizedString(@"AppDownNumber", @"")];
+//    NSString *packetSize = [NSString stringWithFormat:@"%@MB", info.packetSize];
+//    [appDownAndSize setText:[NSString stringWithFormat:@"%@ · %@", packetSize, packetDown]];
 }
 
 -(void)initAppDetail{
@@ -246,9 +245,6 @@
     detailScrollView.contentSize = CGSizeMake(kScreenWidth, descConH);
 }
 
--(void) btnBack:(UIBarButtonItem *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //    NSLog(@"%f", scrollView.contentOffset.y);

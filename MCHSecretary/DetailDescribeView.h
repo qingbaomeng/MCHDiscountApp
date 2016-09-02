@@ -12,6 +12,14 @@
 
 @interface DetailDescribeView : UIView
 
+{
+    UILabel *txtDescribe;
+    CGSize descMax;
+    UIView *descriptLine;
+    UIButton *moreButton;
+    
+}
+
 -(instancetype) initWithFrame:(CGRect)frame appInfo:(AppPacketInfo *)info;
 
 @end

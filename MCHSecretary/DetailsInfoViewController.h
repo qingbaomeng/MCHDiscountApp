@@ -21,8 +21,15 @@ UIScrollViewDelegate,
 DetailSegmentDeleget
 >
 
+{
+    UIView *topview;
+}
+
 @property (nonatomic, strong) AppPacketInfo *appInfo;
 
+@property (weak, nonatomic) IBOutlet UIButton *zhekouBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *descriptLab;
 
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 
@@ -32,11 +39,7 @@ DetailSegmentDeleget
 
 @property (weak, nonatomic) IBOutlet UILabel *appName;
 
-@property (weak, nonatomic) IBOutlet CWStarRateView *appStarValue;
 
-@property (weak, nonatomic) IBOutlet UILabel *appCommentNum;
-
-@property (weak, nonatomic) IBOutlet UILabel *appDownAndSize;
 
 @property (weak, nonatomic) IBOutlet DetailSegmentView *segmentView;
 
