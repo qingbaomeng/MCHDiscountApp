@@ -8,6 +8,8 @@
 
 #import "HelpViewController.h"
 
+#import "StringUtils.h"
+
 #import "ListView.h"
 
 #import "SVProgressHUD.h"
@@ -66,7 +68,7 @@
     
     UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, kScreenWidth, TopViewH - 20)];
     [lblTitle setTextColor:[UIColor whiteColor]];
-    [lblTitle setText:NSLocalizedString(@"帮助", @"")];
+    [lblTitle setText:NSLocalizedString(@"HelpTitle", @"")];
     [lblTitle setFont:TitleFont];
     [lblTitle setTextAlignment:NSTextAlignmentCenter];
     
@@ -277,7 +279,7 @@
     
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
-    [SVProgressHUD showWithStatus:@"检查更新中...."];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"CheckUpdate", @"")];
     
     [self performSelector:@selector(dismissSVPressHUD) withObject:nil afterDelay:3.0f];
     

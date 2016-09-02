@@ -19,10 +19,13 @@
 #define WIDTH self.frame.size.width
 #define HEIGHT self.frame.size.height
 
+
+
+
 @implementation ListView
 -(void)addImageAndLabWithNum:(int)num
 {
-    NSArray *titleArr = [NSArray arrayWithObjects:@"安装闪退修复工具",@"关于折扣和充值",@"反馈",@"更新", nil];
+    NSArray *titleArr = [NSArray arrayWithObjects:NSLocalizedString(@"ErectingRepairtools", @""),NSLocalizedString(@"DiscountAndRechargeInformation", @""),NSLocalizedString(@"Feedback", @""),NSLocalizedString(@"Update", @""), nil];
     
     NSArray *imageArr =[NSArray arrayWithObjects:@"xiu",@"money",@"edit",@"update", nil];
     

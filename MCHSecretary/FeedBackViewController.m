@@ -56,7 +56,7 @@ UITextField *textField;
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(kScreenWidth - BarWIDTH - 20, 25, BarWIDTH *2, BarWIDTH);
-    [rightBtn setTitle:@"发送" forState:UIControlStateNormal];
+    [rightBtn setTitle:NSLocalizedString(@"Send", @"") forState:UIControlStateNormal];
     rightBtn.tag = 2;
     [rightBtn addTarget:self action:@selector(barbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [topview addSubview:rightBtn];

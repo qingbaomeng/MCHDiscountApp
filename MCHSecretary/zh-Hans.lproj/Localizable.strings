@@ -51,6 +51,14 @@ ChoiceTopNecessary="必备";
 ChoiceTopList="榜单";
 ChoiceTopSubject="专题";
 
+HelpTitle="帮助";
+ErectingRepairtools="安装闪退修复工具";
+DiscountAndRechargeInformation="关于折扣和充值";
+Feedback="反馈";
+Update="更新";
+Send="发送";
+CheckUpdate="检查更新中...";
+
 /*
  * 网络状态
  */
