@@ -219,8 +219,10 @@
         }
         
         if(isdShowAll){
+            int row = (int)((_openServerSearchFrame.openServerFrameArray.count - 1) / 2);
+            NSLog(@"[OpenServerSearchCell] row:%d", row);
             CGRect lineF = self.lineview.frame;
-            lineF.origin.y = _openServerSearchFrame.openServerFrameArray.count * 40 + 10 + CGRectGetMaxY(self.ivAppIcon.frame);
+            lineF.origin.y = (row + 1) * 40 + 10 + CGRectGetMaxY(self.ivAppIcon.frame);
             lineF.size.width = kScreesWidth - 10;
             self.lineview.frame = lineF;
             [self.btnShowAll removeFromSuperview];
@@ -272,7 +274,7 @@
 
 
 -(void) showAllOpenServer:(UIButton *)sender{
-    NSLog(@"1111111");
+//    NSLog(@"[OpenServerSearchCell] fun#showAllOpenServer");
     isdShowAll = YES;
     NSInteger index = sender.tag;
     if(_delegate){

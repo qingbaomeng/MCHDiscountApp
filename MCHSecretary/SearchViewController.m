@@ -109,10 +109,10 @@
 -(void) initSearchKey{
     NSString *fileName = @"";
     if(isSearchOpenServerGame){
-        NSLog(@"SearchOpenServer");
+//        NSLog(@"SearchOpenServer");
         fileName = OpenServerHisFile;
     }else{
-        NSLog(@"Search nomal App");
+//        NSLog(@"Search nomal App");
         fileName = AppSearchHisFile;
     }
     
@@ -362,6 +362,7 @@
         tableH = kScreenHeight - posy;
     }
     appInfoTable = [[UITableView alloc] initWithFrame:CGRectMake(0, posy, kScreenWidth, tableH)];
+    appInfoTable.separatorStyle = UITableViewCellSelectionStyleNone;
     appInfoTable.delegate = self;
     appInfoTable.dataSource = self;
     appInfoTable.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);;
@@ -370,13 +371,6 @@
 }
 
 #pragma mark - UITableViewDelegate
-
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    if(isSearchOpenServerGame){
-//        return 1;
-//    }
-//    return listItemArray.count;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(isSearchOpenServerGame){
@@ -595,7 +589,13 @@
 }
 
 -(void) showAllOpenServerInfo:(NSInteger)index{
-    NSLog(@"22222");
+     NSLog(@"[SearchViewController] fun#showAllOpenServer:%ld", (long)index);
+    if(listsearchItemArray){
+        NSLog(@"[SearchViewController] listsearchItemArray:%ld", (long)listsearchItemArray.count);
+    }
+    if(listItemArray){
+        NSLog(@"[SearchViewController] istItemArray:%ld", (long)listItemArray.count);
+    }
     if (appInfoTable) {
         [appInfoTable reloadData];
     }
