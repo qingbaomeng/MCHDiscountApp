@@ -26,6 +26,7 @@
 #define LineColor GetColor(230,230,230,1.0)
 #define SelectDateColor GetColor(18,205,176,1.0)
 #define NomalDateColor GetColor(0,0,0,1.0)
+#define TopBackColor GetColor(18,205,176,1.0)
 
 #define GetFont(s) [UIFont systemFontOfSize:s]
 #define DateFont GetFont(15)
@@ -74,9 +75,13 @@
     [btnTomorrow addTarget:self action:@selector(requestTomorrowGame:) forControlEvents:UIControlEventTouchUpInside];
     [selectView addSubview:btnTomorrow];
     
-    UIButton *btnSearch = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 90, 0, 80, SelectDateH)];
+    UIButton *btnSearch = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 80, 5, 73, 25)];
+    [btnSearch setBackgroundImage:[UIImage imageNamed:@"search_opensever.png"] forState:UIControlStateNormal];
     [btnSearch setTitle:@"搜开服" forState:UIControlStateNormal];
-    [btnSearch setTitleColor:NomalDateColor forState:UIControlStateNormal];
+    [btnSearch setTitleColor:TopBackColor forState:UIControlStateNormal];
+    [btnSearch setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 4, 0)];
+//    btnSearch.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+//    btnSearch.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     btnSearch.titleLabel.font = DateFont;
     [btnSearch addTarget:self action:@selector(serachOpenServerApp:) forControlEvents:UIControlEventTouchUpInside];
     [selectView addSubview:btnSearch];

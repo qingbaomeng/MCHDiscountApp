@@ -38,6 +38,7 @@
 
 -(id) initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
+        
         [self addScrollView];
     }
     return self;
@@ -247,6 +248,8 @@
             [self refreshScrollView];
             
             [self restartRolling];
+        }else{
+            scrollView.contentOffset = CGPointMake(0, 0);
         }
     }];
 }

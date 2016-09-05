@@ -274,7 +274,8 @@
         
         CGFloat preX = 10;
         CGFloat preY = 10;
-        for (int i = 0; i < appSearchHisArray.count; i++) {
+        
+        for (NSInteger i = appSearchHisArray.count - 1; i >= 0; i--) {
             CGRect frame = [self nextBtnFrame:appSearchHisArray[i] posX:preX posY:preY];
             
             UIButton *btn = [self createSearchButton:appSearchHisArray[i] frame:frame];
@@ -283,6 +284,16 @@
             preX = CGRectGetMaxX(btn.frame) + 10;
             preY = btn.frame.origin.y;
         }
+        
+//        for (int i = 0; i < appSearchHisArray.count; i++) {
+//            CGRect frame = [self nextBtnFrame:appSearchHisArray[i] posX:preX posY:preY];
+//            
+//            UIButton *btn = [self createSearchButton:appSearchHisArray[i] frame:frame];
+//            btn.tag = i;
+//            [searchButtonView addSubview:btn];
+//            preX = CGRectGetMaxX(btn.frame) + 10;
+//            preY = btn.frame.origin.y;
+//        }
     }else{
         [clearBtn setHidden:YES];
     }
@@ -507,23 +518,26 @@
 //    NSLog(@"con:%@",con);
     if(![StringUtils isBlankString:con]){
         searchKey = con;
-        BOOL isContrain = false;
+//        BOOL isContrain = false;
+        int curIndex = -1;
         for (int i = 0; i < appSearchHisArray.count; i++) {
             if([con isEqualToString:appSearchHisArray[i]]){
-                isContrain = true;
+//                isContrain = true;
+                curIndex = i;
                 break;
             }
         }
-        if(!isContrain){
-            [appSearchHisArray addObject:con];
-            NSString *fileName = @"";
-            if(isSearchOpenServerGame){
-                fileName = OpenServerHisFile;
-            }else{
-                fileName = AppSearchHisFile;
-            }
-            [FileUtils saveOrderArrayList:appSearchHisArray FileUrl:fileName];
+        if(curIndex != -1){
+            [appSearchHisArray removeObjectAtIndex:curIndex];
         }
+        [appSearchHisArray addObject:con];
+        NSString *fileName = @"";
+        if(isSearchOpenServerGame){
+            fileName = OpenServerHisFile;
+        }else{
+            fileName = AppSearchHisFile;
+        }
+        [FileUtils saveOrderArrayList:appSearchHisArray FileUrl:fileName];
     }
 }
 
