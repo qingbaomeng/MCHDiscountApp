@@ -86,7 +86,6 @@
 		5AE86B201D77FADA00A01AB1 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE86B1F1D77FADA00A01AB1 /* JavaScriptCore.framework */; };
 		5AE86B221D77FAE600A01AB1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE86B211D77FAE600A01AB1 /* ImageIO.framework */; };
 		5AE86B241D77FAF000A01AB1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE86B231D77FAF000A01AB1 /* libsqlite3.tbd */; };
-		5AED70F71D7D225F00B19FD5 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED70F61D7D225F00B19FD5 /* Test.m */; };
 		5AEFAB331D6BF9C4007DEADE /* star_blue_upper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEFAB2E1D6BF9C4007DEADE /* star_blue_upper@2x.png */; };
 		5AEFAB341D6BF9C4007DEADE /* star_gray_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEFAB2F1D6BF9C4007DEADE /* star_gray_bottom@2x.png */; };
 		5AEFAB351D6BF9C4007DEADE /* star_gray_upper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEFAB301D6BF9C4007DEADE /* star_gray_upper@2x.png */; };
@@ -329,8 +328,6 @@
 		5AE86B1F1D77FADA00A01AB1 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		5AE86B211D77FAE600A01AB1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		5AE86B231D77FAF000A01AB1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		5AED70F51D7D225F00B19FD5 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
-		5AED70F61D7D225F00B19FD5 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		5AEFAB2E1D6BF9C4007DEADE /* star_blue_upper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star_blue_upper@2x.png"; path = "Images/star_blue_upper@2x.png"; sourceTree = "<group>"; };
 		5AEFAB2F1D6BF9C4007DEADE /* star_gray_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star_gray_bottom@2x.png"; path = "Images/star_gray_bottom@2x.png"; sourceTree = "<group>"; };
 		5AEFAB301D6BF9C4007DEADE /* star_gray_upper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star_gray_upper@2x.png"; path = "Images/star_gray_upper@2x.png"; sourceTree = "<group>"; };
@@ -768,8 +765,6 @@
 				B78FA1C21D531E100092A043 /* LaunchScreen.storyboard */,
 				B78FA1C51D531E100092A043 /* Info.plist */,
 				B78FA1B41D531E100092A043 /* Supporting Files */,
-				5AED70F51D7D225F00B19FD5 /* Test.h */,
-				5AED70F61D7D225F00B19FD5 /* Test.m */,
 			);
 			path = MCHSecretary;
 			sourceTree = "<group>";
@@ -1367,7 +1362,6 @@
 				B76CAE491D61BEB600A0D261 /* DetailSegmentView.m in Sources */,
 				B7E759521D59874D008C7ED8 /* UIButton+WebCache.m in Sources */,
 				B7E759791D5C8140008C7ED8 /* ChoiceCycleAppRequest.m in Sources */,
-				5AED70F71D7D225F00B19FD5 /* Test.m in Sources */,
 				B7E759531D59874D008C7ED8 /* UIImage+GIF.m in Sources */,
 				B78FA1B91D531E100092A043 /* AppDelegate.m in Sources */,
 				5A11E6AC1D6D7C180065BAF5 /* UserComment.m in Sources */,
