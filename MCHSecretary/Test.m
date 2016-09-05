@@ -9,5 +9,8 @@
 #import "Test.h"
 
 @implementation Test
-
+-(void)outPut
+{
+    NSLog(@"////////");
+}
 @end
