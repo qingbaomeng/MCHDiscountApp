@@ -32,9 +32,11 @@
 
 #define GetColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 #define TopBackColor GetColor(18,205,176,1.0)
-#define BackColor GetColor(240,240,240,1.0)
+#define BackColor GetColor(162,235,224,1.0)
 #define TitleColor GetColor(200,200,200,1.0)
 #define AppNameColor GetColor(100,100,100,1.0)
+#define LABLEColor GetColor(98,170,162,1.0)
+#define SearchContentColor GetColor(14,83,71,1.0)
 
 #define GetFont(s) [UIFont systemFontOfSize:s]
 #define SearchFont GetFont(15)
@@ -159,6 +161,7 @@
     CGFloat searchY = (backView.frame.size.height - searchH) / 2;
     CGSize lblSize = [StringUtils sizeWithString:NSLocalizedString(@"SearchTipText", @"") font:SearchFont maxSize:CGSizeMake(backView.frame.size.width - searchH, searchH)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((backView.frame.size.width - lblSize.width)/2, searchY, lblSize.width, searchH)];
+    label.textColor = LABLEColor;
     [label setFont:SearchFont];
     [label setText:NSLocalizedString(@"SearchTipText", @"")];
     [btnSearchContent addSubview:label];
@@ -174,7 +177,6 @@
     }else{
         [self showSearchView];
     }
-    
 }
 
 //添加推荐区域

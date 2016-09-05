@@ -116,10 +116,10 @@ UIView *bgView;
     [self addSubview:descriptLine];
     
     moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [moreButton setTitle:@"展开更多V" forState:UIControlStateNormal];
+    [moreButton setTitle:@"展开更多 V" forState:UIControlStateNormal];
+    [moreButton setTitleColor:TextColor forState:UIControlStateNormal];
     moreButton.titleLabel.font = [UIFont systemFontOfSize:13];
     moreButton.frame = CGRectMake(descriptLine.frame.size.width, CGRectGetMaxY(txtDescribe.frame), 100, 30);
-    [moreButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [moreButton addTarget:self action:@selector(moreClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:moreButton];
     
@@ -196,10 +196,11 @@ UIView *bgView;
     
     //兼容性
     CGFloat compatibleY = CGRectGetMaxY(lblDevelop.frame) + padding;
-    UILabel *lblCompatible = [[UILabel alloc] initWithFrame:CGRectMake(15, compatibleY, kScreenWidth - 30, ContentTextSize)];
+    UILabel *lblCompatible = [[UILabel alloc] initWithFrame:CGRectMake(15, compatibleY, kScreenWidth - 30, ContentTextSize*3)];
     [lblCompatible setFont:TextFont];
     [lblCompatible setTextColor:TextColor];
     lblCompatible.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppCompatible", @""),info.compatible];
+    [lblCompatible setNumberOfLines:2];
     [bgView addSubview:lblCompatible];
     
     //    NSLog(@"%@", NSStringFromCGRect(txtVerision.frame));
