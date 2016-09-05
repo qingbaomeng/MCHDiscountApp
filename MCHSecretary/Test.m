@@ -12,6 +12,10 @@
 -(void)outPut
 {
     NSLog(@"////////");
+    
+    NSLog(@"////////");
+    
+    NSLog(@"////////");
 }
 //ceshi//ceshi
 //ceshi//ceshi
