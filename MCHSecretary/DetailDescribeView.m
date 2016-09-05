@@ -200,7 +200,7 @@ UIView *bgView;
     [lblCompatible setFont:TextFont];
     [lblCompatible setTextColor:TextColor];
     lblCompatible.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppCompatible", @""),info.compatible];
-    [lblCompatible setNumberOfLines:2];
+    [lblCompatible setNumberOfLines:0];
     [bgView addSubview:lblCompatible];
     
     //    NSLog(@"%@", NSStringFromCGRect(txtVerision.frame));

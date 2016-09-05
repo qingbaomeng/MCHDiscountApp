@@ -98,10 +98,17 @@
     listsearchItemArray = [[NSMutableArray alloc] init];
     
     [self initSearchKey];
+    if ([searchKey isEqualToString:@""])
+    {
+        [self addTopView];
+    }
+    else
+    {
+        [self showSearchView];
+        [self requestAppInfo];
+    }
     
-    [self addTopView];
 }
-
 //设置搜索开服游戏
 -(void) searchOpenServerGame{
     isSearchOpenServerGame = YES;
@@ -226,6 +233,8 @@
     CGFloat spaceW = (kScreenWidth - iconW * 4) / 5;
     for (int i = 0; i < 4; i++) {
         UIButton *btnRecoment = [[UIButton alloc] initWithFrame:CGRectMake(spaceW + (spaceW + iconW) * i, posy, iconW, iconW + nameW)];
+        btnRecoment.tag = 10+i;
+        [btnRecoment addTarget:self action:@selector(recomentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [parentView addSubview:btnRecoment];
         
         UIImageView *iconApp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iconW, iconW)];
@@ -247,7 +256,7 @@
     [recommentView addSubview:lblSearchHis];
     
     clearBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 70, posy + iconW + nameW + 10, 70, 10)];
-    [clearBtn setImage:[UIImage imageNamed:@"btn_clear"] forState:UIControlStateNormal];
+    [clearBtn setImage:[UIImage imageNamed:@"clear_btn"] forState:UIControlStateNormal];
     [clearBtn setTitleColor:AppNameColor forState:UIControlStateNormal];
     [clearBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     clearBtn.titleLabel.font = ClearFont;
@@ -261,7 +270,16 @@
     
     [self addSearchHistoary];
 }
-
+-(void)recomentBtnClick:(UIButton *)btn
+{
+    NSArray *arr = [NSArray arrayWithObjects:@"123",@"234",@"345",@"456", nil];
+    searchKey = arr[btn.tag - 10];
+    [self showSearchView];
+    [searchField setText:searchKey];
+    [self saveSearchKey];
+    [self requestAppInfo];
+    
+}
 //添加搜索文字记录
 -(void) addSearchHistoary{
     if(searchButtonView){
@@ -361,7 +379,7 @@
     searchKey = key;
     
     [self showSearchView];
-    
+    [self saveSearchKey];
     [self requestAppInfo];
     
 }
@@ -463,9 +481,6 @@
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
         NSLog(@"errorMsg:%@", errorMsg);
     }];
-    
-    
-    
 }
 
 //显示搜索
@@ -497,6 +512,7 @@
     
     CGFloat tfX = CGRectGetMaxX(imageIcon.frame) + 5;
     searchField = [[UITextField alloc] initWithFrame:CGRectMake(tfX, searchY, backView.frame.size.width - tfX, searchH)];
+    searchField.textColor = SearchContentColor;
     searchField.placeholder = NSLocalizedString(@"SearchTipText", @"");
     searchField.returnKeyType = UIReturnKeySearch;
     [searchField setFont:SearchFont];

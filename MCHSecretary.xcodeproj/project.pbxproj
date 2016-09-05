@@ -96,6 +96,7 @@
 		5AEFAB3A1D6C0050007DEADE /* CurrentAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEFAB391D6C0050007DEADE /* CurrentAppUtils.m */; };
 		5AEFAB3D1D6C47FE007DEADE /* ScoreLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEFAB3C1D6C47FE007DEADE /* ScoreLineView.m */; };
 		5AF626A81D7D010100A3786F /* Share.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF626A71D7D010100A3786F /* Share.m */; };
+		5AF626B01D7D6F1F00A3786F /* clear_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF626AF1D7D6F1F00A3786F /* clear_btn.png */; };
 		5AF8A7701D791D1500DDF1B3 /* SearchOpenServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */; };
 		5AF8A7731D79309100DDF1B3 /* SearchAppRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8A7721D79309100DDF1B3 /* SearchAppRequest.m */; };
 		B76CAE331D5EC3C000A0D261 /* DetailsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76CAE321D5EC3C000A0D261 /* DetailsInfoViewController.m */; };
@@ -343,6 +344,7 @@
 		5AEFAB3C1D6C47FE007DEADE /* ScoreLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreLineView.m; sourceTree = "<group>"; };
 		5AF626A61D7D010100A3786F /* Share.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Share.h; sourceTree = "<group>"; };
 		5AF626A71D7D010100A3786F /* Share.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Share.m; sourceTree = "<group>"; };
+		5AF626AF1D7D6F1F00A3786F /* clear_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear_btn.png; sourceTree = "<group>"; };
 		5AF8A76E1D791D1500DDF1B3 /* SearchOpenServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchOpenServerRequest.h; path = Http/SearchOpenServerRequest.h; sourceTree = "<group>"; };
 		5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchOpenServerRequest.m; path = Http/SearchOpenServerRequest.m; sourceTree = "<group>"; };
 		5AF8A7711D79309100DDF1B3 /* SearchAppRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchAppRequest.h; path = Http/SearchAppRequest.h; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 		B7E758BD1D5836D7008C7ED8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5AF626AF1D7D6F1F00A3786F /* clear_btn.png */,
 				5AED70FC1D7D4A0500B19FD5 /* detail_zhekou.png */,
 				5AED70F81D7D49DB00B19FD5 /* btn_clear.png */,
 				5AED70F91D7D49DB00B19FD5 /* search_opensever.png */,
@@ -1286,6 +1289,7 @@
 				5A74C3321D76D9E600CBC262 /* barBtn_mine_select@2x.png in Resources */,
 				B7DC76811D5594580001D952 /* Localizable.strings in Resources */,
 				5AED70FD1D7D4A0500B19FD5 /* detail_zhekou.png in Resources */,
+				5AF626B01D7D6F1F00A3786F /* clear_btn.png in Resources */,
 				B78FA1C11D531E100092A043 /* Assets.xcassets in Resources */,
 				B7E759AD1D5DBACD008C7ED8 /* tabbtn_game_unselect.png in Resources */,
 				B7EBFBBB1D66B2FD0038A06E /* love.png in Resources */,
