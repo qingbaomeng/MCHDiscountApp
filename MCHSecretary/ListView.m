@@ -22,7 +22,7 @@
 @implementation ListView
 -(void)addImageAndLabWithNum:(int)num
 {
-    NSArray *titleArr = [NSArray arrayWithObjects:@"安装闪退修复工具",@"关于折扣和充值",@"反馈",@"更新", nil];
+    NSArray *titleArr = [NSArray arrayWithObjects:NSLocalizedString(@"安装闪退修复工具", @""),NSLocalizedString(@"关于折扣和充值", @""),NSLocalizedString(@"反馈", @""),NSLocalizedString(@"更新", @""), nil];
     
     NSArray *imageArr =[NSArray arrayWithObjects:@"xiu",@"money",@"edit",@"update", nil];
     

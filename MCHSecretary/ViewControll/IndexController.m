@@ -10,8 +10,9 @@
 
 #import "DetailsInfoViewController.h"
 #import "SearchViewController.h"
+#import "Share.h"
 
-
+#define BarWIDTH 30
 #define TopViewH 65
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
@@ -83,8 +84,17 @@
     [btnView addSubview:openServerBtn];
     
     [self setTopBtnStatus:NO];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(kScreenWidth -20-BarWIDTH, 25, BarWIDTH, BarWIDTH);
+    [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(barImageTap) forControlEvents:UIControlEventTouchUpInside];
+    [topview addSubview:button];
 }
-
+-(void)barImageTap
+{
+ [Share shareWithTitle:@"这是title" ImageUrl:@"qq" Message:@"这是描述" URL:@"http://www.baidu.com" ViewControl:self];
+}
 -(void)showGame{
     [self setTopBtnStatus:NO];
     [switchScrollView setContentOffset:CGPointMake(0, 0)];

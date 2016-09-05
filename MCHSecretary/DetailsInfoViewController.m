@@ -9,6 +9,7 @@
 #import "DetailsInfoViewController.h"
 
 #import "DetailInfoRequest.h"
+#import "Share.h"
 
 #import "WebImage.h"
 #import "StringUtils.h"
@@ -119,7 +120,7 @@
     }
     if (button.tag == 2)
     {
-        NSLog(@"分享");
+        [Share shareWithTitle:@"这是title" ImageUrl:@"qq" Message:@"这是描述" URL:@"http://www.baidu.com" ViewControl:self];
     }
     else
     {

@@ -93,6 +93,7 @@
 		5AEFAB371D6BF9C4007DEADE /* star_yellow_upper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEFAB321D6BF9C4007DEADE /* star_yellow_upper@2x.png */; };
 		5AEFAB3A1D6C0050007DEADE /* CurrentAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEFAB391D6C0050007DEADE /* CurrentAppUtils.m */; };
 		5AEFAB3D1D6C47FE007DEADE /* ScoreLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEFAB3C1D6C47FE007DEADE /* ScoreLineView.m */; };
+		5AF626A81D7D010100A3786F /* Share.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF626A71D7D010100A3786F /* Share.m */; };
 		5AF8A7701D791D1500DDF1B3 /* SearchOpenServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */; };
 		5AF8A7731D79309100DDF1B3 /* SearchAppRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8A7721D79309100DDF1B3 /* SearchAppRequest.m */; };
 		B76CAE331D5EC3C000A0D261 /* DetailsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76CAE321D5EC3C000A0D261 /* DetailsInfoViewController.m */; };
@@ -336,6 +337,8 @@
 		5AEFAB391D6C0050007DEADE /* CurrentAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentAppUtils.m; sourceTree = "<group>"; };
 		5AEFAB3B1D6C47FE007DEADE /* ScoreLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreLineView.h; sourceTree = "<group>"; };
 		5AEFAB3C1D6C47FE007DEADE /* ScoreLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreLineView.m; sourceTree = "<group>"; };
+		5AF626A61D7D010100A3786F /* Share.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Share.h; sourceTree = "<group>"; };
+		5AF626A71D7D010100A3786F /* Share.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Share.m; sourceTree = "<group>"; };
 		5AF8A76E1D791D1500DDF1B3 /* SearchOpenServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchOpenServerRequest.h; path = Http/SearchOpenServerRequest.h; sourceTree = "<group>"; };
 		5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchOpenServerRequest.m; path = Http/SearchOpenServerRequest.m; sourceTree = "<group>"; };
 		5AF8A7711D79309100DDF1B3 /* SearchAppRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchAppRequest.h; path = Http/SearchAppRequest.h; sourceTree = "<group>"; };
@@ -823,6 +826,8 @@
 				5A5231281D74074200D01412 /* OpenServerHeaderView.m */,
 				5AE86ABA1D77DD0600A01AB1 /* ListView.h */,
 				5AE86ABB1D77DD0600A01AB1 /* ListView.m */,
+				5AF626A61D7D010100A3786F /* Share.h */,
+				5AF626A71D7D010100A3786F /* Share.m */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -1390,6 +1395,7 @@
 				5AE3D34E1D7564FB00EBD9D9 /* InstallAppViewController.m in Sources */,
 				B7E758C51D5867D1008C7ED8 /* ChoiceViewController.m in Sources */,
 				B7E759621D5AFCC4008C7ED8 /* CycleScrollerView.m in Sources */,
+				5AF626A81D7D010100A3786F /* Share.m in Sources */,
 				B7E758F51D587DFE008C7ED8 /* MJRefreshAutoFooter.m in Sources */,
 				5AE3D3511D75733500EBD9D9 /* FileUtils.m in Sources */,
 				B7E759571D59874D008C7ED8 /* UIImageView+WebCache.m in Sources */,

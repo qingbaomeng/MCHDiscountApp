@@ -16,11 +16,7 @@
 
 #import "FeedBackViewController.h"
 
-#import <ShareSDK/ShareSDK.h>
-
-#import <ShareSDKUI/ShareSDK+SSUI.h>
-
-#import <ShareSDKUI/ShareSDKUI.h>
+#import "Share.h"
 
 @interface HelpViewController ()
 
@@ -94,7 +90,6 @@
         if (a == 0)
         {
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap1:)];
-            
             [vie addGestureRecognizer:tapRecognizer];
         }
         if (a ==1)
@@ -195,51 +190,7 @@
 
 -(void)barImageTap
 {
-    NSArray* imageArray = @[[UIImage imageNamed:@"qq"]];
-    //    （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
-    if (imageArray) {
-        
-        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:@"分享内容"
-                                         images:imageArray
-                                            url:[NSURL URLWithString:@"http://mob.com"]
-                                          title:@"我的软件-"
-                                           type:SSDKContentTypeAuto];
-        //2、分享（可以弹出我们的分享菜单和编辑界面）
-        [ShareSDK showShareActionSheet:nil items:nil shareParams:shareParams
-                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-                       
-                       switch (state) {
-                           case SSDKResponseStateSuccess:
-                           {
-                               UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"分享成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                               
-                               [self presentViewController:alertVC animated:YES completion:^{
-                                   
-                                   [NSThread sleepForTimeInterval:1.0f];
-                                   
-                                   [alertVC dismissViewControllerAnimated:YES completion:nil];
-                               }];
-                               break;
-                           }
-                           case SSDKResponseStateFail:
-                           {
-                               UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"分享成功" message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
-                               
-                               UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-                               
-                               [alertVC addAction:action];
-                               
-                               [self presentViewController:alertVC animated:YES completion:nil];
-                               
-                               break;
-                           }
-                           default:
-                               break;
-                       }
-                   }
-         ];}
-
+    [Share shareWithTitle:@"这是title" ImageUrl:@"qq" Message:@"这是描述" URL:@"http://www.baidu.com" ViewControl:self];
 }
 #pragma mark 手势
 -(void)handleTap1:(UITapGestureRecognizer *)tap
