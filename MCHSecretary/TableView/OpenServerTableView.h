@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OpenServerCell.h"
+
 
 @protocol OpenServerDelegate <NSObject>
 
 -(void) startSearchApp;
 
+-(void) showAppDetailInfo:(NSString *)appid;
+
 @end
 
-@interface OpenServerTableView : UIView<UITableViewDelegate, UITableViewDataSource>{
+@interface OpenServerTableView : UIView<UITableViewDelegate, UITableViewDataSource, OpenServerDetailDelegate>{
     UITableView *openserverTable;
     
     UIButton *btnToday;

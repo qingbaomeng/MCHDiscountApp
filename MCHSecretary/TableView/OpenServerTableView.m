@@ -12,7 +12,7 @@
 
 #import "OpenServerItem.h"
 #import "OpenServerFrame.h"
-#import "OpenServerCell.h"
+
 #import "OpenServerHeaderView.h"
 
 #import "OpenServerGameRequest.h"
@@ -151,7 +151,9 @@
     OpenServerFrame *frame = openserveritem.appInfoArray[indexPath.row];
     
     OpenServerCell *cell = [OpenServerCell cellWithTableView:tableView];
+    [cell setSelectRow:indexPath.section row:indexPath.row];
     [cell setOpenServerFrame:frame];
+    cell.delegate = self;
     
     return cell;
 }
@@ -210,7 +212,9 @@
 }
 
 -(void)serachOpenServerApp:(UIButton *)sender{
-    [_delegate startSearchApp];
+    if(_delegate){
+        [_delegate startSearchApp];
+    }
 }
 
 -(void)requestAppInfo{
@@ -225,6 +229,16 @@
     }];
     
 }
+
+#pragma OpenServerSearchDelegate 
+
+-(void) showAppDetail:(NSInteger)section index:(NSInteger)index{
+    NSLog(@"section:%ld, index:%ld", section, index);
+    if(_delegate){
+        [_delegate showAppDetailInfo:@"testid"];
+    }
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -8,12 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol OpenServerDetailDelegate <NSObject>
+
+-(void) showAppDetail:(NSInteger)section index:(NSInteger)index;
+
+@end
+
 @class OpenServerFrame;
 
 @interface OpenServerCell : UITableViewCell
 
 @property (nonatomic, strong) OpenServerFrame *openServerFrame;
 
+@property (nonatomic, assign) id<OpenServerDetailDelegate> delegate;
+
 +(instancetype) cellWithTableView:(UITableView *)tableView;
+
+-(void) setSelectRow:(NSInteger)section row:(NSInteger)index;
 
 @end

@@ -187,6 +187,22 @@
     
     [self.navigationController pushViewController:searchView animated:YES];
 }
+
+-(void) showAppDetailInfo:(NSString *)appid{
+    NSLog(@"fun#showAppDetailInfo :%@", appid);
+    
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    //    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+    //        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    //    }
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+    DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
+    [self.navigationController pushViewController:detailsView animated:YES];
+}
+
 /*
 #pragma mark - Navigation
 

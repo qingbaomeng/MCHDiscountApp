@@ -20,7 +20,10 @@
 #define GetColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 #define LineColor GetColor(230,230,230,1.0)
 
-@interface OpenServerCell()
+@interface OpenServerCell(){
+    NSInteger selectSection;
+    NSInteger selectRow;
+}
 
 @property (nonatomic, weak) UIView * leftView;
 @property (nonatomic, weak) UIImageView * leftImageView;
@@ -137,6 +140,10 @@
     return self;
 }
 
+-(void) setSelectRow:(NSInteger)section row:(NSInteger)index{
+    selectSection = section;
+    selectRow = index;
+}
 
 -(void) setOpenServerFrame:(OpenServerFrame *)openServerFrame{
     _openServerFrame = openServerFrame;
@@ -149,7 +156,11 @@
 -(void) setSubViewData{
     OpenServerEntity *leftApp = self.openServerFrame.leftApp;
     
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleleftTap:)];
+    [self.leftView addGestureRecognizer:singleTap];
+    
     [self.leftImageView sd_setImageWithURL:[NSURL URLWithString:leftApp.smallImageUrl] placeholderImage:nil];
+    
     [self.leftNameText setText:leftApp.packetName];
     [self.leftServerText setText:leftApp.serverDesc];
     if ([StringUtils isBlankString:leftApp.appDiscount]) {
@@ -162,6 +173,9 @@
     
     OpenServerEntity *rightApp = self.openServerFrame.rightApp;
     if(rightApp != nil){
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightTap:)];
+        [self.rightView addGestureRecognizer:singleTap];
+        
         [self.rightImageView sd_setImageWithURL:[NSURL URLWithString:rightApp.smallImageUrl] placeholderImage:nil];
         [self.rightNameText setText:rightApp.packetName];
         [self.rightServerText setText:rightApp.serverDesc];
@@ -193,5 +207,22 @@
     self.lineview.frame = self.openServerFrame.lineFrame;
     
 }
+
+-(void) handleleftTap:(UITapGestureRecognizer *)sender{
+    if(_delegate){
+        NSInteger selIndex = selectRow * 2;
+        [_delegate showAppDetail:selectSection index:selIndex];
+    }
+    
+}
+
+-(void) handleRightTap:(UITapGestureRecognizer *)sender{
+    if(_delegate){
+        NSInteger selIndex = selectRow * 2 + 1;
+        [_delegate showAppDetail:selectSection index:selIndex];
+    }
+}
+
+
 
 @end
