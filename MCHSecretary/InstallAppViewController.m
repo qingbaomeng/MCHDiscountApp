@@ -30,6 +30,7 @@
 @interface InstallAppViewController (){
     UIView *topview;
     UITableView *appInfoTable;
+    NSMutableArray *allIDarray;//手机安装所有软件的BundleID
 }
 
 @end
@@ -44,8 +45,94 @@
     [self addTopView];
     
     [self addScrollView];
+    [self gainAPPInformationFromPhone];
+    [self whetherDownLoad];
 }
-
+#pragma mark 获取手机内安装的程序
+-(void)gainAPPInformationFromPhone
+{
+    Class LSApplicationWorkspace_class = objc_getClass("LSApplicationWorkspace");
+    NSObject* workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
+//    NSLog(@"apps: %@", [workspace performSelector:@selector(allApplications)]);
+   NSArray *array = [workspace performSelector:@selector(allApplications)];
+    for (NSString *app in array)
+    {
+        //获取BundleID
+        NSString *bundleid = [self getParseBundleIDString:app];
+        NSLog(@"%@",bundleid);
+        allIDarray = [NSMutableArray array];
+        [allIDarray addObject:bundleid];
+    }
+}
+-(NSString *)getParseBundleIDString:(NSString *)description
+{
+    NSString *ret = @"";
+    NSString *target = [description description];
+    // iOS8.0 "LSApplicationProxy: com.apple.videos",
+    // iOS8.1 "<LSApplicationProxy: 0x898787998> com.apple.videos",
+    // iOS9.0 "<LSApplicationProxy: 0x145efbb0> com.apple.PhotosViewService <file:///Applications/PhotosViewService.app>"
+    if (target == nil)
+    {
+        return ret;
+    }
+    NSArray *arrObj = [target componentsSeparatedByString:@" "];
+    switch ([arrObj count])
+    {
+        case 2:// [iOS7.0 ~ iOS8.1)
+         case 3:// [iOS8.1 ~ iOS9.0)
+        {
+            ret = [arrObj lastObject];
+        }
+            break;
+            case 4:
+        {
+            ret = [arrObj objectAtIndex:2];
+        }
+            
+        default:
+            break;
+    }
+    return ret;
+}
+//通过包名打开应用
+-(void)openAPP
+{
+    Class lsawsc = objc_getClass("LSApplicationWorkspace");
+    NSObject* workspace = [lsawsc performSelector:NSSelectorFromString(@"defaultWorkspace")];
+    // iOS6 没有defaultWorkspace
+    if ([workspace respondsToSelector:NSSelectorFromString(@"openApplicationWithBundleID:")])
+    {
+        [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:@"com.Calendar.jbp"];
+    }
+}
+#pragma mark 判断是否下载某个游戏
+-(void)whetherDownLoad
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSArray *tapArr = [userDefaults objectForKey:@"BundleIDARR"];
+    
+    if (tapArr)
+    {
+        for (NSString *bundle in tapArr)
+        {
+            NSLog(@"%@",bundle);
+            
+            if ([allIDarray containsObject:bundle])
+            {
+                NSLog(@"软件已经下载，可以展示");
+            }
+            else
+            {
+                NSLog(@"点击过但是没有下载");
+            }
+        }
+    }
+    else
+    {
+        NSLog(@"数组不存在，还没有下载过");
+    }
+}
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [super.navigationController setToolbarHidden:YES animated:TRUE];

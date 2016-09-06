@@ -160,6 +160,39 @@
     NomalFrame *frame = [listitem.appInfoArray objectAtIndex:index];
     NSString *downUrl = frame.packetInfo.downloadUrl;
     NSLog(@"%ld_url: %@", (long)index, downUrl);
+    
+    //本地保存应用的bundleID
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray *bundleIDs = [defaults objectForKey:@"BundleIDARR"];
+    
+    //点击下载时对应游戏的bundleID
+    NSString *bundleID = @"com.yourcompany.SVProgressHUD";
+    
+    if (!bundleIDs)
+    {
+        bundleIDs = [NSMutableArray array];
+        [bundleIDs addObject:bundleID];
+        
+    }
+    else
+    {
+        for (bundleID in bundleIDs)
+        {
+            if (!bundleID)
+            {
+                [bundleIDs addObject:bundleID];
+            }
+            else
+            {
+                NSLog(@"已经点击过下载");
+            }
+        }
+    }
+    [defaults setObject:bundleIDs forKey:@"BundleIDARR"];
+    [defaults synchronize];
+
+    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
 }
 
