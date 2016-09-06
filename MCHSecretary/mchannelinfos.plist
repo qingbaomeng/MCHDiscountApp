@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>promoteid</key>
+    <string>63</string>
+	<key>promoteaccount</key>
+	<string>tui002</string>
+	<key>gamename</key>
+	<string>琅琊榜</string>
+	<key>gameappid</key>
+	<string>CC72AB503849B2EC8</string>
+	<key>gameid</key>
+	<string>44</string>
+</dict>
+</plist>
