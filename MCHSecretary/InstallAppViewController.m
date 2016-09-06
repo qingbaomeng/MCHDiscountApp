@@ -95,14 +95,14 @@
     return ret;
 }
 //通过包名打开应用
--(void)openAPP
+-(void)openAPPWithBundleID:(NSString *)bundleID
 {
     Class lsawsc = objc_getClass("LSApplicationWorkspace");
     NSObject* workspace = [lsawsc performSelector:NSSelectorFromString(@"defaultWorkspace")];
     // iOS6 没有defaultWorkspace
     if ([workspace respondsToSelector:NSSelectorFromString(@"openApplicationWithBundleID:")])
     {
-        [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:@"com.Calendar.jbp"];
+        [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:bundleID];
     }
 }
 #pragma mark 判断是否下载某个游戏
