@@ -18,6 +18,8 @@
 #import "ChoiceListItem.h"
 #import "CycleScrollCell.h"
 
+#import "InstallAppInfo.h"
+
 #define TopViewHeight 100
 
 @interface AppInfoTableView(){
@@ -121,14 +123,6 @@
     }
 }
 
-//-(CGFloat)tableView:(UITableView *) tableView heightForHeaderInSection:(NSInteger)section{
-//    return 0.1;
-//}
-//
-//-(CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    return 1;
-//}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [_delegate showAppInfo];
 }
@@ -161,37 +155,17 @@
     NSString *downUrl = frame.packetInfo.downloadUrl;
     NSLog(@"%ld_url: %@", (long)index, downUrl);
     
-    //本地保存应用的bundleID
-    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-    
-    NSMutableArray *bundleIDs = [defaults objectForKey:@"BundleIDARR"];
-    
-    //点击下载时对应游戏的bundleID
-    NSString *bundleID = @"com.yourcompany.SVProgressHUD";
-    
-    if (!bundleIDs)
-    {
-        bundleIDs = [NSMutableArray array];
-        [bundleIDs addObject:bundleID];
-        
-    }
-    else
-    {
-        for (bundleID in bundleIDs)
-        {
-            if (!bundleID)
-            {
-                [bundleIDs addObject:bundleID];
-            }
-            else
-            {
-                NSLog(@"已经点击过下载");
-            }
-        }
-    }
-    [defaults setObject:bundleIDs forKey:@"BundleIDARR"];
-    [defaults synchronize];
-
+    InstallAppInfo *appInfo = [[InstallAppInfo alloc] init];
+    appInfo.iconUrl = frame.packetInfo.smallImageUrl;
+    appInfo.gameName = frame.packetInfo.packetName;
+    appInfo.gameSize = frame.packetInfo.packetSize;
+    appInfo.gameType = frame.packetInfo.appType;
+    appInfo.gameDescribe = frame.packetInfo.appDescribe;
+    appInfo.gameDiscount = frame.packetInfo.appDiscount;
+    appInfo.gameBundleId = @"com.test";
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [appInfo save];
+    });
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
 }

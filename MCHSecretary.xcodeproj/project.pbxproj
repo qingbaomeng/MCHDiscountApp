@@ -12,6 +12,8 @@
 		5A11E6AF1D6D7CB10065BAF5 /* AppCommentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11E6AE1D6D7CB10065BAF5 /* AppCommentInfo.m */; };
 		5A11E6B21D6D90E40065BAF5 /* CommentFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11E6B11D6D90E40065BAF5 /* CommentFrame.m */; };
 		5A11E6B51D6D93BC0065BAF5 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11E6B41D6D93BC0065BAF5 /* CommentCell.m */; };
+		5A28C4FD1D7EAC6C00132F27 /* mchannelinfos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A28C4FC1D7EAC6C00132F27 /* mchannelinfos.plist */; };
+		5A28C5001D7EACB300132F27 /* PreferencesUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28C4FF1D7EACB300132F27 /* PreferencesUtils.m */; };
 		5A28F8AA1D6FD55900D58BB5 /* IndexController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28F8A91D6FD55900D58BB5 /* IndexController.m */; };
 		5A28F8AE1D6FDC1F00D58BB5 /* AppInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28F8AD1D6FDC1F00D58BB5 /* AppInfoTableView.m */; };
 		5A28F8BB1D702AC900D58BB5 /* OpenServerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28F8BA1D702AC900D58BB5 /* OpenServerTableView.m */; };
@@ -56,6 +58,16 @@
 		5A74C33B1D76D9E600CBC262 /* tabbtn_help_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */; };
 		5A74C33C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */; };
 		5A74C33D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */; };
+		5AE061B71D7FF25D0032189F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061AD1D7FF25D0032189F /* FMDatabase.m */; };
+		5AE061B81D7FF25D0032189F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061AF1D7FF25D0032189F /* FMDatabaseAdditions.m */; };
+		5AE061B91D7FF25D0032189F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061B11D7FF25D0032189F /* FMDatabasePool.m */; };
+		5AE061BA1D7FF25D0032189F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061B31D7FF25D0032189F /* FMDatabaseQueue.m */; };
+		5AE061BB1D7FF25D0032189F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061B61D7FF25D0032189F /* FMResultSet.m */; };
+		5AE061C01D7FF2670032189F /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061BD1D7FF2670032189F /* JKDBHelper.m */; };
+		5AE061C11D7FF2670032189F /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061BF1D7FF2670032189F /* JKDBModel.m */; };
+		5AE061C41D7FF2C40032189F /* InstallAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061C31D7FF2C40032189F /* InstallAppInfo.m */; };
+		5AE061C71D7FFF450032189F /* InstallAppFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061C61D7FFF450032189F /* InstallAppFrame.m */; };
+		5AE061CD1D8001320032189F /* InstallAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061CC1D8001320032189F /* InstallAppCell.m */; };
 		5AE3D34B1D752CF100EBD9D9 /* OpenServerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D34A1D752CF100EBD9D9 /* OpenServerEntity.m */; };
 		5AE3D34E1D7564FB00EBD9D9 /* InstallAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D34D1D7564FB00EBD9D9 /* InstallAppViewController.m */; };
 		5AE3D3511D75733500EBD9D9 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D3501D75733500EBD9D9 /* FileUtils.m */; };
@@ -217,6 +229,9 @@
 		5A11E6B11D6D90E40065BAF5 /* CommentFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentFrame.m; path = Frame/CommentFrame.m; sourceTree = "<group>"; };
 		5A11E6B31D6D93BC0065BAF5 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentCell.h; path = Cells/CommentCell.h; sourceTree = "<group>"; };
 		5A11E6B41D6D93BC0065BAF5 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentCell.m; path = Cells/CommentCell.m; sourceTree = "<group>"; };
+		5A28C4FC1D7EAC6C00132F27 /* mchannelinfos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mchannelinfos.plist; sourceTree = "<group>"; };
+		5A28C4FE1D7EACB300132F27 /* PreferencesUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesUtils.h; path = Utils/PreferencesUtils.h; sourceTree = "<group>"; };
+		5A28C4FF1D7EACB300132F27 /* PreferencesUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesUtils.m; path = Utils/PreferencesUtils.m; sourceTree = "<group>"; };
 		5A28F8A81D6FD55900D58BB5 /* IndexController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndexController.h; path = ViewControll/IndexController.h; sourceTree = "<group>"; };
 		5A28F8A91D6FD55900D58BB5 /* IndexController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IndexController.m; path = ViewControll/IndexController.m; sourceTree = "<group>"; };
 		5A28F8AC1D6FDC1F00D58BB5 /* AppInfoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfoTableView.h; sourceTree = "<group>"; };
@@ -278,6 +293,27 @@
 		5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_select@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_select@3x.png"; sourceTree = "<group>"; };
 		5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@2x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@2x.png"; sourceTree = "<group>"; };
 		5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@3x.png"; sourceTree = "<group>"; };
+		5AE061AC1D7FF25D0032189F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = FMDB/FMDatabase.h; sourceTree = "<group>"; };
+		5AE061AD1D7FF25D0032189F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = FMDB/FMDatabase.m; sourceTree = "<group>"; };
+		5AE061AE1D7FF25D0032189F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = FMDB/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		5AE061AF1D7FF25D0032189F /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = FMDB/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		5AE061B01D7FF25D0032189F /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = FMDB/FMDatabasePool.h; sourceTree = "<group>"; };
+		5AE061B11D7FF25D0032189F /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = FMDB/FMDatabasePool.m; sourceTree = "<group>"; };
+		5AE061B21D7FF25D0032189F /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = FMDB/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		5AE061B31D7FF25D0032189F /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = FMDB/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		5AE061B41D7FF25D0032189F /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = FMDB/FMDB.h; sourceTree = "<group>"; };
+		5AE061B51D7FF25D0032189F /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = FMDB/FMResultSet.h; sourceTree = "<group>"; };
+		5AE061B61D7FF25D0032189F /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = FMDB/FMResultSet.m; sourceTree = "<group>"; };
+		5AE061BC1D7FF2670032189F /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JKDBHelper.h; path = DBModel/JKDBHelper.h; sourceTree = "<group>"; };
+		5AE061BD1D7FF2670032189F /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JKDBHelper.m; path = DBModel/JKDBHelper.m; sourceTree = "<group>"; };
+		5AE061BE1D7FF2670032189F /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JKDBModel.h; path = DBModel/JKDBModel.h; sourceTree = "<group>"; };
+		5AE061BF1D7FF2670032189F /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JKDBModel.m; path = DBModel/JKDBModel.m; sourceTree = "<group>"; };
+		5AE061C21D7FF2C40032189F /* InstallAppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstallAppInfo.h; path = Entity/InstallAppInfo.h; sourceTree = "<group>"; };
+		5AE061C31D7FF2C40032189F /* InstallAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstallAppInfo.m; path = Entity/InstallAppInfo.m; sourceTree = "<group>"; };
+		5AE061C51D7FFF450032189F /* InstallAppFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstallAppFrame.h; path = Frame/InstallAppFrame.h; sourceTree = "<group>"; };
+		5AE061C61D7FFF450032189F /* InstallAppFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstallAppFrame.m; path = Frame/InstallAppFrame.m; sourceTree = "<group>"; };
+		5AE061CB1D8001320032189F /* InstallAppCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallAppCell.h; sourceTree = "<group>"; };
+		5AE061CC1D8001320032189F /* InstallAppCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstallAppCell.m; sourceTree = "<group>"; };
 		5AE3D3491D752CF100EBD9D9 /* OpenServerEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenServerEntity.h; path = Entity/OpenServerEntity.h; sourceTree = "<group>"; };
 		5AE3D34A1D752CF100EBD9D9 /* OpenServerEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenServerEntity.m; path = Entity/OpenServerEntity.m; sourceTree = "<group>"; };
 		5AE3D34C1D7564FB00EBD9D9 /* InstallAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallAppViewController.h; sourceTree = "<group>"; };
@@ -623,6 +659,44 @@
 			name = tabbaritemImages;
 			sourceTree = "<group>";
 		};
+		5AE061A91D7FF2390032189F /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				5AE061AB1D7FF24F0032189F /* FMDB */,
+				5AE061AA1D7FF2420032189F /* DBModel */,
+			);
+			name = DB;
+			sourceTree = "<group>";
+		};
+		5AE061AA1D7FF2420032189F /* DBModel */ = {
+			isa = PBXGroup;
+			children = (
+				5AE061BC1D7FF2670032189F /* JKDBHelper.h */,
+				5AE061BD1D7FF2670032189F /* JKDBHelper.m */,
+				5AE061BE1D7FF2670032189F /* JKDBModel.h */,
+				5AE061BF1D7FF2670032189F /* JKDBModel.m */,
+			);
+			name = DBModel;
+			sourceTree = "<group>";
+		};
+		5AE061AB1D7FF24F0032189F /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				5AE061AC1D7FF25D0032189F /* FMDatabase.h */,
+				5AE061AD1D7FF25D0032189F /* FMDatabase.m */,
+				5AE061AE1D7FF25D0032189F /* FMDatabaseAdditions.h */,
+				5AE061AF1D7FF25D0032189F /* FMDatabaseAdditions.m */,
+				5AE061B01D7FF25D0032189F /* FMDatabasePool.h */,
+				5AE061B11D7FF25D0032189F /* FMDatabasePool.m */,
+				5AE061B21D7FF25D0032189F /* FMDatabaseQueue.h */,
+				5AE061B31D7FF25D0032189F /* FMDatabaseQueue.m */,
+				5AE061B41D7FF25D0032189F /* FMDB.h */,
+				5AE061B51D7FF25D0032189F /* FMResultSet.h */,
+				5AE061B61D7FF25D0032189F /* FMResultSet.m */,
+			);
+			name = FMDB;
+			sourceTree = "<group>";
+		};
 		5AE86AE71D77FA8100A01AB1 /* shareSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +824,7 @@
 		B78FA1B31D531E100092A043 /* MCHSecretary */ = {
 			isa = PBXGroup;
 			children = (
+				5AE061A91D7FF2390032189F /* DB */,
 				5A5E0E271D7816B200E60A46 /* Help */,
 				5AE86AE71D77FA8100A01AB1 /* shareSDK */,
 				B7E7597D1D5D7984008C7ED8 /* Category */,
@@ -769,6 +844,7 @@
 				B78FA1BD1D531E100092A043 /* Main.storyboard */,
 				B78FA1C01D531E100092A043 /* Assets.xcassets */,
 				B78FA1C21D531E100092A043 /* LaunchScreen.storyboard */,
+				5A28C4FC1D7EAC6C00132F27 /* mchannelinfos.plist */,
 				B78FA1C51D531E100092A043 /* Info.plist */,
 				B78FA1B41D531E100092A043 /* Supporting Files */,
 			);
@@ -1017,6 +1093,8 @@
 				5AE3D34A1D752CF100EBD9D9 /* OpenServerEntity.m */,
 				5A5E0E431D782E3500E60A46 /* OpenServerPostion.h */,
 				5A5E0E441D782E3500E60A46 /* OpenServerPostion.m */,
+				5AE061C21D7FF2C40032189F /* InstallAppInfo.h */,
+				5AE061C31D7FF2C40032189F /* InstallAppInfo.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -1036,6 +1114,8 @@
 				5A28F8C61D703EF900D58BB5 /* OpenServerCell.m */,
 				5A5E0E401D78287A00E60A46 /* OpenServerSearchCell.h */,
 				5A5E0E411D78287A00E60A46 /* OpenServerSearchCell.m */,
+				5AE061CB1D8001320032189F /* InstallAppCell.h */,
+				5AE061CC1D8001320032189F /* InstallAppCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1053,6 +1133,8 @@
 				5A28F8C31D703B1D00D58BB5 /* OpenServerFrame.m */,
 				5A5E0E3D1D7825C500E60A46 /* OpenServerSearchFrame.h */,
 				5A5E0E3E1D7825C500E60A46 /* OpenServerSearchFrame.m */,
+				5AE061C51D7FFF450032189F /* InstallAppFrame.h */,
+				5AE061C61D7FFF450032189F /* InstallAppFrame.m */,
 			);
 			name = Frames;
 			sourceTree = "<group>";
@@ -1101,6 +1183,8 @@
 		B7E759631D5B0C78008C7ED8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5A28C4FE1D7EACB300132F27 /* PreferencesUtils.h */,
+				5A28C4FF1D7EACB300132F27 /* PreferencesUtils.m */,
 				B7E759641D5B0C86008C7ED8 /* StringUtils.h */,
 				B7E759651D5B0C86008C7ED8 /* StringUtils.m */,
 				5AEFAB381D6C0050007DEADE /* CurrentAppUtils.h */,
@@ -1208,7 +1292,7 @@
 				TargetAttributes = {
 					B78FA1B01D531E100092A043 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 5NMY924628;
+						DevelopmentTeam = 6DS2EQ8R3E;
 					};
 					B78FA1C91D531E100092A043 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1256,6 +1340,7 @@
 				5A5E0E241D7816AB00E60A46 /* share.png in Resources */,
 				5AEFAB341D6BF9C4007DEADE /* star_gray_bottom@2x.png in Resources */,
 				5A5E0E251D7816AB00E60A46 /* update.png in Resources */,
+				5A28C4FD1D7EAC6C00132F27 /* mchannelinfos.plist in Resources */,
 				B7E759A01D5DB8B6008C7ED8 /* tabbtn_app_unselect.png in Resources */,
 				B76CAE421D616C3C00A0D261 /* b27_icon_star_gray@2x.png in Resources */,
 				B7E759031D587DFE008C7ED8 /* MJRefresh.bundle in Resources */,
@@ -1349,6 +1434,7 @@
 				5A5E0E391D78171F00E60A46 /* SVProgressAnimatedView.m in Sources */,
 				B7E759021D587DFE008C7ED8 /* MJRefreshStateHeader.m in Sources */,
 				5AEFAB3D1D6C47FE007DEADE /* ScoreLineView.m in Sources */,
+				5AE061C71D7FFF450032189F /* InstallAppFrame.m in Sources */,
 				B7E759B11D5DC9A8008C7ED8 /* SearchViewController.m in Sources */,
 				5A5E0E3B1D78171F00E60A46 /* SVProgressHUD.m in Sources */,
 				B7E759001D587DFE008C7ED8 /* MJRefreshGifHeader.m in Sources */,
@@ -1357,6 +1443,7 @@
 				B7E759041D587DFE008C7ED8 /* MJRefreshConst.m in Sources */,
 				5A28F8C41D703B1D00D58BB5 /* OpenServerFrame.m in Sources */,
 				B7E758F71D587DFE008C7ED8 /* MJRefreshComponent.m in Sources */,
+				5A28C5001D7EACB300132F27 /* PreferencesUtils.m in Sources */,
 				B7E7594F1D59874D008C7ED8 /* SDWebImageDownloaderOperation.m in Sources */,
 				B7E759511D59874D008C7ED8 /* SDWebImagePrefetcher.m in Sources */,
 				B7E759081D587DFE008C7ED8 /* UIView+MJExtension.m in Sources */,
@@ -1366,6 +1453,7 @@
 				5AF8A7701D791D1500DDF1B3 /* SearchOpenServerRequest.m in Sources */,
 				B7E7595B1D59DF89008C7ED8 /* ChoiceHeadeView.m in Sources */,
 				5A5E0E2B1D7816DB00E60A46 /* NJKWebViewProgress.m in Sources */,
+				5AE061CD1D8001320032189F /* InstallAppCell.m in Sources */,
 				B7E759061D587DFE008C7ED8 /* UIScrollView+MJExtension.m in Sources */,
 				5A5E0E421D78287A00E60A46 /* OpenServerSearchCell.m in Sources */,
 				B7E759541D59874D008C7ED8 /* UIImage+MultiFormat.m in Sources */,
@@ -1385,9 +1473,12 @@
 				B78FA1EA1D5329B30092A043 /* TopSearchView.m in Sources */,
 				B7E758FD1D587DFE008C7ED8 /* MJRefreshBackGifFooter.m in Sources */,
 				B7E758F91D587DFE008C7ED8 /* MJRefreshHeader.m in Sources */,
+				5AE061B71D7FF25D0032189F /* FMDatabase.m in Sources */,
 				B7E758FC1D587DFE008C7ED8 /* MJRefreshAutoStateFooter.m in Sources */,
 				B7E7594B1D59874D008C7ED8 /* SDImageCache.m in Sources */,
 				B7E7596C1D5C500F008C7ED8 /* ChoiceFloatView.m in Sources */,
+				5AE061C11D7FF2670032189F /* JKDBModel.m in Sources */,
+				5AE061B91D7FF25D0032189F /* FMDatabasePool.m in Sources */,
 				B7E759691D5B0EAC008C7ED8 /* CycleScrollCell.m in Sources */,
 				5A28F8AE1D6FDC1F00D58BB5 /* AppInfoTableView.m in Sources */,
 				B7E758F81D587DFE008C7ED8 /* MJRefreshFooter.m in Sources */,
@@ -1400,12 +1491,14 @@
 				B7E759501D59874D008C7ED8 /* SDWebImageManager.m in Sources */,
 				5AF8A7731D79309100DDF1B3 /* SearchAppRequest.m in Sources */,
 				B7E759551D59874D008C7ED8 /* UIImage+WebP.m in Sources */,
+				5AE061B81D7FF25D0032189F /* FMDatabaseAdditions.m in Sources */,
 				B7E759071D587DFE008C7ED8 /* UIScrollView+MJRefresh.m in Sources */,
 				B7E759661D5B0C86008C7ED8 /* StringUtils.m in Sources */,
 				5A28F8AA1D6FD55900D58BB5 /* IndexController.m in Sources */,
 				B7E758FF1D587DFE008C7ED8 /* MJRefreshBackStateFooter.m in Sources */,
 				5AE3D34E1D7564FB00EBD9D9 /* InstallAppViewController.m in Sources */,
 				B7E758C51D5867D1008C7ED8 /* ChoiceViewController.m in Sources */,
+				5AE061BB1D7FF25D0032189F /* FMResultSet.m in Sources */,
 				B7E759621D5AFCC4008C7ED8 /* CycleScrollerView.m in Sources */,
 				5AF626A81D7D010100A3786F /* Share.m in Sources */,
 				B7E758F51D587DFE008C7ED8 /* MJRefreshAutoFooter.m in Sources */,
@@ -1422,12 +1515,15 @@
 				5AE86ABC1D77DD0600A01AB1 /* ListView.m in Sources */,
 				B7E7591A1D596D4D008C7ED8 /* AppPacketInfo.m in Sources */,
 				5A28F8C11D7037AE00D58BB5 /* OpenServerItem.m in Sources */,
+				5AE061BA1D7FF25D0032189F /* FMDatabaseQueue.m in Sources */,
 				B7E759761D5C6E27008C7ED8 /* DialogTipView.m in Sources */,
 				5A11E6AF1D6D7CB10065BAF5 /* AppCommentInfo.m in Sources */,
 				5A11E6B51D6D93BC0065BAF5 /* CommentCell.m in Sources */,
 				B7E7594D1D59874D008C7ED8 /* SDWebImageDecoder.m in Sources */,
 				B7E7594C1D59874D008C7ED8 /* SDWebImageCompat.m in Sources */,
+				5AE061C01D7FF2670032189F /* JKDBHelper.m in Sources */,
 				5A5E0E381D78171F00E60A46 /* SVIndefiniteAnimatedView.m in Sources */,
+				5AE061C41D7FF2C40032189F /* InstallAppInfo.m in Sources */,
 				5A28F8C71D703EF900D58BB5 /* OpenServerCell.m in Sources */,
 				B7E759561D59874D008C7ED8 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B7E7594A1D59874D008C7ED8 /* NSData+ImageContentType.m in Sources */,
@@ -1594,7 +1690,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: jin zhu (6DS2EQ8R3E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1611,9 +1707,9 @@
 					"$(PROJECT_DIR)/MCHSecretary/shareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/MCHSecretary/shareSDK/Support/PlatformSDK/WeChatSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dell.MCHSecretary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dell.MCHShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9a09086f-fb40-429f-bb36-afda731b169e";
 			};
 			name = Debug;
 		};
@@ -1622,7 +1718,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: jin zhu (6DS2EQ8R3E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1639,9 +1735,9 @@
 					"$(PROJECT_DIR)/MCHSecretary/shareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/MCHSecretary/shareSDK/Support/PlatformSDK/WeChatSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dell.MCHSecretary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dell.MCHShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9a09086f-fb40-429f-bb36-afda731b169e";
 			};
 			name = Release;
 		};

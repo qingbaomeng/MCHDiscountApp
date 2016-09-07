@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NomalCell.h"
+#import "InstallAppCell.h"
 
 @interface InstallAppViewController : UIViewController
 <
 UITextFieldDelegate,
 UITableViewDelegate,
 UITableViewDataSource,
-DownloadAppDelegate
+InstallAppDelegate
 >
 
 @property (strong, nonatomic) NSMutableArray *listItemArray;

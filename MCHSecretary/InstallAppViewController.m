@@ -11,12 +11,15 @@
 #import "TopSearchView.h"
 #import "MJRefresh.h"
 
-#import "NomalFrame.h"
-#import "AppPacketInfo.h"
-#import "ChoiceListItem.h"
-#import "ChoiceCycleAppRequest.h"
+//#import "NomalFrame.h"
+//#import "AppPacketInfo.h"
+//#import "ChoiceListItem.h"
+//#import "ChoiceCycleAppRequest.h"
 
 #import "DetailsInfoViewController.h"
+
+#import "InstallAppInfo.h"
+#import "InstallAppFrame.h"
 
 #define TopViewH 65
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -42,11 +45,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    listItemArray = [[NSMutableArray alloc] init];
+    
     [self addTopView];
     
     [self addScrollView];
-    [self gainAPPInformationFromPhone];
-    [self whetherDownLoad];
+//    [self gainAPPInformationFromPhone];
+//    [self whetherDownLoad];
 }
 #pragma mark 获取手机内安装的程序
 -(void)gainAPPInformationFromPhone
@@ -181,50 +186,23 @@
 
 #pragma mark - UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"count:%ld", listItemArray.count);
     return listItemArray.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    ChoiceListItem *listitem = listItemArray[section];
-    //    NSLog(@"%ld, %ld", (long)section, (long)listitem.itemNumber);
-    if(listitem.cellType == CellStyle_Cycle){
-        return 1;
-    }
-    return listitem.appInfoArray.count;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChoiceListItem *listitem = listItemArray[indexPath.section];
-    NomalCell *appcell = [NomalCell cellWithTableView:tableView];
-    NomalFrame *frame = listitem.appInfoArray[indexPath.row];
-    [appcell setNomalFrame:frame section:indexPath.section pos:indexPath.row];
-    appcell.delegate = self;
-    return appcell;
+    InstallAppCell *cell = [InstallAppCell cellWithTableView:tableView];
+    InstallAppFrame *infoFrame = listItemArray[indexPath.row];
+    [cell setFrame:infoFrame pos:indexPath.row];
+    cell.delegate = self;
+    
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChoiceListItem *listitem = listItemArray[indexPath.section];
-    NomalFrame *frame = listitem.appInfoArray[indexPath.row];
+    InstallAppFrame *frame = listItemArray[indexPath.row];
     return frame.cellHeight;
-}
-
--(CGFloat)tableView:(UITableView *) tableView heightForHeaderInSection:(NSInteger)section{
-    //    return 0.01;
-    //    ChoiceListItem *listitem = listItemArray[section];
-    //    if(listitem.cellType == CellStyle_Nomal){
-    //        return FloatingViewHeight;
-    //    }else if (listitem.cellType == CellStyle_Other){
-    //        return 20;
-    //    } else {
-    //        return 0.1;
-    //    }
-    
-    return 0.1;
-}
-
--(CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -237,33 +215,49 @@
 }
 
 -(void) requestAppInfo{
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [listItemArray removeAllObjects];
+        NSArray *infos =  [InstallAppInfo findAll];
+        NSLog(@"infos:%@", infos);
+        for (int i = 0; i < infos.count; i++) {
+            InstallAppInfo *info = infos[i];
+            InstallAppFrame *infoFrame = [[InstallAppFrame alloc] init];
+            [infoFrame setInstallAppInfo:info];
+            
+            [listItemArray addObject:infoFrame];
+        }
+        NSLog(@"infos:%@", infos);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            [appInfoTable reloadData];
+            [appInfoTable.mj_header endRefreshing];
+//        });
+//    });
     
-    [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
-        //        NSLog(@"success dic:%@", dic);
-        listItemArray = result;
-        [appInfoTable reloadData];
-        
-        [appInfoTable.mj_header endRefreshing];
-    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
-        NSLog(@"errorMsg:%@", errorMsg);
-        
-        [appInfoTable.mj_header endRefreshing];
-    }];
+    
+    
+//    [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
+//        //        NSLog(@"success dic:%@", dic);
+//        listItemArray = result;
+//        [appInfoTable reloadData];
+//        
+//        [appInfoTable.mj_header endRefreshing];
+//    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+//        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+//        NSLog(@"errorMsg:%@", errorMsg);
+//        
+//        [appInfoTable.mj_header endRefreshing];
+//    }];
 }
 
 #pragma mark - DownloadAppDelegate
 
--(void) startDownloadApp:(NSInteger)section index:(NSInteger)index{
-    if(listItemArray.count <= section){
-        return;
+-(void) repairApp:(NSInteger)index{
+    if(index < listItemArray.count){
+        InstallAppFrame *frame = listItemArray[index];
+        NSString *downUrl = frame.installAppInfo.gameInstallUrl;
+        NSLog(@"%ld_url: %@", (long)index, downUrl);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
     }
-    ChoiceListItem *listitem = listItemArray[section];;
-    
-    NomalFrame *frame = [listitem.appInfoArray objectAtIndex:index];
-    NSString *downUrl = frame.packetInfo.downloadUrl;
-    NSLog(@"%ld_url: %@", (long)index, downUrl);
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
 }
 
 /*
