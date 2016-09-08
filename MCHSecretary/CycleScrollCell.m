@@ -9,7 +9,7 @@
 #import "CycleScrollCell.h"
 #import "NomalFrame.h"
 #import "AppPacketInfo.h"
-
+#import "TopCycleImage.h"
 
 @interface CycleScrollCell(){
     
@@ -65,9 +65,9 @@
 //    self.cycleScrollView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 70);
     NSMutableArray *urlArrays =  [NSMutableArray arrayWithCapacity:urlArray.count];
     for (NSInteger i = 0; i < urlArray.count; i++) {
-        NomalFrame *frame = urlArray[i];
+        TopCycleImage *cyucleImage = urlArray[i];
         
-        [urlArrays addObject:frame.packetInfo.takeTransImageUrl];
+        [urlArrays addObject:cyucleImage.imageUrl];
     }
     
     [self.cycleScrollView setImageArray:urlArrays];

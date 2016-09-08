@@ -14,6 +14,8 @@
 #import "NomalFrame.h"
 #import "AppPacketInfo.h"
 
+#import "TopCycleImage.h"
+
 #define TopViewHeight 70
 #define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 
@@ -28,13 +30,13 @@
     
     [[BaseNetManager sharedInstance] get:takeTransUrl success:^(NSDictionary *dic) {
         //临时测试
-        
-        NSMutableArray *result = [self dictToArray:dic];
+        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
+        NSMutableArray *result = [self cycleDictToArray:dic];
         resultBlock(result);
         
         } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
-        failureBlock(response, error, dic);
+            failureBlock(response, error, dic);
     }];
     
 }
@@ -68,17 +70,38 @@
     }];
     
 }
--(NSMutableArray *) dictToArray:(NSDictionary *)dic{
+-(NSMutableArray *) cycleDictToArray:(NSDictionary *)dic{
     
      NSString *dataListStr = checkNull([dic objectForKey:@"data"]);
      
      //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
      if(![StringUtils isBlankString:dataListStr]){
-     NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
-     return dataArray;
+         NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
+         return dataArray;
      }
      return nil;
 }
+
+-(NSMutableArray *) getData:(NSArray *)datas{
+    if(datas && [datas count] > 0){
+        
+        NSMutableArray *array = [NSMutableArray array];
+        for (int i = 0; i < [datas count]; i++) {
+            NSDictionary *listDic = [datas objectAtIndex:i];
+            TopCycleImage *cyucleImage = [[TopCycleImage alloc] init];
+            [cyucleImage setImageUrl:[NSString stringWithFormat:@"%@", [listDic objectForKey:@"data"]]];
+            
+            [array addObject:cyucleImage];
+        }
+        return array;
+    }else{
+        return nil;
+    }
+    
+}
+
+
+
 //游戏列表
 -(NSMutableArray *) dicToArray:(NSDictionary *)dic{
     /*
@@ -97,33 +120,21 @@
     
     //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
     if(![StringUtils isBlankString:dataListStr]){
-        NSMutableArray *dataArray = [self getData:[dic objectForKey:@"list"]];
+        NSMutableArray *dataArray = [self getItems:[dic objectForKey:@"list"]];
         return dataArray;
     }
     return nil;
 }
--(NSMutableArray *) getData:(NSArray *)datas{
-    if(datas && [datas count] > 0){
-        
-        NSMutableArray *array = [NSMutableArray array];
-        for (int i = 0; i < [datas count]; i++) {
-            NSMutableArray *itemArray = [self getItems:datas];
-            [array addObject:itemArray];
-        }
-        return array;
-    }else{
-        return nil;
-    }
-    
-}
+
 
 -(NSMutableArray *) getItems:(NSArray *)lists{
     if(lists && [lists count] > 0){
         NSMutableArray *frameArray = [NSMutableArray arrayWithCapacity:lists.count];
         for (int i = 0; i < [lists count]; i++){
             NSDictionary *listDic = [lists objectAtIndex:i];
-            NomalFrame *frame = [[NomalFrame alloc] init];
             AppPacketInfo *packInfo = [AppPacketInfo packWithDict:listDic];
+            
+            NomalFrame *frame = [[NomalFrame alloc] init];
             [frame setPacketInfo:packInfo];
             
             [frameArray addObject:frame];

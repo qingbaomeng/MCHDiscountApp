@@ -106,8 +106,10 @@
         return cycleCell;
     }else{
         NomalCell *appcell = [NomalCell cellWithTableView:tableView];
+        
         NomalFrame *frame = listItemArray[indexPath.row];
         [appcell setNomalFrame:frame section:indexPath.section pos:indexPath.row];
+        
         appcell.delegate = self;
         
         return appcell;
@@ -129,7 +131,7 @@
 
 -(void) requestAppInfo{
     
-    [[ChoiceCycleAppRequest alloc]getScrollViewInfo:^(NSMutableArray *array) {
+    [[[ChoiceCycleAppRequest alloc] init] getScrollViewInfo:^(NSMutableArray *array) {
         
         scrolImagesArray = array;
         [appInfoTable reloadData];

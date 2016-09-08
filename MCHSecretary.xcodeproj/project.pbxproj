@@ -58,9 +58,10 @@
 		5A74C33B1D76D9E600CBC262 /* tabbtn_help_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */; };
 		5A74C33C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */; };
 		5A74C33D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */; };
-		5AD614841D812FEE005E9406 /* apprepair.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD614831D812FEE005E9406 /* apprepair.png */; };
 		5ABA29681D80F20B00B44ACE /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA29671D80F20B00B44ACE /* HttpEngine.m */; };
 		5ABA296A1D8105BE00B44ACE /* load_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA29691D8105BE00B44ACE /* load_fail.png */; };
+		5AD614841D812FEE005E9406 /* apprepair.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD614831D812FEE005E9406 /* apprepair.png */; };
+		5AD614871D813A9E005E9406 /* TopCycleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD614861D813A9E005E9406 /* TopCycleImage.m */; };
 		5AE061B71D7FF25D0032189F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061AD1D7FF25D0032189F /* FMDatabase.m */; };
 		5AE061B81D7FF25D0032189F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061AF1D7FF25D0032189F /* FMDatabaseAdditions.m */; };
 		5AE061B91D7FF25D0032189F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061B11D7FF25D0032189F /* FMDatabasePool.m */; };
@@ -297,10 +298,12 @@
 		5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_select@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_select@3x.png"; sourceTree = "<group>"; };
 		5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@2x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@2x.png"; sourceTree = "<group>"; };
 		5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@3x.png"; sourceTree = "<group>"; };
-		5AD614831D812FEE005E9406 /* apprepair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apprepair.png; path = Images/apprepair.png; sourceTree = "<group>"; };
 		5ABA29661D80F20B00B44ACE /* HttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpEngine.h; sourceTree = "<group>"; };
 		5ABA29671D80F20B00B44ACE /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
 		5ABA29691D8105BE00B44ACE /* load_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load_fail.png; sourceTree = "<group>"; };
+		5AD614831D812FEE005E9406 /* apprepair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apprepair.png; path = Images/apprepair.png; sourceTree = "<group>"; };
+		5AD614851D813A9E005E9406 /* TopCycleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopCycleImage.h; path = Entity/TopCycleImage.h; sourceTree = "<group>"; };
+		5AD614861D813A9E005E9406 /* TopCycleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopCycleImage.m; path = Entity/TopCycleImage.m; sourceTree = "<group>"; };
 		5AE061AC1D7FF25D0032189F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = FMDB/FMDatabase.h; sourceTree = "<group>"; };
 		5AE061AD1D7FF25D0032189F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = FMDB/FMDatabase.m; sourceTree = "<group>"; };
 		5AE061AE1D7FF25D0032189F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = FMDB/FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -1109,6 +1112,8 @@
 				5AE061C31D7FF2C40032189F /* InstallAppInfo.m */,
 				5AE061CE1D8019DA0032189F /* DeviceAppInfo.h */,
 				5AE061CF1D8019DA0032189F /* DeviceAppInfo.m */,
+				5AD614851D813A9E005E9406 /* TopCycleImage.h */,
+				5AD614861D813A9E005E9406 /* TopCycleImage.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -1493,6 +1498,7 @@
 				B78FA1EA1D5329B30092A043 /* TopSearchView.m in Sources */,
 				B7E758FD1D587DFE008C7ED8 /* MJRefreshBackGifFooter.m in Sources */,
 				B7E758F91D587DFE008C7ED8 /* MJRefreshHeader.m in Sources */,
+				5AD614871D813A9E005E9406 /* TopCycleImage.m in Sources */,
 				5AE061B71D7FF25D0032189F /* FMDatabase.m in Sources */,
 				B7E758FC1D587DFE008C7ED8 /* MJRefreshAutoStateFooter.m in Sources */,
 				B7E7594B1D59874D008C7ED8 /* SDImageCache.m in Sources */,
