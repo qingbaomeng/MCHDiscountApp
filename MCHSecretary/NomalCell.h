@@ -26,4 +26,5 @@
 
 -(void) setNomalFrame:(NomalFrame *)nomalFrame section:(NSInteger)section pos:(NSInteger)index;
 
+-(void)viewForOpenServer;
 @end

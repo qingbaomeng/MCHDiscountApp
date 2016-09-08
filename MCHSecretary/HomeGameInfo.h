@@ -32,7 +32,12 @@
 //折扣
 @property (nonatomic, copy) NSString *appDiscount;
 
+//开服时间
+@property(nonatomic,copy)NSString *openServerTime;
+
 - (id)initWithDict:(NSDictionary *)dict;
 
 + (id)infoWithDict:(NSDictionary *)dict;
+
+-(void)viewForOpenServer;
 @end

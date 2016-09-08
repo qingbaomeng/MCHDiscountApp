@@ -35,6 +35,9 @@
 @property (nonatomic, weak) UIButton * btnDownloadText;
 @property (nonatomic, weak) UIView * lineview;
 
+//开服
+@property(nonatomic,weak)UILabel *timeLab;
+
 @end
 
 
@@ -117,6 +120,14 @@
         line.backgroundColor = LineColor;
         [self.contentView addSubview:line];
         self.lineview = line;
+        
+        //开服时间
+        UILabel *timeLabel = [[UILabel alloc] init];
+        timeLabel.font = MiddleFont;
+        timeLabel.textColor = MiddleTextColor;
+        timeLabel.numberOfLines = 1;
+        [self.contentView addSubview:timeLabel];
+        self.timeLab = timeLabel;;
     }
     return self;
 }
@@ -156,6 +167,8 @@
         [self.btnDiscount setTitle:leftdiscountStr forState:UIControlStateNormal];
     }
     
+    self.timeLab.text = packInfo.openServerTime;
+    
 }
 
 -(void) setSubViewFrame{
@@ -167,8 +180,16 @@
     self.btnDownload.frame = self.nomalFrame.downloadFrame;
     self.btnDownloadText.frame = self.nomalFrame.downloadTextFrame;
     self.lineview.frame = self.nomalFrame.lineFrame;
+    self.timeLab.frame = self.nomalFrame.middleFrame;
 }
 
+//开服的游戏
+-(void)viewForOpenServer
+{
+    [self.lblMiddle setHidden:YES];
+    [self.btnDownload setHidden:YES];
+    [self.timeLab setHidden:NO];
+}
 -(void) downloadApp:(UIButton *)sender{
 //    NSLog(@"%ld", (long)currentSection);
     NSInteger index = sender.tag;

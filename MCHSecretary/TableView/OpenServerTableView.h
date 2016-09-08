@@ -28,6 +28,8 @@
 
 @property (strong, nonatomic) NSMutableArray *listItemArray;
 
+@property(nonatomic,retain)UIButton *btnSearchContent;
+
 @property (nonatomic, assign) id<OpenServerDelegate> delegate;
 
 -(void)requestAppInfo;

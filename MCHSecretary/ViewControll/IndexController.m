@@ -143,6 +143,7 @@
     
     
     OpenServerTableView *secondTable = [[OpenServerTableView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, scrollSize.height)];
+    [secondTable.btnSearchContent addTarget:self action:@selector(openSearch) forControlEvents:UIControlEventTouchUpInside];
 //    [second setBackgroundColor:[UIColor blueColor]];
     [secondTable requestAppInfo];
     secondTable.delegate = self;
@@ -150,7 +151,11 @@
     
     [self.view addSubview:switchScrollView];
 }
-
+-(void)openSearch
+{
+    [self startSearchApp];
+    
+}
 -(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     CGFloat offsetY = scrollView.contentOffset.x;
 //    NSLog(@"offsetY:%f", offsetY);

@@ -7,15 +7,24 @@
 //
 
 #import "OpenServerTableView.h"
+#import "StringUtils.h"
 
 #import "MJRefresh.h"
+
+#import "NomalCell.h"
+#import "HomeGameInfo.h"
+
+#import "ChoiceListItem.h"
+#import "NomalFrame.h"
 
 #import "OpenServerItem.h"
 #import "OpenServerFrame.h"
 
 #import "OpenServerHeaderView.h"
 
+#import "ChoiceCycleAppRequest.h"
 #import "OpenServerGameRequest.h"
+#import "SearchViewController.h"
 
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
@@ -23,13 +32,20 @@
 #define SelectDateH 35
 
 #define GetColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+#define TopBackColor GetColor(18,205,176,1.0)
 #define LineColor GetColor(230,230,230,1.0)
 #define SelectDateColor GetColor(18,205,176,1.0)
 #define NomalDateColor GetColor(0,0,0,1.0)
 #define TopBackColor GetColor(18,205,176,1.0)
+#define BackColor GetColor(162,235,224,1.0)
+#define TitleColor GetColor(200,200,200,1.0)
+#define AppNameColor GetColor(100,100,100,1.0)
+#define LABLEColor GetColor(98,170,162,1.0)
+#define SearchContentColor GetColor(14,83,71,1.0)
 
 #define GetFont(s) [UIFont systemFontOfSize:s]
 #define DateFont GetFont(15)
+#define SearchFont GetFont(15)
 
 #define halfW kScreenWidth / 2
 #define btnW 100
@@ -58,44 +74,37 @@
 -(void) addSelectDateView{
     UIView *selectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, SelectDateH)];
     [selectView setBackgroundColor:[UIColor whiteColor]];
-    
-    CGFloat todayX = halfW - btnW;
-    btnToday = [[UIButton alloc] initWithFrame:CGRectMake(todayX, 0, btnW, SelectDateH)];
-    [btnToday setTitle:NSLocalizedString(@"Today", @"") forState:UIControlStateNormal];
-    btnToday.titleLabel.font = DateFont;
-    [btnToday setTitleColor:SelectDateColor forState:UIControlStateNormal];
-    [btnToday addTarget:self action:@selector(requestTodayGame:) forControlEvents:UIControlEventTouchUpInside];
-    [selectView addSubview:btnToday];
-    
-    
-    btnTomorrow = [[UIButton alloc] initWithFrame:CGRectMake(halfW, 0, btnW, SelectDateH)];
-    [btnTomorrow setTitle:NSLocalizedString(@"Tomorrow", @"") forState:UIControlStateNormal];
-    [btnTomorrow setTitleColor:NomalDateColor forState:UIControlStateNormal];
-    btnTomorrow.titleLabel.font = DateFont;
-    [btnTomorrow addTarget:self action:@selector(requestTomorrowGame:) forControlEvents:UIControlEventTouchUpInside];
-    [selectView addSubview:btnTomorrow];
-    
-    UIButton *btnSearch = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 80, 5, 73, 25)];
-    [btnSearch setBackgroundImage:[UIImage imageNamed:@"search_opensever.png"] forState:UIControlStateNormal];
-    [btnSearch setTitle:@"搜开服" forState:UIControlStateNormal];
-    [btnSearch setTitleColor:TopBackColor forState:UIControlStateNormal];
-    [btnSearch setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 4, 0)];
-//    btnSearch.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//    btnSearch.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    btnSearch.titleLabel.font = DateFont;
-    [btnSearch addTarget:self action:@selector(serachOpenServerApp:) forControlEvents:UIControlEventTouchUpInside];
-    [selectView addSubview:btnSearch];
-    
+
+    CGRect searchFrame = CGRectMake(10, 5, kScreenWidth - 20, SelectDateH-10);
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, SelectDateH - 1, kScreenWidth, 1)];
     [lineView setBackgroundColor:LineColor];
     [selectView addSubview:lineView];
+    UIView *backView = [[UIView alloc] initWithFrame:searchFrame];
+    backView.layer.cornerRadius = 13;
+    backView.layer.borderWidth = 1;
+    backView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    [backView setBackgroundColor:[UIColor whiteColor]];
+    [selectView addSubview:backView];
+
+   _btnSearchContent = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, backView.frame.size.width, backView.frame.size.height)];
+    [_btnSearchContent setBackgroundColor:[UIColor clearColor]];
+    [backView addSubview:_btnSearchContent];
+
+    CGFloat searchH = 15;
+    CGFloat searchY = (backView.frame.size.height - searchH) / 2;
+    CGSize lblSize = [StringUtils sizeWithString:NSLocalizedString(@"SearchTipText", @"") font:SearchFont maxSize:CGSizeMake(backView.frame.size.width - searchH, searchH)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((backView.frame.size.width - lblSize.width)/2, searchY, lblSize.width, searchH)];
+    label.textColor = [UIColor grayColor];
+    [label setFont:SearchFont];
+    [label setText:NSLocalizedString(@"SearchTipText", @"")];
+    [_btnSearchContent addSubview:label];
     
-    
-    selectLineView = [[UIView alloc] initWithFrame:CGRectMake(todayX, SelectDateH - 2, btnW, 2)];
-    [selectLineView setBackgroundColor:SelectDateColor];
-    [selectView addSubview:selectLineView];
-    
+    CGFloat imageX = (backView.frame.size.width - CGRectGetWidth(label.frame)) / 2 - 20;
+    UIImage *image = [UIImage imageNamed:@"choice_search.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, searchY, searchH, searchH)];
+    [imageView setImage:image];
+    [_btnSearchContent addSubview:imageView];
     
     [self addSubview:selectView];
 }
@@ -130,12 +139,12 @@
 
 #pragma mark - UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return listItemArray.count;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return listItemArray.count;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    OpenServerItem *listitem = listItemArray[section];
+//    OpenServerItem *listitem = listItemArray[section];
     
 //    NSInteger rowsCount = listitem.appInfoArray.count;
 //    int curCount = (short)rowsCount / 2;
@@ -143,26 +152,26 @@
 //    if(temp > 0){
 //        curCount += 1;
 //    }
-    return listitem.appInfoArray.count;
+    return listItemArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    OpenServerItem *openserveritem = listItemArray[indexPath.section];
-    OpenServerFrame *frame = openserveritem.appInfoArray[indexPath.row];
+    NomalCell *appcell = [NomalCell cellWithTableView:tableView];
     
-    OpenServerCell *cell = [OpenServerCell cellWithTableView:tableView];
-    [cell setSelectRow:indexPath.section row:indexPath.row];
-    [cell setOpenServerFrame:frame];
-    cell.delegate = self;
-    
-    return cell;
+    NomalFrame *frame = listItemArray[indexPath.row];
+    [appcell setNomalFrame:frame section:indexPath.section pos:indexPath.row];
+    [appcell viewForOpenServer];
+    return appcell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    OpenServerItem *openserveritem = listItemArray[indexPath.section];
-    OpenServerFrame *frame = openserveritem.appInfoArray[indexPath.row];
-//    NSLog(@"cellHeight:%f", frame.cellHeight);
+    
+    NomalFrame *frame = listItemArray[indexPath.row];
     return frame.cellHeight;
+//    OpenServerItem *openserveritem = listItemArray[indexPath.section];
+//    OpenServerFrame *frame = openserveritem.appInfoArray[indexPath.row];
+////    NSLog(@"cellHeight:%f", frame.cellHeight);
+//    return frame.cellHeight;
 }
 
 -(CGFloat)tableView:(UITableView *) tableView heightForHeaderInSection:(NSInteger)section{
@@ -176,20 +185,20 @@
     //        return 0.1;
     //    }
     
-    return 10;
+    return 0.1;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     return nil;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    OpenServerItem *openserveritem = listItemArray[section];
-    OpenServerHeaderView *header = [OpenServerHeaderView headerWithTableView:tableView];
-    
-    [header setTitleContent:openserveritem.openServerTime];
-    return header;
-}
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    OpenServerItem *openserveritem = listItemArray[section];
+//    OpenServerHeaderView *header = [OpenServerHeaderView headerWithTableView:tableView];
+//    
+//    [header setTitleContent:openserveritem.openServerTime];
+//    return header;
+//}
 
 -(void)requestTodayGame:(UIButton *)sender{
     [btnToday setTitleColor:SelectDateColor forState:UIControlStateNormal];
@@ -218,15 +227,28 @@
 }
 
 -(void)requestAppInfo{
-    OpenServerGameRequest *gameRequest = [[OpenServerGameRequest alloc] init];
-    [gameRequest requestOpenServerGame:^(NSMutableArray *opserverArray) {
-        listItemArray = opserverArray;
-//        NSLog(@"count:%lu", (unsigned long)listItemArray.count);
+    [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
+        //        NSLog(@"success dic:%@", dic);
+        listItemArray = result;
         [openserverTable reloadData];
+        
         [openserverTable.mj_header endRefreshing];
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+        NSLog(@"errorMsg:%@", errorMsg);
         
+        [openserverTable.mj_header endRefreshing];
     }];
+
+//    OpenServerGameRequest *gameRequest = [[OpenServerGameRequest alloc] init];
+//    [gameRequest requestOpenServerGame:^(NSMutableArray *opserverArray) {
+//        listItemArray = opserverArray;
+////        NSLog(@"count:%lu", (unsigned long)listItemArray.count);
+//        [openserverTable reloadData];
+//        [openserverTable.mj_header endRefreshing];
+//    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+//        
+//    }];
     
 }
 

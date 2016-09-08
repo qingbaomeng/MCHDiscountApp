@@ -11,7 +11,7 @@
 @implementation HomeGameInfo
 
 @synthesize gameID,recommend_status;
-@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,appDiscount;
+@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,appDiscount,openServerTime;
 
 -(id) init{
     if (self = [super init]) {
@@ -22,6 +22,7 @@
         introduction = @"";
         downloadUrl = @"";
         appDiscount = @"";
+        openServerTime = @"";
     }
     return self;
 }
@@ -59,5 +60,8 @@
         downloadUrl = [dict objectForKey:@"and_dow_address"];
         //折扣
         appDiscount = [dict objectForKey:@"discount"];
+    
+    //开服时间
+    openServerTime = [dict objectForKey:@"开服时间"];
 }
 @end
