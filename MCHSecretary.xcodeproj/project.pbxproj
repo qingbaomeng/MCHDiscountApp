@@ -58,6 +58,7 @@
 		5A74C33B1D76D9E600CBC262 /* tabbtn_help_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */; };
 		5A74C33C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */; };
 		5A74C33D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */; };
+		5AD614841D812FEE005E9406 /* apprepair.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD614831D812FEE005E9406 /* apprepair.png */; };
 		5AE061B71D7FF25D0032189F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061AD1D7FF25D0032189F /* FMDatabase.m */; };
 		5AE061B81D7FF25D0032189F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061AF1D7FF25D0032189F /* FMDatabaseAdditions.m */; };
 		5AE061B91D7FF25D0032189F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061B11D7FF25D0032189F /* FMDatabasePool.m */; };
@@ -68,6 +69,7 @@
 		5AE061C41D7FF2C40032189F /* InstallAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061C31D7FF2C40032189F /* InstallAppInfo.m */; };
 		5AE061C71D7FFF450032189F /* InstallAppFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061C61D7FFF450032189F /* InstallAppFrame.m */; };
 		5AE061CD1D8001320032189F /* InstallAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061CC1D8001320032189F /* InstallAppCell.m */; };
+		5AE061D01D8019DA0032189F /* DeviceAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061CF1D8019DA0032189F /* DeviceAppInfo.m */; };
 		5AE3D34B1D752CF100EBD9D9 /* OpenServerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D34A1D752CF100EBD9D9 /* OpenServerEntity.m */; };
 		5AE3D34E1D7564FB00EBD9D9 /* InstallAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D34D1D7564FB00EBD9D9 /* InstallAppViewController.m */; };
 		5AE3D3511D75733500EBD9D9 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D3501D75733500EBD9D9 /* FileUtils.m */; };
@@ -293,6 +295,7 @@
 		5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_select@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_select@3x.png"; sourceTree = "<group>"; };
 		5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@2x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@2x.png"; sourceTree = "<group>"; };
 		5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@3x.png"; sourceTree = "<group>"; };
+		5AD614831D812FEE005E9406 /* apprepair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apprepair.png; path = Images/apprepair.png; sourceTree = "<group>"; };
 		5AE061AC1D7FF25D0032189F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = FMDB/FMDatabase.h; sourceTree = "<group>"; };
 		5AE061AD1D7FF25D0032189F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = FMDB/FMDatabase.m; sourceTree = "<group>"; };
 		5AE061AE1D7FF25D0032189F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = FMDB/FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 		5AE061C61D7FFF450032189F /* InstallAppFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstallAppFrame.m; path = Frame/InstallAppFrame.m; sourceTree = "<group>"; };
 		5AE061CB1D8001320032189F /* InstallAppCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallAppCell.h; sourceTree = "<group>"; };
 		5AE061CC1D8001320032189F /* InstallAppCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstallAppCell.m; sourceTree = "<group>"; };
+		5AE061CE1D8019DA0032189F /* DeviceAppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceAppInfo.h; path = Entity/DeviceAppInfo.h; sourceTree = "<group>"; };
+		5AE061CF1D8019DA0032189F /* DeviceAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceAppInfo.m; path = Entity/DeviceAppInfo.m; sourceTree = "<group>"; };
 		5AE3D3491D752CF100EBD9D9 /* OpenServerEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenServerEntity.h; path = Entity/OpenServerEntity.h; sourceTree = "<group>"; };
 		5AE3D34A1D752CF100EBD9D9 /* OpenServerEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenServerEntity.m; path = Entity/OpenServerEntity.m; sourceTree = "<group>"; };
 		5AE3D34C1D7564FB00EBD9D9 /* InstallAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallAppViewController.h; sourceTree = "<group>"; };
@@ -917,6 +922,7 @@
 		B7E758BD1D5836D7008C7ED8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5AD614831D812FEE005E9406 /* apprepair.png */,
 				5AF626AF1D7D6F1F00A3786F /* clear_btn.png */,
 				5AED70FC1D7D4A0500B19FD5 /* detail_zhekou.png */,
 				5AED70F81D7D49DB00B19FD5 /* btn_clear.png */,
@@ -1095,6 +1101,8 @@
 				5A5E0E441D782E3500E60A46 /* OpenServerPostion.m */,
 				5AE061C21D7FF2C40032189F /* InstallAppInfo.h */,
 				5AE061C31D7FF2C40032189F /* InstallAppInfo.m */,
+				5AE061CE1D8019DA0032189F /* DeviceAppInfo.h */,
+				5AE061CF1D8019DA0032189F /* DeviceAppInfo.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -1352,6 +1360,7 @@
 				5A5E0E261D7816AB00E60A46 /* xiu.png in Resources */,
 				5A5E0E201D7816AB00E60A46 /* nav_back@2x.png in Resources */,
 				B7E759921D5DB043008C7ED8 /* choice_search.png in Resources */,
+				5AD614841D812FEE005E9406 /* apprepair.png in Resources */,
 				5A5E0E211D7816AB00E60A46 /* nav_back@3x.png in Resources */,
 				5A74C32F1D76D9E600CBC262 /* barBtn_home_select@3x.png in Resources */,
 				5AED70FA1D7D49DB00B19FD5 /* btn_clear.png in Resources */,
@@ -1468,6 +1477,7 @@
 				5AE86AD61D77DF1200A01AB1 /* FeedBackViewController.m in Sources */,
 				B7EBFBC21D66DD740038A06E /* DetailDescribeView.m in Sources */,
 				B7E758FB1D587DFE008C7ED8 /* MJRefreshAutoNormalFooter.m in Sources */,
+				5AE061D01D8019DA0032189F /* DeviceAppInfo.m in Sources */,
 				5AE86AD31D77DEA300A01AB1 /* WebViewController.m in Sources */,
 				5AE522891D6E7FDD001AE3A5 /* CommentStarCell.m in Sources */,
 				B78FA1EA1D5329B30092A043 /* TopSearchView.m in Sources */,

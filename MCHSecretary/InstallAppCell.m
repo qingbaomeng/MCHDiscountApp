@@ -128,7 +128,7 @@
     
     self.lblDescribe.text = info.gameDescribe;
     
-    [self.btnDownload setBackgroundImage:[UIImage imageNamed:@"appinstall"] forState:UIControlStateNormal];
+    [self.btnDownload setBackgroundImage:[UIImage imageNamed:@"apprepair.png"] forState:UIControlStateNormal];
     self.btnDownload.tag = index;
     [self.btnDownload addTarget:self action:@selector(downloadApp:) forControlEvents:UIControlEventTouchUpInside];
     

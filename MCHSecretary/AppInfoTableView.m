@@ -162,9 +162,22 @@
     appInfo.gameType = frame.packetInfo.appType;
     appInfo.gameDescribe = frame.packetInfo.appDescribe;
     appInfo.gameDiscount = frame.packetInfo.appDiscount;
-    appInfo.gameBundleId = @"com.test";
+    appInfo.gameBundleId = @"com.dell.MCHShop";
+//    if(
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [appInfo save];
+        NSArray *allInstalled = [InstallAppInfo findAll];
+        BOOL isHave = false;
+        for (int i = 0; i < allInstalled.count; i++) {
+            InstallAppInfo *info = allInstalled[i];
+            NSLog(@"");
+            if([appInfo.gameBundleId isEqualToString:info.gameBundleId]){
+                isHave = true;
+                break;
+            }
+        }
+        if(!isHave){
+            [appInfo save];
+        }
     });
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];

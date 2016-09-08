@@ -57,7 +57,7 @@ DialogTipView *dialogView;
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
             long status = (long)httpResponse.statusCode;
             if(status >= 200 && status < 299) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self removeIndicatorView];
                     
                     NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
@@ -80,7 +80,7 @@ DialogTipView *dialogView;
                 });
             } else {
                 NSLog(@"[BaseNetManager] http response status : %ld",status);
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self removeIndicatorView];
                     
                     failureBlock(response, error, @{@"status":@"-1000", @"return_msg":NSLocalizedString(@"HTTPStatusException", @"")});
@@ -89,7 +89,7 @@ DialogTipView *dialogView;
             
         } else {
             NSLog(@"[BaseNetManager] error=%@",error);
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self removeIndicatorView];
                 
                 failureBlock(response, error, @{@"status":@"-1000", @"return_msg":NSLocalizedString(@"HTTPError", @"")});
@@ -120,7 +120,7 @@ DialogTipView *dialogView;
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
             long status = (long)httpResponse.statusCode;
             if(status >= 200 && status < 299) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
 //                    NSLog(@"[BaseNetManager] resultStr : %@", res);
                     if(![StringUtils isBlankString:res]){
@@ -140,7 +140,7 @@ DialogTipView *dialogView;
                 
             } else {
                 NSLog(@"[BaseNetManager] http response status : %ld",status);
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self removeIndicatorView];
                     
                     failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPStatusException", @"")});
@@ -148,7 +148,7 @@ DialogTipView *dialogView;
             }
         } else {
             NSLog(@"[BaseNetManager] error=%@",error);
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self removeIndicatorView];
                 
                 failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPError", @"")});

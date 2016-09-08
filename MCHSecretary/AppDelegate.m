@@ -7,6 +7,8 @@
 
 
 #import "AppDelegate.h"
+#import "CurrentAppUtils.h"
+
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 
@@ -30,6 +32,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [CurrentAppUtils updateInstalledAppBundleid];
     
     [SSUIShareActionSheetStyle setShareActionSheetStyle:ShareActionSheetStyleSimple];
     

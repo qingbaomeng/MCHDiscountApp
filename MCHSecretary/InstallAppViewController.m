@@ -21,6 +21,9 @@
 #import "InstallAppInfo.h"
 #import "InstallAppFrame.h"
 
+#import "CurrentAppUtils.h"
+#import "DeviceAppInfo.h"
+
 #define TopViewH 65
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
@@ -33,7 +36,10 @@
 @interface InstallAppViewController (){
     UIView *topview;
     UITableView *appInfoTable;
+    
     NSMutableArray *allIDarray;//手机安装所有软件的BundleID
+    
+    dispatch_group_t group;
 }
 
 @end
@@ -46,98 +52,28 @@
     [super viewDidLoad];
     
     listItemArray = [[NSMutableArray alloc] init];
+    allIDarray = [[NSMutableArray alloc] init];
+    
+    group = dispatch_group_create();
+    [self queryAllBundleId];
     
     [self addTopView];
     
     [self addScrollView];
-//    [self gainAPPInformationFromPhone];
-//    [self whetherDownLoad];
 }
-#pragma mark 获取手机内安装的程序
--(void)gainAPPInformationFromPhone
-{
-    Class LSApplicationWorkspace_class = objc_getClass("LSApplicationWorkspace");
-    NSObject* workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
-//    NSLog(@"apps: %@", [workspace performSelector:@selector(allApplications)]);
-   NSArray *array = [workspace performSelector:@selector(allApplications)];
-    for (NSString *app in array)
-    {
-        //获取BundleID
-        NSString *bundleid = [self getParseBundleIDString:app];
-        NSLog(@"%@",bundleid);
-        allIDarray = [NSMutableArray array];
-        [allIDarray addObject:bundleid];
-    }
-}
--(NSString *)getParseBundleIDString:(NSString *)description
-{
-    NSString *ret = @"";
-    NSString *target = [description description];
-    // iOS8.0 "LSApplicationProxy: com.apple.videos",
-    // iOS8.1 "<LSApplicationProxy: 0x898787998> com.apple.videos",
-    // iOS9.0 "<LSApplicationProxy: 0x145efbb0> com.apple.PhotosViewService <file:///Applications/PhotosViewService.app>"
-    if (target == nil)
-    {
-        return ret;
-    }
-    NSArray *arrObj = [target componentsSeparatedByString:@" "];
-    switch ([arrObj count])
-    {
-        case 2:// [iOS7.0 ~ iOS8.1)
-         case 3:// [iOS8.1 ~ iOS9.0)
-        {
-            ret = [arrObj lastObject];
-        }
-            break;
-            case 4:
-        {
-            ret = [arrObj objectAtIndex:2];
-        }
-            
-        default:
-            break;
-    }
-    return ret;
-}
+
 //通过包名打开应用
--(void)openAPPWithBundleID:(NSString *)bundleID
-{
-    Class lsawsc = objc_getClass("LSApplicationWorkspace");
-    NSObject* workspace = [lsawsc performSelector:NSSelectorFromString(@"defaultWorkspace")];
-    // iOS6 没有defaultWorkspace
-    if ([workspace respondsToSelector:NSSelectorFromString(@"openApplicationWithBundleID:")])
-    {
-        [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:bundleID];
-    }
-}
-#pragma mark 判断是否下载某个游戏
--(void)whetherDownLoad
-{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    NSArray *tapArr = [userDefaults objectForKey:@"BundleIDARR"];
-    
-    if (tapArr)
-    {
-        for (NSString *bundle in tapArr)
-        {
-            NSLog(@"%@",bundle);
-            
-            if ([allIDarray containsObject:bundle])
-            {
-                NSLog(@"软件已经下载，可以展示");
-            }
-            else
-            {
-                NSLog(@"点击过但是没有下载");
-            }
-        }
-    }
-    else
-    {
-        NSLog(@"数组不存在，还没有下载过");
-    }
-}
+//-(void)openAPPWithBundleID:(NSString *)bundleID
+//{
+//    Class lsawsc = objc_getClass("LSApplicationWorkspace");
+//    NSObject* workspace = [lsawsc performSelector:NSSelectorFromString(@"defaultWorkspace")];
+//    // iOS6 没有defaultWorkspace
+//    if ([workspace respondsToSelector:NSSelectorFromString(@"openApplicationWithBundleID:")])
+//    {
+//        [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:bundleID];
+//    }
+//}
+
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [super.navigationController setToolbarHidden:YES animated:TRUE];
@@ -148,6 +84,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void) queryAllBundleId{
+    
+    
+    dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
+        allIDarray = [[DeviceAppInfo findAll] mutableCopy];
+    });
+}
+
 
 -(void) addTopView{
     topview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, TopViewH)];
@@ -187,7 +132,7 @@
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"count:%ld", listItemArray.count);
+//    NSLog(@"count:%ld", listItemArray.count);
     return listItemArray.count;
 }
 
@@ -215,38 +160,27 @@
 }
 
 -(void) requestAppInfo{
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    dispatch_group_notify(group, dispatch_get_global_queue(0, 0), ^{
         [listItemArray removeAllObjects];
-        NSArray *infos =  [InstallAppInfo findAll];
-        NSLog(@"infos:%@", infos);
-        for (int i = 0; i < infos.count; i++) {
-            InstallAppInfo *info = infos[i];
-            InstallAppFrame *infoFrame = [[InstallAppFrame alloc] init];
-            [infoFrame setInstallAppInfo:info];
+        NSArray *infoArray =  [InstallAppInfo findAll];
+//        NSLog(@"infos:%ld", infoArray.count);
+        for (int i = 0; i < infoArray.count; i++) {
+            InstallAppInfo *info = infoArray[i];
+//            NSLog(@"infos:%@", info.gameBundleId);
             
-            [listItemArray addObject:infoFrame];
+            if([CurrentAppUtils isContainBundle:allIDarray bundleid:info.gameBundleId]){
+                InstallAppFrame *infoFrame = [[InstallAppFrame alloc] init];
+                [infoFrame setInstallAppInfo:info];
+                
+                [listItemArray addObject:infoFrame];
+            }
         }
-        NSLog(@"infos:%@", infos);
-//        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [appInfoTable reloadData];
             [appInfoTable.mj_header endRefreshing];
-//        });
-//    });
-    
-    
-    
-//    [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
-//        //        NSLog(@"success dic:%@", dic);
-//        listItemArray = result;
-//        [appInfoTable reloadData];
-//        
-//        [appInfoTable.mj_header endRefreshing];
-//    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-//        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
-//        NSLog(@"errorMsg:%@", errorMsg);
-//        
-//        [appInfoTable.mj_header endRefreshing];
-//    }];
+        });
+        
+    });
 }
 
 #pragma mark - DownloadAppDelegate

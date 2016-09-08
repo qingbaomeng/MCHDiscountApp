@@ -12,4 +12,8 @@
 
 +(NSString *) appVersion;
 
++(void) updateInstalledAppBundleid;
+
++(BOOL) isContainBundle:(NSMutableArray *)appInfo bundleid:(NSString *)bundleid;
+
 @end

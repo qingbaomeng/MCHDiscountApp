@@ -272,7 +272,7 @@
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@(%@) VALUES (%@);", tableName, keyString, valueString];
         res = [db executeUpdate:sql withArgumentsInArray:insertValues];
         self.pk = res?[NSNumber numberWithLongLong:db.lastInsertRowId].intValue:0;
-        NSLog(res?@"插入成功":@"插入失败");
+        //NSLog(res?@"插入成功":@"插入失败");
     }];
     return res;
 }
@@ -315,7 +315,7 @@
             NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@(%@) VALUES (%@);", tableName, keyString, valueString];
             BOOL flag = [db executeUpdate:sql withArgumentsInArray:insertValues];
             model.pk = flag?[NSNumber numberWithLongLong:db.lastInsertRowId].intValue:0;
-            NSLog(flag?@"插入成功":@"插入失败");
+            //NSLog(flag?@"插入成功":@"插入失败");
             if (!flag) {
                 res = NO;
                 *rollback = YES;
@@ -357,7 +357,7 @@
         NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = ?;", tableName, keyString, primaryId];
         [updateValues addObject:primaryValue];
         res = [db executeUpdate:sql withArgumentsInArray:updateValues];
-        NSLog(res?@"更新成功":@"更新失败");
+        //NSLog(res?@"更新成功":@"更新失败");
     }];
     return res;
 }
@@ -403,7 +403,7 @@
             NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@=?;", tableName, keyString, primaryId];
             [updateValues addObject:primaryValue];
             BOOL flag = [db executeUpdate:sql withArgumentsInArray:updateValues];
-            NSLog(flag?@"更新成功":@"更新失败");
+            //NSLog(flag?@"更新成功":@"更新失败");
             if (!flag) {
                 res = NO;
                 *rollback = YES;
@@ -428,7 +428,7 @@
         }
         NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = ?",tableName,primaryId];
         res = [db executeUpdate:sql withArgumentsInArray:@[primaryValue]];
-         NSLog(res?@"删除成功":@"删除失败");
+         //NSLog(res?@"删除成功":@"删除失败");
     }];
     return res;
 }
@@ -455,7 +455,7 @@
             
             NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = ?",tableName,primaryId];
             BOOL flag = [db executeUpdate:sql withArgumentsInArray:@[primaryValue]];
-             NSLog(flag?@"删除成功":@"删除失败");
+             //NSLog(flag?@"删除成功":@"删除失败");
             if (!flag) {
                 res = NO;
                 *rollback = YES;
@@ -475,7 +475,7 @@
         NSString *tableName = NSStringFromClass(self.class);
         NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ %@ ",tableName,criteria];
         res = [db executeUpdate:sql];
-        NSLog(res?@"删除成功":@"删除失败");
+        //NSLog(res?@"删除成功":@"删除失败");
     }];
     return res;
 }
@@ -500,7 +500,7 @@
         NSString *tableName = NSStringFromClass(self.class);
         NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@",tableName];
         res = [db executeUpdate:sql];
-        NSLog(res?@"清空成功":@"清空失败");
+        //NSLog(res?@"清空成功":@"清空失败");
     }];
     return res;
 }
@@ -508,7 +508,7 @@
 /** 查询全部数据 */
 + (NSArray *)findAll
 {
-     NSLog(@"jkdb---%s",__func__);
+     //NSLog(@"jkdb---%s",__func__);
     JKDBHelper *jkDB = [JKDBHelper shareInstance];
     NSMutableArray *users = [NSMutableArray array];
     [jkDB.dbQueue inDatabase:^(FMDatabase *db) {
