@@ -42,7 +42,7 @@ DialogTipView *dialogView;
     
     [self showIndicatorView];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@", urlpre, urlstr];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", URL, urlstr];
     // 一些特殊字符编码
     urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSURL *url = [NSURL URLWithString:urlString];

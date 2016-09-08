@@ -272,13 +272,12 @@
 }
 -(void)recomentBtnClick:(UIButton *)btn
 {
-    NSArray *arr = [NSArray arrayWithObjects:@"123",@"234",@"345",@"456", nil];
+    NSArray *arr = [NSArray arrayWithObjects:@"热门一",@"热门二",@"热门三",@"热门四", nil];
     searchKey = arr[btn.tag - 10];
     [self showSearchView];
     [searchField setText:searchKey];
     [self saveSearchKey];
     [self requestAppInfo];
-    
 }
 //添加搜索文字记录
 -(void) addSearchHistoary{

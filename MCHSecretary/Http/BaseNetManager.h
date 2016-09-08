@@ -10,7 +10,8 @@
 
 //#define urlpre @"http://a2.vlcms.com/sdk.php"
 //#define urlpre @"http://sdk.mlwed.com/sdk.php?s="
-#define urlpre @"https://iosdemo.vlcms.com"
+#define urlpre @"https://iosdemo.vlcms.com:8888"
+#define URL @"https://zhekou.vlcms.com"
 
 @interface BaseNetManager : NSObject{
 }

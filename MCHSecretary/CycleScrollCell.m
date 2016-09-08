@@ -67,7 +67,7 @@
     for (NSInteger i = 0; i < urlArray.count; i++) {
         NomalFrame *frame = urlArray[i];
         
-        [urlArrays addObject:frame.packetInfo.describeimageUrl];
+        [urlArrays addObject:frame.packetInfo.takeTransImageUrl];
     }
     
     [self.cycleScrollView setImageArray:urlArrays];

@@ -95,7 +95,7 @@
 }
 -(void)barImageTap
 {
- [Share shareWithTitle:@"这是title" ImageUrl:@"qq" Message:@"这是描述" URL:@"http://www.baidu.com" ViewControl:self];
+ [Share shareWithTitle:@"这是我们的软件名" ImageUrl:@"qq" Message:@"这是我们软件描述" URL:@"http://www.baidu.com" ViewControl:self];
 }
 -(void)showGame{
     [self setTopBtnStatus:NO];

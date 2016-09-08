@@ -10,17 +10,27 @@
 
 @interface AppPacketInfo : NSObject
 
+//id;Game_name;leen;Marking;game_size;game_type_name;Introduction;recommend_status;Discount
 
+//轮番图片URL
+@property(nonatomic,copy)NSString *takeTransImageUrl;
+
+//游戏id
+@property(nonatomic,assign)int gameID;
 //图片地址
-@property (nonatomic, copy) NSString *smallImageUrl;
+@property (nonatomic, copy) NSString *gameIconUrl;
 //应用名称
-@property (nonatomic, copy) NSString *packetName;
+@property (nonatomic, copy) NSString *gameName;
+//游戏标识
+@property(nonatomic,copy)NSString *gameBundleID;
 //应用包大小
 @property (nonatomic, copy) NSString *packetSize;
-//应用下载量
-@property (nonatomic, copy) NSString *appDownloadNum;
-//应用描述
-@property (nonatomic, copy) NSString *appDescribe;
+//游戏类型
+@property(nonatomic,copy)NSString *game_type_name;
+//游戏简介
+@property(nonatomic,copy)NSString *introduction;
+//推荐状态
+@property(nonatomic,assign)int recommend_status;
 //下载地址
 @property (nonatomic, copy) NSString *downloadUrl;
 
@@ -29,10 +39,6 @@
 @property (nonatomic, copy) NSString *largeImageUrl;
 //应用介绍地址
 @property (nonatomic, copy) NSString *describeimageUrl;
-//评论数
-@property (nonatomic, copy) NSString *commentNumber;
-//平均星级
-@property (nonatomic, assign) float starAverage;
 //图片介绍
 @property (nonatomic, copy) NSString *describeImages;
 

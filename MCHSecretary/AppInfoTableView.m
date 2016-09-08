@@ -31,7 +31,7 @@
 
 @implementation AppInfoTableView
 
-@synthesize listItemArray;
+@synthesize listItemArray,scrolImagesArray;
 
 -(instancetype) initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
@@ -44,6 +44,7 @@
 
 -(void) initData{
     listItemArray = [[NSMutableArray alloc] init];
+    scrolImagesArray = [[NSMutableArray alloc]init];
     
 }
 
@@ -83,29 +84,29 @@
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return listItemArray.count;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    ChoiceListItem *listitem = listItemArray[section];
+    
     //    NSLog(@"%ld, %ld", (long)section, (long)listitem.itemNumber);
-    if(listitem.cellType == CellStyle_Cycle){
+    if(section == 0){
         return 1;
     }
-    return listitem.appInfoArray.count;
+    return listItemArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChoiceListItem *listitem = listItemArray[indexPath.section];
-    if(listitem.cellType == CellStyle_Cycle){
+   
+    if(indexPath.section == 0){
         CycleScrollCell *cycleCell = [CycleScrollCell cellWithTableView:tableView];
         //        [cycleCell setScrollFrame:listitem.imageURLArray];
-        [cycleCell setScrollFrame:listitem.appInfoArray];
+        [cycleCell setScrollFrame:scrolImagesArray];
         [cycleCell setScrollViewDelegate:self];
         return cycleCell;
     }else{
         NomalCell *appcell = [NomalCell cellWithTableView:tableView];
-        NomalFrame *frame = listitem.appInfoArray[indexPath.row];
+        NomalFrame *frame = listItemArray[indexPath.row];
         [appcell setNomalFrame:frame section:indexPath.section pos:indexPath.row];
         appcell.delegate = self;
         
@@ -114,11 +115,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChoiceListItem *listitem = listItemArray[indexPath.section];
-    if(listitem.cellType == CellStyle_Cycle){
+    if(indexPath.section == 0){
         return TopViewHeight;
     }else{
-        NomalFrame *frame = listitem.appInfoArray[indexPath.row];
+        NomalFrame *frame = listItemArray[indexPath.row];
         return frame.cellHeight;
     }
 }
@@ -128,6 +128,15 @@
 }
 
 -(void) requestAppInfo{
+    
+    [[ChoiceCycleAppRequest alloc]getScrollViewInfo:^(NSMutableArray *array) {
+        
+        scrolImagesArray = array;
+        [appInfoTable reloadData];
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
     
     [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
         //        NSLog(@"success dic:%@", dic);
@@ -149,18 +158,18 @@
     if(listItemArray.count <= section){
         return;
     }
-    ChoiceListItem *listitem = listItemArray[section];;
+//    ChoiceListItem *listitem = listItemArray[section];;
+    NomalFrame *frame = [listItemArray objectAtIndex:index];
     
-    NomalFrame *frame = [listitem.appInfoArray objectAtIndex:index];
     NSString *downUrl = frame.packetInfo.downloadUrl;
     NSLog(@"%ld_url: %@", (long)index, downUrl);
     
     InstallAppInfo *appInfo = [[InstallAppInfo alloc] init];
-    appInfo.iconUrl = frame.packetInfo.smallImageUrl;
-    appInfo.gameName = frame.packetInfo.packetName;
+    appInfo.iconUrl = frame.packetInfo.gameIconUrl;
+    appInfo.gameName = frame.packetInfo.gameName;
     appInfo.gameSize = frame.packetInfo.packetSize;
     appInfo.gameType = frame.packetInfo.appType;
-    appInfo.gameDescribe = frame.packetInfo.appDescribe;
+    appInfo.gameDescribe = frame.packetInfo.introduction;
     appInfo.gameDiscount = frame.packetInfo.appDiscount;
     appInfo.gameBundleId = @"com.dell.MCHShop";
 //    if(

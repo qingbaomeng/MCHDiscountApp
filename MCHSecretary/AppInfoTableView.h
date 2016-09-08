@@ -24,9 +24,8 @@ UITableViewDataSource,
 DownloadAppDelegate,
 CycleScrollItemDelegate
 >
-
 @property (strong, nonatomic) NSMutableArray *listItemArray;
-
+@property (strong, nonatomic) NSMutableArray *scrolImagesArray;
 @property (nonatomic, assign) id<AppInfoDelegate> delegate;
 
 -(void) requestAppInfo;

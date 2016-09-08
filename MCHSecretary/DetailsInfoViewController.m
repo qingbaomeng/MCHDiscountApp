@@ -122,9 +122,9 @@
     {
         [Share shareWithTitle:@"这是title" ImageUrl:@"qq" Message:@"这是描述" URL:@"http://www.baidu.com" ViewControl:self];
     }
-    else
+    if (button.tag == 3)
     {
-        NSLog(@"下载");
+        NSLog(@"下载/打开软件");
     }
 }
 -(void)addDownButton
@@ -164,9 +164,11 @@
     if(nil == info){
         return;
     }
-    [appSmallIcon sd_setImageWithURL:[NSURL URLWithString:info.smallImageUrl] placeholderImage:nil];
-    [appName setText:info.packetName];
-    CGSize nameSize = [StringUtils sizeWithString:info.packetName font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake([[UIScreen mainScreen] bounds].size.width - 160, 42)];
+    [appSmallIcon sd_setImageWithURL:[NSURL URLWithString:info.gameIconUrl] placeholderImage:nil];
+    [appName setText:info.gameName];
+    [_descriptLab setText:info.introduction];
+    [_zhekouBtn setTitle:info.appDiscount forState:UIControlStateNormal];
+    CGSize nameSize = [StringUtils sizeWithString:info.gameName font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake([[UIScreen mainScreen] bounds].size.width - 160, 42)];
     CGRect nameRect = appName.frame;
     nameRect.size = nameSize;
     appName.frame = nameRect;

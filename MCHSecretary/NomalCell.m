@@ -132,21 +132,22 @@
     AppPacketInfo * packInfo = self.nomalFrame.packetInfo;
     currentSection = section;
     
-    [self.ivAppIcon sd_setImageWithURL:[NSURL URLWithString:packInfo.smallImageUrl] placeholderImage:[UIImage imageNamed:@"tabbtn_choice_select"]];
+    [self.ivAppIcon sd_setImageWithURL:[NSURL URLWithString:packInfo.gameIconUrl] placeholderImage:[UIImage imageNamed:@"load_fail"]];
     
-    self.lblName.text = packInfo.packetName;
+    self.lblName.text = packInfo.gameName;
     
-    NSString *packetDown = [NSString stringWithFormat:@"%@%@", packInfo.appDownloadNum, NSLocalizedString(@"AppDownNumber", @"")];
+//    NSString *packetDown = [NSString stringWithFormat:@"%@%@", packInfo.appDownloadNum, NSLocalizedString(@"AppDownNumber", @"")];
+    NSString *type = [NSString stringWithFormat:@"%@",packInfo.game_type_name];
     NSString *packetSize = [NSString stringWithFormat:@"%@MB", packInfo.packetSize];
-    self.lblMiddle.text = [NSString stringWithFormat:@"%@ · %@", packetDown, packetSize];
+    self.lblMiddle.text = [NSString stringWithFormat:@"%@ | %@", packetSize , type];
     
-    self.lblDescribe.text = packInfo.appDescribe;
+    self.lblDescribe.text = packInfo.introduction;
     
     [self.btnDownload setBackgroundImage:[UIImage imageNamed:@"appinstall"] forState:UIControlStateNormal];
     self.btnDownload.tag = index;
     [self.btnDownload addTarget:self action:@selector(downloadApp:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.btnDownloadText setTitle:NSLocalizedString(@"AppDownload", @"") forState:UIControlStateNormal];
+//    [self.btnDownloadText setTitle:NSLocalizedString(@"AppDownload", @"") forState:UIControlStateNormal];
     
     if ([StringUtils isBlankString:packInfo.appDiscount]) {
         [self.btnDiscount setHidden:YES];

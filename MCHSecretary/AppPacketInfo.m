@@ -13,25 +13,25 @@
 
 @implementation AppPacketInfo
 
-@synthesize smallImageUrl, packetName, packetSize, appDescribe, appDownloadNum, downloadUrl;
-@synthesize largeImageUrl, describeimageUrl, commentNumber, starAverage, describeImages;
+@synthesize gameID,recommend_status;
+@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,takeTransImageUrl;
+@synthesize largeImageUrl, describeimageUrl, describeImages;
 @synthesize contentDescribe, updateLogs, versionInfo;
 @synthesize updateData, appType, language, developCompany, compatible, appDiscount;
 
 -(id) init{
     if (self = [super init]) {
-        smallImageUrl = @"";
-        packetName = @"";
+        gameIconUrl = @"";
+        gameName = @"";
         packetSize = @"";
-        appDownloadNum = @"";
-        appDescribe = @"";
+        game_type_name = @"";
+        introduction = @"";
         downloadUrl = @"";
         largeImageUrl = @"";
         describeimageUrl = @"";
-        commentNumber = @"";
-        starAverage = 0;
         describeImages = @"";
         appDiscount = @"";
+        takeTransImageUrl= @"";
     }
     return self;
 }
@@ -49,28 +49,38 @@
 
 -(void) setValuesByDic:(NSDictionary *)dict{
     
-    //图片地址
-    smallImageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"smalliconurl"]];
+    //轮番图片URL
+    takeTransImageUrl = [dict objectForKey:@"data"];
+    
+    //游戏id
+    gameID = [[dict objectForKey:@"id"] intValue];
     //应用名称
-    packetName = [NSString stringWithFormat:@"%@", [dict objectForKey:@"name"]];
+    gameName = [NSString stringWithFormat:@"%@", [dict objectForKey:@"game_name"]];
+    //图片地址
+    gameIconUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"icon"]];
+    //游戏标识
+    gameBundleID = [dict objectForKey:@"marking"];
     //应用包大小
-    packetSize = [NSString stringWithFormat:@"%@", [dict objectForKey:@"packetsize"]];
-    //应用下载量
-    appDownloadNum = [NSString stringWithFormat:@"%@", [dict objectForKey:@"downloadnum"]];
+    packetSize = [NSString stringWithFormat:@"%@", [dict objectForKey:@"game_size"]];
+    //游戏类型
+    game_type_name = [dict objectForKey:@"game_type_name"];
     //应用描述
-    appDescribe = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describe"]];
+    introduction = [NSString stringWithFormat:@"%@", [dict objectForKey:@"introduction"]];
+    //推荐状态(0不推荐；1推荐；2热门；3最新)
+    recommend_status = [[dict objectForKey:@"recommend_status"] intValue];
+
+    
+    
+    
+//    //应用下载量
+//    appDownloadNum = [NSString stringWithFormat:@"%@", [dict objectForKey:@"downloadnum"]];
+    
     //下载地址
     downloadUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"downloadurl"]];
     //图片地址
     largeImageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"largeiconurl"]];
     //应用介绍图片地址
     describeimageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describeurl"]];
-    //评论数
-    commentNumber = [NSString stringWithFormat:@"%@", [dict objectForKey:@"commentnmber"]];
-    //平均星级
-    NSString *starStr = [NSString stringWithFormat:@"%@", [dict objectForKey:@"staraverage"]];
-    starAverage = [starStr floatValue];
-    
     describeImages = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describeimages"]];
     
     contentDescribe = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describecontent"]];
@@ -83,7 +93,8 @@
     developCompany = [NSString stringWithFormat:@"%@", [dict objectForKey:@"developcompany"]];
     compatible = [NSString stringWithFormat:@"%@", [dict objectForKey:@"compatible"]];
     
-    NSString *resultDiscount = checkNull([dict objectForKey:@"discount"]);
+    //折扣
+    NSString *resultDiscount = checkNull([dict objectForKey:@"Discount"]);
     if(![StringUtils isBlankString:resultDiscount]){
         appDiscount = [NSString stringWithFormat:@"%@", resultDiscount];
     }else{
@@ -91,13 +102,12 @@
     }
 }
 
--(NSString *)appDownloadNum{
-    float downNum = [appDownloadNum floatValue];
-    if(downNum >= 10000){
-        float w = downNum / 10000;
-        return [NSString stringWithFormat:@"%.1f%@", w, NSLocalizedString(@"DownLoadUnit", @"")];
-    }
-    return appDownloadNum;
-}
-
+//-(NSString *)appDownloadNum{
+//    float downNum = [appDownloadNum floatValue];
+//    if(downNum >= 10000){
+//        float w = downNum / 10000;
+//        return [NSString stringWithFormat:@"%.1f%@", w, NSLocalizedString(@"DownLoadUnit", @"")];
+//    }
+//    return appDownloadNum;
+//}
 @end

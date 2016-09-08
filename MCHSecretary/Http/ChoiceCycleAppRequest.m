@@ -18,14 +18,38 @@
 #define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 
 #define cycleappinfourl @"/appinfo.html"
+#define allGameInfoUrl @"/app.php/server/get_game_list"
+#define takeTransUrl @"/app.php/server/rotation_img"
 
 @implementation ChoiceCycleAppRequest
 
+//轮番图
+-(void) getScrollViewInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+    
+    [[BaseNetManager sharedInstance] get:takeTransUrl success:^(NSDictionary *dic) {
+        //临时测试
+        
+        NSMutableArray *result = [self dictToArray:dic];
+        resultBlock(result);
+        
+        } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
+        failureBlock(response, error, dic);
+    }];
+    
+}
+
 -(void) getCycleAppInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
-    [[BaseNetManager sharedInstance] get:cycleappinfourl success:^(NSDictionary *dic) {
+    [[BaseNetManager sharedInstance] get:allGameInfoUrl success:^(NSDictionary *dic) {
+        //临时测试
+        
+        NSMutableArray *result = [self dicToArray:dic];
+        resultBlock(result);
+        
 //        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
-        NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
+        /*
+               NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){
             NSMutableArray *result = [self dicToArray:dic];
             resultBlock(result);
@@ -37,47 +61,56 @@
             
             failureBlock(nil, nil, @{@"status":@"-1001", @"return_msg":errorMsg});
         }
-        
+          */
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
 //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
         failureBlock(response, error, dic);
     }];
     
 }
-
--(NSMutableArray *) dicToArray:(NSDictionary *)dic{
-    NSString *dataListStr = checkNull([dic objectForKey:@"data"]);
+-(NSMutableArray *) dictToArray:(NSDictionary *)dic{
     
-//    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
+     NSString *dataListStr = checkNull([dic objectForKey:@"data"]);
+     
+     //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
+     if(![StringUtils isBlankString:dataListStr]){
+     NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
+     return dataArray;
+     }
+     return nil;
+}
+//游戏列表
+-(NSMutableArray *) dicToArray:(NSDictionary *)dic{
+    /*
+     NSString *dataListStr = checkNull([dic objectForKey:@"data"]);
+     
+     //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
+     if(![StringUtils isBlankString:dataListStr]){
+     NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
+     return dataArray;
+     }
+     return nil;
+     */
+    
+    //临时测试
+    NSString *dataListStr = checkNull([dic objectForKey:@"list"]);
+    
+    //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
     if(![StringUtils isBlankString:dataListStr]){
-        NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
+        NSMutableArray *dataArray = [self getData:[dic objectForKey:@"list"]];
         return dataArray;
     }
     return nil;
 }
-
 -(NSMutableArray *) getData:(NSArray *)datas{
     if(datas && [datas count] > 0){
-        NSMutableArray *choiceitemArray = [NSMutableArray arrayWithCapacity:datas.count];
+        
+        NSMutableArray *array = [NSMutableArray array];
         for (int i = 0; i < [datas count]; i++) {
-            ChoiceListItem *choiceitem = [[ChoiceListItem alloc] init];
-            NSDictionary *dataDic = [datas objectAtIndex:i];
-            NSString *choiceType = [NSString stringWithFormat:@"%@", [dataDic objectForKey:@"type"]];
-            if([@"0" isEqualToString:choiceType]){
-                [choiceitem setCellType:CellStyle_Cycle];
-            }else if([@"1" isEqualToString:choiceType]){
-                [choiceitem setCellType:CellStyle_Nomal];
-            }else if([@"2" isEqualToString:choiceType]){
-                [choiceitem setCellType:CellStyle_Other];
-            }
-            [choiceitem setTitle:[NSString stringWithFormat:@"%@", [dataDic objectForKey:@"title"]]];
-            
-            NSMutableArray *itemArray = [self getItems:[dataDic objectForKey:@"list"]];
-            [choiceitem setAppInfoArray:itemArray];
-            
-            [choiceitemArray addObject:choiceitem];
+            NSMutableArray *itemArray = [self getItems:datas];
+            [array addObject:itemArray];
         }
-        return choiceitemArray;
+        return array;
     }else{
         return nil;
     }
