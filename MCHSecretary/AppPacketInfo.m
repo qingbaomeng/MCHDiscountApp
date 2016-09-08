@@ -14,7 +14,7 @@
 @implementation AppPacketInfo
 
 @synthesize gameID,recommend_status;
-@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,takeTransImageUrl;
+@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl;
 @synthesize largeImageUrl, describeimageUrl, describeImages;
 @synthesize contentDescribe, updateLogs, versionInfo;
 @synthesize updateData, appType, language, developCompany, compatible, appDiscount;
@@ -31,7 +31,6 @@
         describeimageUrl = @"";
         describeImages = @"";
         appDiscount = @"";
-        takeTransImageUrl= @"";
     }
     return self;
 }
@@ -49,8 +48,6 @@
 
 -(void) setValuesByDic:(NSDictionary *)dict{
     
-    //轮番图片URL
-    takeTransImageUrl = [dict objectForKey:@"data"];
     
     //游戏id
     gameID = [[dict objectForKey:@"id"] intValue];
@@ -68,8 +65,6 @@
     introduction = [NSString stringWithFormat:@"%@", [dict objectForKey:@"introduction"]];
     //推荐状态(0不推荐；1推荐；2热门；3最新)
     recommend_status = [[dict objectForKey:@"recommend_status"] intValue];
-
-    
     
     
 //    //应用下载量

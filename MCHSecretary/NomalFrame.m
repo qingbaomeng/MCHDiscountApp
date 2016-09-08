@@ -7,7 +7,7 @@
 //
 
 #import "NomalFrame.h"
-#import "AppPacketInfo.h"
+#import "HomeGameInfo.h"
 
 #import "StringUtils.h"
 
@@ -16,7 +16,7 @@
 
 @implementation NomalFrame
 
--(void) setPacketInfo:(AppPacketInfo *)packetInfo{
+-(void) setPacketInfo:(HomeGameInfo *)packetInfo{
 //    if(!packetInfo){
 //        return;
 //    }

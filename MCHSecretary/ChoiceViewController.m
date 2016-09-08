@@ -11,7 +11,7 @@
 #import "MJRefresh.h"
 
 #import "NomalFrame.h"
-#import "AppPacketInfo.h"
+#import "HomeGameInfo.h"
 #import "ChoiceHeadeView.h"
 #import "ChoiceListItem.h"
 #import "CycleScrollCell.h"

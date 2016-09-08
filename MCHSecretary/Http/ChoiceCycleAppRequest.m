@@ -12,7 +12,7 @@
 
 #import "ChoiceListItem.h"
 #import "NomalFrame.h"
-#import "AppPacketInfo.h"
+#import "HomeGameInfo.h"
 
 #import "TopCycleImage.h"
 
@@ -30,7 +30,7 @@
     
     [[BaseNetManager sharedInstance] get:takeTransUrl success:^(NSDictionary *dic) {
         //临时测试
-        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
+//        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
         NSMutableArray *result = [self cycleDictToArray:dic];
         resultBlock(result);
         
@@ -49,7 +49,7 @@
         NSMutableArray *result = [self dicToArray:dic];
         resultBlock(result);
         
-//        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
+        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
         /*
                NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){
@@ -100,8 +100,6 @@
     
 }
 
-
-
 //游戏列表
 -(NSMutableArray *) dicToArray:(NSDictionary *)dic{
     /*
@@ -132,7 +130,7 @@
         NSMutableArray *frameArray = [NSMutableArray arrayWithCapacity:lists.count];
         for (int i = 0; i < [lists count]; i++){
             NSDictionary *listDic = [lists objectAtIndex:i];
-            AppPacketInfo *packInfo = [AppPacketInfo packWithDict:listDic];
+            HomeGameInfo *packInfo = [HomeGameInfo infoWithDict:listDic];
             
             NomalFrame *frame = [[NomalFrame alloc] init];
             [frame setPacketInfo:packInfo];

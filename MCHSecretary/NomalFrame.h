@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class AppPacketInfo;
+@class HomeGameInfo;
 
 @interface NomalFrame : NSObject
 
-@property (nonatomic, strong) AppPacketInfo *packetInfo;
+@property (nonatomic, strong) HomeGameInfo *packetInfo;
 
 @property (nonatomic, assign) CGRect imageFrame;
 

@@ -13,7 +13,7 @@
 #import "ChoiceCycleAppRequest.h"
 
 #import "NomalFrame.h"
-#import "AppPacketInfo.h"
+#import "HomeGameInfo.h"
 #import "ChoiceHeadeView.h"
 #import "ChoiceListItem.h"
 #import "CycleScrollCell.h"
@@ -170,7 +170,7 @@
     appInfo.iconUrl = frame.packetInfo.gameIconUrl;
     appInfo.gameName = frame.packetInfo.gameName;
     appInfo.gameSize = frame.packetInfo.packetSize;
-    appInfo.gameType = frame.packetInfo.appType;
+    appInfo.gameType = frame.packetInfo.game_type_name;
     appInfo.gameDescribe = frame.packetInfo.introduction;
     appInfo.gameDiscount = frame.packetInfo.appDiscount;
     appInfo.gameBundleId = @"com.dell.MCHShop";

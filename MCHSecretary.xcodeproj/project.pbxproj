@@ -60,6 +60,7 @@
 		5A74C33D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */; };
 		5ABA29681D80F20B00B44ACE /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA29671D80F20B00B44ACE /* HttpEngine.m */; };
 		5ABA296A1D8105BE00B44ACE /* load_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA29691D8105BE00B44ACE /* load_fail.png */; };
+		5ABA296D1D81434F00B44ACE /* HomeGameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA296C1D81434F00B44ACE /* HomeGameInfo.m */; };
 		5AD614841D812FEE005E9406 /* apprepair.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD614831D812FEE005E9406 /* apprepair.png */; };
 		5AD614871D813A9E005E9406 /* TopCycleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD614861D813A9E005E9406 /* TopCycleImage.m */; };
 		5AE061B71D7FF25D0032189F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE061AD1D7FF25D0032189F /* FMDatabase.m */; };
@@ -301,6 +302,8 @@
 		5ABA29661D80F20B00B44ACE /* HttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpEngine.h; sourceTree = "<group>"; };
 		5ABA29671D80F20B00B44ACE /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
 		5ABA29691D8105BE00B44ACE /* load_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load_fail.png; sourceTree = "<group>"; };
+		5ABA296B1D81434F00B44ACE /* HomeGameInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeGameInfo.h; sourceTree = "<group>"; };
+		5ABA296C1D81434F00B44ACE /* HomeGameInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeGameInfo.m; sourceTree = "<group>"; };
 		5AD614831D812FEE005E9406 /* apprepair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apprepair.png; path = Images/apprepair.png; sourceTree = "<group>"; };
 		5AD614851D813A9E005E9406 /* TopCycleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopCycleImage.h; path = Entity/TopCycleImage.h; sourceTree = "<group>"; };
 		5AD614861D813A9E005E9406 /* TopCycleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopCycleImage.m; path = Entity/TopCycleImage.m; sourceTree = "<group>"; };
@@ -1094,6 +1097,8 @@
 		B7E759171D596CAD008C7ED8 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				5ABA296B1D81434F00B44ACE /* HomeGameInfo.h */,
+				5ABA296C1D81434F00B44ACE /* HomeGameInfo.m */,
 				B7E759181D596D4D008C7ED8 /* AppPacketInfo.h */,
 				B7E759191D596D4D008C7ED8 /* AppPacketInfo.m */,
 				B7E7595C1D5ACEE5008C7ED8 /* ChoiceListItem.h */,
@@ -1527,6 +1532,7 @@
 				5AE061BB1D7FF25D0032189F /* FMResultSet.m in Sources */,
 				B7E759621D5AFCC4008C7ED8 /* CycleScrollerView.m in Sources */,
 				5AF626A81D7D010100A3786F /* Share.m in Sources */,
+				5ABA296D1D81434F00B44ACE /* HomeGameInfo.m in Sources */,
 				B7E758F51D587DFE008C7ED8 /* MJRefreshAutoFooter.m in Sources */,
 				5AE3D3511D75733500EBD9D9 /* FileUtils.m in Sources */,
 				B7E759571D59874D008C7ED8 /* UIImageView+WebCache.m in Sources */,
