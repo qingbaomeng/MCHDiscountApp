@@ -29,7 +29,6 @@
 -(void) getScrollViewInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
     [[BaseNetManager sharedInstance] get:takeTransUrl success:^(NSDictionary *dic) {
-        //临时测试
 //        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
         NSMutableArray *result = [self cycleDictToArray:dic];
         resultBlock(result);
@@ -44,7 +43,6 @@
 -(void) getCycleAppInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
     [[BaseNetManager sharedInstance] get:allGameInfoUrl success:^(NSDictionary *dic) {
-        //临时测试
         
         NSMutableArray *result = [self dicToArray:dic];
         resultBlock(result);

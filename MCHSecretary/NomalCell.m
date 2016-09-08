@@ -8,7 +8,7 @@
 
 #import "NomalCell.h"
 
-#import "AppPacketInfo.h"
+#import "HomeGameInfo.h"
 #import "NomalFrame.h"
 #import "WebImage.h"
 #import "StringUtils.h"
@@ -129,7 +129,7 @@
 }
 
 -(void) setSubViewData:(NSInteger)section pos:(NSInteger)index{
-    AppPacketInfo * packInfo = self.nomalFrame.packetInfo;
+    HomeGameInfo * packInfo = self.nomalFrame.packetInfo;
     currentSection = section;
     
     [self.ivAppIcon sd_setImageWithURL:[NSURL URLWithString:packInfo.gameIconUrl] placeholderImage:[UIImage imageNamed:@"load_fail"]];
