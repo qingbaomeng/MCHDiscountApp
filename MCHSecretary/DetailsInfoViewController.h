@@ -10,15 +10,13 @@
 
 #import "AppPacketInfo.h"
 #import "CWStarRateView.h"
-#import "DetailSegmentView.h"
 #import "DetailDescribeView.h"
 #import "DetailCommentView.h"
 
 
 @interface DetailsInfoViewController : UIViewController
 <
-UIScrollViewDelegate,
-DetailSegmentDeleget
+UIScrollViewDelegate
 >
 
 {
@@ -40,8 +38,6 @@ DetailSegmentDeleget
 @property (weak, nonatomic) IBOutlet UILabel *appName;
 
 
-
-@property (weak, nonatomic) IBOutlet DetailSegmentView *segmentView;
 
 //@property (weak, nonatomic) IBOutlet UILabel *lblDescribe;
 //@property (weak, nonatomic) IBOutlet UILabel *lblUpdateRecord;

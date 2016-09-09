@@ -11,7 +11,11 @@
 
 @class HomeGameInfo;
 
+@class OpenServerEntity;
+
 @interface NomalFrame : NSObject
+
+@property(nonatomic,strong)OpenServerEntity *openServerInfo;
 
 @property (nonatomic, strong) HomeGameInfo *packetInfo;
 

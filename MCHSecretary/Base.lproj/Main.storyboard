@@ -180,14 +180,6 @@
                                                     <constraint firstAttribute="width" constant="90" id="xo2-ke-pj1"/>
                                                 </constraints>
                                             </imageView>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UO0-WZ-9Ef">
-                                                <rect key="frame" x="0.0" y="129" width="600" height="1"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
-                                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yzu-Td-e4D" customClass="DetailSegmentView">
-                                                <rect key="frame" x="0.0" y="130" width="600" height="39"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mrx-Nx-sgX">
                                                 <rect key="frame" x="525" y="0.0" width="70" height="80"/>
                                                 <constraints>
@@ -261,7 +253,6 @@
                         <outlet property="descriptLab" destination="Swh-lU-dM2" id="WUj-m5-Bqg"/>
                         <outlet property="detailScrollView" destination="PL6-eI-mX0" id="jbc-C5-mQZ"/>
                         <outlet property="infoView" destination="9o8-VD-F2A" id="035-Qz-SaP"/>
-                        <outlet property="segmentView" destination="Yzu-Td-e4D" id="dVx-Hv-6Va"/>
                         <outlet property="zhekouBtn" destination="Mrx-Nx-sgX" id="y7U-c4-4nQ"/>
                     </connections>
                 </viewController>

@@ -8,6 +8,7 @@
 
 #import "NomalCell.h"
 
+#import "OpenServerEntity.h"
 #import "HomeGameInfo.h"
 #import "NomalFrame.h"
 #import "WebImage.h"
@@ -108,14 +109,6 @@
         [self.contentView addSubview:btndown];
         self.btnDownload = btndown;
         
-//        UIButton *btndowntext = [[UIButton alloc] init];
-//        [btndowntext setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//        btndowntext.titleLabel.font = DescribeFont;
-//        btndowntext.titleLabel.numberOfLines = 1;
-//        btndowntext.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//        [self.contentView addSubview:btndowntext];
-//        self.btnDownloadText = btndowntext;
-        
         UIView *line = [[UIView alloc] init];
         line.backgroundColor = LineColor;
         [self.contentView addSubview:line];
@@ -140,7 +133,9 @@
 }
 
 -(void) setSubViewData:(NSInteger)section pos:(NSInteger)index{
+    
     HomeGameInfo * packInfo = self.nomalFrame.packetInfo;
+
     currentSection = section;
     
     [self.ivAppIcon sd_setImageWithURL:[NSURL URLWithString:packInfo.gameIconUrl] placeholderImage:[UIImage imageNamed:@"load_fail"]];
@@ -166,8 +161,6 @@
     self.btnDownload.tag = index;
     [self.btnDownload addTarget:self action:@selector(downloadApp:) forControlEvents:UIControlEventTouchUpInside];
     
-//    [self.btnDownloadText setTitle:NSLocalizedString(@"AppDownload", @"") forState:UIControlStateNormal];
-    
     if ([StringUtils isBlankString:packInfo.appDiscount]) {
         [self.btnDiscount setHidden:YES];
     }else{
@@ -188,16 +181,10 @@
     self.btnDownload.frame = self.nomalFrame.downloadFrame;
     self.btnDownloadText.frame = self.nomalFrame.downloadTextFrame;
     self.lineview.frame = self.nomalFrame.lineFrame;
+    
     self.timeLab.frame = self.nomalFrame.middleFrame;
 }
 
-//开服的游戏
--(void)viewForOpenServer
-{
-    [self.lblMiddle setHidden:YES];
-    [self.btnDownload setHidden:YES];
-    [self.timeLab setHidden:NO];
-}
 -(void) downloadApp:(UIButton *)sender{
 //    NSLog(@"%ld", (long)currentSection);
     NSInteger index = sender.tag;
@@ -207,12 +194,35 @@
 }
 
 
+-(void) openServerSetNomalFrame:(NomalFrame *)nomalFrame section:(NSInteger)section pos:(NSInteger)index
+{
+    _nomalFrame =nomalFrame;
+    [self openServerSetSubViewData:section pos:index];
+    [self setSubViewFrame];
+}
 
-
-
-
-
-
-
+-(void) openServerSetSubViewData:(NSInteger)section pos:(NSInteger)index{
+    
+    [self.btnDownload setHidden:YES];
+    
+    OpenServerEntity *openInfo = self.nomalFrame.openServerInfo;
+ 
+    currentSection = section;
+    
+    [self.ivAppIcon sd_setImageWithURL:[NSURL URLWithString:openInfo.smallImageUrl] placeholderImage:[UIImage imageNamed:@"load_fail"]];
+    
+    self.lblName.text = openInfo.packetName;
+    
+    if ([StringUtils isBlankString:openInfo.appDiscount]) {
+        [self.btnDiscount setHidden:YES];
+    }else{
+        NSString *leftdiscountStr = [NSString stringWithFormat:@"%@%@", openInfo.appDiscount, NSLocalizedString(@"AppDiscount", @"")];
+        [self.btnDiscount setTitle:leftdiscountStr forState:UIControlStateNormal];
+    }
+    
+    self.timeLab.text = [openInfo.openServerArray objectAtIndex:0];
+    
+    self.lblDescribe.text = openInfo.serverDesc;
+}
 
 @end

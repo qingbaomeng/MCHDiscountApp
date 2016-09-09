@@ -46,7 +46,7 @@
 
 @implementation DetailsInfoViewController
 
-@synthesize appSmallIcon, appName, detailScrollView, infoView, segmentView;
+@synthesize appSmallIcon, appName, detailScrollView, infoView;
 //@synthesize lblDescribe, lblVerision, lblUpdateRecord, txtDescribe, txtVerision, txtUpdateList;
 
 - (void)viewDidLoad {
@@ -86,7 +86,6 @@
     
 //    detailSegmentView = [[DetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 39)];
 //    detailSegmentView.delegate = self;
-    segmentView.delegate = self;
     
 }
 
@@ -207,9 +206,9 @@
 //    if(detailSegmentView){
 //        [detailSegmentView setSelectSegement:index];
 //    }
-    if(segmentView){
-        [segmentView setSelectSegement:index];
-    }
+//    if(segmentView){
+//        [segmentView setSelectSegement:index];
+//    }
     
     if(descView){
         [descView setHidden:YES];
@@ -227,7 +226,6 @@
         NSLog(@"init tuijian");
         
     }
-    
 }
 
 -(void) initCommentView{

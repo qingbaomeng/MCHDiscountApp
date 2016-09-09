@@ -10,18 +10,26 @@
 
 @interface OpenServerEntity : NSObject
 
+//游戏id
+@property(nonatomic,assign)int gameID;
 //应用名称
 @property (nonatomic, copy) NSString *packetName;
 //图片地址
 @property (nonatomic, copy) NSString *smallImageUrl;
-//服务器描述
-@property (nonatomic, copy) NSString *serverDesc;
+//类型名称
+@property(nonatomic,copy)NSString *game_type_name;
+//游戏简介
+@property (nonatomic, copy) NSString *gameDesc;
 //折扣
 @property (nonatomic, copy) NSString *appDiscount;
+//游戏大小
+@property(nonatomic,copy)NSString *gameSize;
 //开服信息
 @property (nonatomic, strong) NSArray *openServerArray;
-//折扣
+//下载地址
 @property (nonatomic, copy) NSString *downloadUrl;
+//区服
+@property(nonatomic,copy)NSString *serverDesc;
 
 - (id)initWithDict:(NSDictionary *)dict;
 

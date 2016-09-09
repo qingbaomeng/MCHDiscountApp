@@ -22,6 +22,7 @@
 #import "SearchOpenServerRequest.h"
 #import "SearchAppRequest.h"
 
+//#import "ChoiceCycleAppRequest.h"
 
 #define AppSearchHisFile @"appsearch.txt"
 #define OpenServerHisFile @"openserver.txt"
@@ -447,7 +448,8 @@
 //搜索app
 -(void) requestAppInfo{
     if(isSearchOpenServerGame){
-        [[[SearchOpenServerRequest alloc] init] searchOpenServerInfo:^(NSMutableArray *opserverArray) {
+        
+        [[[SearchOpenServerRequest alloc] init] search:@"修仙奇缘" FromOpenServerInfo:^(NSMutableArray *opserverArray) {
             [listsearchItemArray removeAllObjects];
             if(opserverArray != nil){
                 [listsearchItemArray addObjectsFromArray:opserverArray];

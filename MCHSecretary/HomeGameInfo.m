@@ -11,7 +11,7 @@
 @implementation HomeGameInfo
 
 @synthesize gameID,recommend_status;
-@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,appDiscount,openServerTime;
+@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,appDiscount,openServerTime,openServerInfomation;
 
 -(id) init{
     if (self = [super init]) {
@@ -23,6 +23,7 @@
         downloadUrl = @"";
         appDiscount = @"";
         openServerTime = @"";
+        openServerInfomation = @"";
     }
     return self;
 }
@@ -53,7 +54,7 @@
         //游戏类型
         game_type_name = [dict objectForKey:@"game_type_name"];
         //应用描述
-        introduction = [dict objectForKey:@"introduction"];
+        introduction = [dict objectForKey:@"features"];
         //推荐状态(0不推荐；1推荐；2热门；3最新)
         recommend_status = [[dict objectForKey:@"recommend_status"] intValue];
         //下载地址
@@ -63,5 +64,7 @@
     
     //开服时间
     openServerTime = [dict objectForKey:@"开服时间"];
+    //开服信息
+    openServerInfomation = [dict objectForKey:@"开服信息"];
 }
 @end

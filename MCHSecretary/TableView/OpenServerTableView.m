@@ -22,9 +22,10 @@
 
 #import "OpenServerHeaderView.h"
 
-#import "ChoiceCycleAppRequest.h"
 #import "OpenServerGameRequest.h"
 #import "SearchViewController.h"
+
+#import "DetailsInfoViewController.h"
 
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
@@ -36,7 +37,6 @@
 #define LineColor GetColor(230,230,230,1.0)
 #define SelectDateColor GetColor(18,205,176,1.0)
 #define NomalDateColor GetColor(0,0,0,1.0)
-#define TopBackColor GetColor(18,205,176,1.0)
 #define BackColor GetColor(162,235,224,1.0)
 #define TitleColor GetColor(200,200,200,1.0)
 #define AppNameColor GetColor(100,100,100,1.0)
@@ -80,6 +80,7 @@
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, SelectDateH - 1, kScreenWidth, 1)];
     [lineView setBackgroundColor:LineColor];
     [selectView addSubview:lineView];
+    
     UIView *backView = [[UIView alloc] initWithFrame:searchFrame];
     backView.layer.cornerRadius = 13;
     backView.layer.borderWidth = 1;
@@ -139,28 +140,18 @@
 
 #pragma mark - UITableViewDelegate
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return listItemArray.count;
-//}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    OpenServerItem *listitem = listItemArray[section];
-    
-//    NSInteger rowsCount = listitem.appInfoArray.count;
-//    int curCount = (short)rowsCount / 2;
-//    int temp = rowsCount % 2;
-//    if(temp > 0){
-//        curCount += 1;
-//    }
     return listItemArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NomalCell *appcell = [NomalCell cellWithTableView:tableView];
     
     NomalFrame *frame = listItemArray[indexPath.row];
-    [appcell setNomalFrame:frame section:indexPath.section pos:indexPath.row];
-    [appcell viewForOpenServer];
+    
+    [appcell openServerSetNomalFrame:frame section:indexPath.section pos:indexPath.row];
+
     return appcell;
 }
 
@@ -168,56 +159,18 @@
     
     NomalFrame *frame = listItemArray[indexPath.row];
     return frame.cellHeight;
-//    OpenServerItem *openserveritem = listItemArray[indexPath.section];
-//    OpenServerFrame *frame = openserveritem.appInfoArray[indexPath.row];
-////    NSLog(@"cellHeight:%f", frame.cellHeight);
-//    return frame.cellHeight;
 }
 
 -(CGFloat)tableView:(UITableView *) tableView heightForHeaderInSection:(NSInteger)section{
-    //    return 0.01;
-    //    ChoiceListItem *listitem = listItemArray[section];
-    //    if(listitem.cellType == CellStyle_Nomal){
-    //        return FloatingViewHeight;
-    //    }else if (listitem.cellType == CellStyle_Other){
-    //        return 20;
-    //    } else {
-    //        return 0.1;
-    //    }
-    
-    return 0.1;
+       return 0.1;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     return nil;
 }
-
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    OpenServerItem *openserveritem = listItemArray[section];
-//    OpenServerHeaderView *header = [OpenServerHeaderView headerWithTableView:tableView];
-//    
-//    [header setTitleContent:openserveritem.openServerTime];
-//    return header;
-//}
-
--(void)requestTodayGame:(UIButton *)sender{
-    [btnToday setTitleColor:SelectDateColor forState:UIControlStateNormal];
-    [btnTomorrow setTitleColor:NomalDateColor forState:UIControlStateNormal];
-    [selectLineView setFrame:CGRectMake(halfW - btnW, SelectDateH - 2, btnW, 2)];
-    
-    if(listItemArray == nil || listItemArray.count <= 0){
-        [self requestAppInfo];
-    }
-}
-
--(void)requestTomorrowGame:(UIButton *)sender{
-    [btnToday setTitleColor:NomalDateColor forState:UIControlStateNormal];
-    [btnTomorrow setTitleColor:SelectDateColor forState:UIControlStateNormal];
-    [selectLineView setFrame:CGRectMake(halfW, SelectDateH - 2, btnW, 2)];
-    
-    if(listItemArray == nil || listItemArray.count <= 0){
-        [self requestAppInfo];
-    }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showAppDetail:indexPath.section index:indexPath.row];
 }
 
 -(void)serachOpenServerApp:(UIButton *)sender{
@@ -227,32 +180,26 @@
 }
 
 -(void)requestAppInfo{
-    [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
-        //        NSLog(@"success dic:%@", dic);
-        listItemArray = result;
+
+    [[[OpenServerGameRequest alloc] init]requestOpenServerGame:^(NSMutableArray *opserverArray) {
+        listItemArray = opserverArray;
+        
         [openserverTable reloadData];
         
         [openserverTable.mj_header endRefreshing];
+
+        
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
         NSLog(@"errorMsg:%@", errorMsg);
         
         [openserverTable.mj_header endRefreshing];
-    }];
 
-//    OpenServerGameRequest *gameRequest = [[OpenServerGameRequest alloc] init];
-//    [gameRequest requestOpenServerGame:^(NSMutableArray *opserverArray) {
-//        listItemArray = opserverArray;
-////        NSLog(@"count:%lu", (unsigned long)listItemArray.count);
-//        [openserverTable reloadData];
-//        [openserverTable.mj_header endRefreshing];
-//    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-//        
-//    }];
+    }];
     
 }
 
-#pragma OpenServerSearchDelegate 
+#pragma OpenServerSearchDelegate
 
 -(void) showAppDetail:(NSInteger)section index:(NSInteger)index{
     NSLog(@"section:%ld, index:%ld", section, index);

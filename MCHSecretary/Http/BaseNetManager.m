@@ -101,17 +101,19 @@ DialogTipView *dialogView;
 
 -(void) httpPost:(NSString *)urlstr param:(NSString *)param success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     [self showIndicatorView];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@",urlpre,urlstr];
     
-    NSLog(@"[BaseNetManager] urlstr = %@", urlstr);
-//    NSLog(@"[BaseNetManager] param = %@", param);
-    NSURL *url = [NSURL URLWithString:urlstr];
+    NSURL *url = [NSURL URLWithString:strURL];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setTimeoutInterval:5];
     [request setHTTPMethod:@"POST"];
-    //    [request setTimeoutInterval:60];
-    //    [request  setHTTPBody:jsonData];
-    request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     
+    [request setValue:@"修仙奇缘" forHTTPHeaderField:@"gamename"];
+    request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+
+//    NSLog(@"%@",[param dataUsingEncoding:NSUTF8StringEncoding]);
     completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
         //             NSLog(@"response : %@", response);
         if (data && (error == nil)) {

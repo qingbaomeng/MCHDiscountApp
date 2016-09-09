@@ -13,16 +13,21 @@
 
 @implementation OpenServerEntity
 
-@synthesize packetName, smallImageUrl, serverDesc, appDiscount, openServerArray, downloadUrl;
+@synthesize gameID;
+@synthesize packetName, smallImageUrl, gameDesc, appDiscount, openServerArray, downloadUrl,gameSize,game_type_name,serverDesc;
 
 -(id) init{
     if (self = [super init]) {
         smallImageUrl = @"";
         packetName = @"";
-        serverDesc = @"";
+        gameDesc = @"";
         appDiscount = @"";
         downloadUrl = @"";
         openServerArray = [[NSArray alloc] init];
+        game_type_name = @"";
+        gameSize = @"";
+        gameID = 0;
+        serverDesc= @"";
     }
     return self;
 }
@@ -40,15 +45,26 @@
 
 -(void) setValuesByDic:(NSDictionary *)dict{
     
-    smallImageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"smalliconurl"]];
+    gameID = [[dict objectForKey:@"id"] intValue];
+    gameSize = [dict objectForKey:@"game_size"];
+    game_type_name = [dict objectForKey:@"game_type_name"];
+    smallImageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"icon"]];
 
-    packetName = [NSString stringWithFormat:@"%@", [dict objectForKey:@"name"]];
+    packetName = [NSString stringWithFormat:@"%@", [dict objectForKey:@"game_name"]];
     
-    NSString *resultDesc = checkNull([dict objectForKey:@"serverdesc"]);
+    NSString *resultDesc = checkNull([dict objectForKey:@"server_name"]);
     if(![StringUtils isBlankString:resultDesc]){
         serverDesc = [NSString stringWithFormat:@"%@", resultDesc];
     }else{
         serverDesc = @"";
+    }
+    NSLog(@"===%@",serverDesc);
+    
+    NSString *game = checkNull([dict objectForKey:@"features"]);
+    if(![StringUtils isBlankString:game]){
+        gameDesc = [NSString stringWithFormat:@"%@", game];
+    }else{
+        gameDesc = @"";
     }
 
     NSString *resultDiscount = checkNull([dict objectForKey:@"discount"]);
@@ -58,10 +74,10 @@
         appDiscount = @"";
     }
     
-    NSString *openserverStr = checkNull([dict objectForKey:@"openservertime"]);
+    NSString *openserverStr = checkNull([dict objectForKey:@"time"]);
     
     if(![StringUtils isBlankString:openserverStr]){
-        openServerArray = [openserverStr componentsSeparatedByString:@"_"];
+        openServerArray = [openserverStr componentsSeparatedByString:@"time"];
     }else{
         openServerArray = [[NSArray alloc] init];
     }

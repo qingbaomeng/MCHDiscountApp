@@ -145,7 +145,7 @@
     }
     
 }
-
+      
 -(void) setSubViewData:(NSInteger)index{
     OpenServerEntity * packInfo = self.openServerSearchFrame.packetInfo;
     
@@ -153,11 +153,11 @@
     
     self.lblName.text = packInfo.packetName;
     
-//    NSString *packetDown = [NSString stringWithFormat:@"%@%@", packInfo.appDownloadNum, NSLocalizedString(@"AppDownNumber", @"")];
-//    NSString *packetSize = [NSString stringWithFormat:@"%@MB", packInfo.packetSize];
-//    self.lblMiddle.text = [NSString stringWithFormat:@"%@ · %@", packetDown, packetSize];
+    NSString *packetDown = [NSString stringWithFormat:@"%@", packInfo.game_type_name];
+    NSString *packetSize = [NSString stringWithFormat:@"%@MB", packInfo.gameSize];
+    self.lblMiddle.text = [NSString stringWithFormat:@"%@ | %@", packetSize, packetDown];
     
-    self.lblDescribe.text = packInfo.serverDesc;
+    self.lblDescribe.text = packInfo.gameDesc;
     
     [self.btnDownload setBackgroundImage:[UIImage imageNamed:@"appinstall"] forState:UIControlStateNormal];
     self.btnDownload.tag = index;

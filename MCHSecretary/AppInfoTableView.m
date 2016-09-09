@@ -125,6 +125,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [_delegate showAppInfo];
 }
 
@@ -142,7 +143,7 @@
     ChoiceCycleAppRequest *appRequest = [[ChoiceCycleAppRequest alloc] init];
     [appRequest setLimit:[NSString stringWithFormat:@"%d", page]];
     [appRequest getCycleAppInfo:^(NSMutableArray *result) {
-        //        NSLog(@"success dic:%@", dic);
+//                NSLog(@"success dic:%@", result);
         listItemArray = result;
         [appInfoTable reloadData];
         

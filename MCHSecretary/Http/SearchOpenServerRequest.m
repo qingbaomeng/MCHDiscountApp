@@ -17,42 +17,44 @@
 
 #define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 
-#define searchopenserverurl @"/searchopenserver.html"
+#define searchopenserverurl @"/app.php/server/seach_game"
 
 
 @implementation SearchOpenServerRequest
 
--(void) searchOpenServerInfo:(void(^)(NSMutableArray * opserverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+-(void) search:(NSString *)gameName FromOpenServerInfo:(void(^)(NSMutableArray * opserverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
-    [[BaseNetManager sharedInstance] get:searchopenserverurl success:^(NSDictionary *dic) {
-        //        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
-        NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
-        if([@"1" isEqualToString:status]){
-            //            NSMutableArray *result = [self dicToArray:dic];
-            //            AppPacketInfo *appInfo = [self analysisJsonStrToClass:dic];
-            resultBlock([self dicToArray:dic]);
-        }else{
-            NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
-            if([StringUtils isBlankString:errorMsg]){
-                errorMsg = NSLocalizedString(@"HTTPDataException", @"");
-            }
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    [dic setObject:gameName forKey:@"gamename"];
+
+    NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *str=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+
+    [[BaseNetManager sharedInstance]httpPost:searchopenserverurl param:str success:^(NSDictionary *dic) {
+       int status = [dic[@"status"] intValue];
+        if (status == 1)
+        {
+            NSMutableArray *result = [self dicToArray:dic];
             
-            failureBlock(nil, nil, @{@"status":@"-1001", @"return_msg":errorMsg});
+            resultBlock(result);
         }
-        
+        else
+        {
+            NSLog(@"请求失败");
+        }
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
-        failureBlock(response, error, dic);
+        
+        NSLog(@"请求失败");
     }];
-    
 }
 
 -(NSMutableArray *) dicToArray:(NSDictionary *)dic{
-    NSString *dataListStr = checkNull([dic objectForKey:@"gamelist"]);
+    NSString *dataListStr = checkNull([dic objectForKey:@"list"]);
     
     //        NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
     if(![StringUtils isBlankString:dataListStr]){
-        NSMutableArray *dataArray = [self getData:[dic objectForKey:@"gamelist"]];
+        NSMutableArray *dataArray = [self getData:[dic objectForKey:@"list"]];
         return dataArray;
     }
     return nil;
@@ -74,7 +76,6 @@
     }else{
         return nil;
     }
-    
 }
 
 

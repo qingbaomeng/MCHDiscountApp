@@ -52,7 +52,7 @@ UIView *bgView;
 -(void)initAppDetail:(AppPacketInfo *)info{
     CGFloat ivScrollY = 0;
     UIScrollView *imageScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, ivScrollY, kScreenWidth, 304)];
-    imageScroll.backgroundColor = [UIColor clearColor];
+    imageScroll.backgroundColor = [UIColor cyanColor];
     imageScroll.scrollEnabled = YES;
     imageScroll.showsHorizontalScrollIndicator = NO;
     imageScroll.showsVerticalScrollIndicator = NO;
@@ -64,7 +64,7 @@ UIView *bgView;
     for (int i = 0; i < array.count; i++) {
         //        NSLog(@"image url(%d):%@", i, [array objectAtIndex:i]);
         UIImageView *ivDesc = [[UIImageView alloc] initWithFrame:CGRectMake(10 + (10 + 160) * i, 10, 160, 284)];
-        [ivDesc sd_setImageWithURL:array[i] placeholderImage:nil];
+        [ivDesc sd_setImageWithURL:array[i] placeholderImage:[UIImage imageNamed:@"load_fail"]];
         contentW = CGRectGetMaxX(ivDesc.frame) + 10;
         [imageScroll addSubview:ivDesc];
     }

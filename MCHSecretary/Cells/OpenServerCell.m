@@ -162,7 +162,7 @@
     [self.leftImageView sd_setImageWithURL:[NSURL URLWithString:leftApp.smallImageUrl] placeholderImage:nil];
     
     [self.leftNameText setText:leftApp.packetName];
-    [self.leftServerText setText:leftApp.serverDesc];
+    [self.leftServerText setText:leftApp.gameDesc];
     if ([StringUtils isBlankString:leftApp.appDiscount]) {
         [self.leftDiscountBtn setHidden:YES];
     }else{
@@ -178,7 +178,7 @@
         
         [self.rightImageView sd_setImageWithURL:[NSURL URLWithString:rightApp.smallImageUrl] placeholderImage:nil];
         [self.rightNameText setText:rightApp.packetName];
-        [self.rightServerText setText:rightApp.serverDesc];
+        [self.rightServerText setText:rightApp.gameDesc];
         if ([StringUtils isBlankString:rightApp.appDiscount]) {
             [self.rightDiscountBtn setHidden:YES];
         }else{

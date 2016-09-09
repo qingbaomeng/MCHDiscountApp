@@ -74,6 +74,7 @@
     [[BaseNetManager sharedInstance] get:allGameInfoUrl success:^(NSDictionary *dic) {
         
         NSMutableArray *result = [self dicToArray:dic];
+        
         resultBlock(result);
         
 //        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
