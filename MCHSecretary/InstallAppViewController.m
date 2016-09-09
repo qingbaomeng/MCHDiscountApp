@@ -112,6 +112,7 @@
     CGFloat posy = CGRectGetMaxY(topview.frame);
     CGFloat tableH = kScreenHeight - posy - 49;
     appInfoTable = [[UITableView alloc] initWithFrame:CGRectMake(0, posy, kScreenWidth, tableH)];
+    appInfoTable.separatorStyle = UITableViewCellSelectionStyleNone;
     appInfoTable.delegate = self;
     appInfoTable.dataSource = self;
     

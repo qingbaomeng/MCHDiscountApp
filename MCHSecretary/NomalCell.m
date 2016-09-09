@@ -147,10 +147,18 @@
     
     self.lblName.text = packInfo.gameName;
     
-//    NSString *packetDown = [NSString stringWithFormat:@"%@%@", packInfo.appDownloadNum, NSLocalizedString(@"AppDownNumber", @"")];
-    NSString *type = [NSString stringWithFormat:@"%@",packInfo.game_type_name];
-    NSString *packetSize = [NSString stringWithFormat:@"%@MB", packInfo.packetSize];
-    self.lblMiddle.text = [NSString stringWithFormat:@"%@ | %@", packetSize , type];
+    NSString *middleTxt = @"";
+    if(![StringUtils isBlankString:packInfo.packetSize]){
+        middleTxt = [middleTxt stringByAppendingString:[NSString stringWithFormat:@"%@B", packInfo.packetSize]];
+    }
+    if(![StringUtils isBlankString:packInfo.packetSize] &&
+       ![StringUtils isBlankString:packInfo.game_type_name]){
+        middleTxt = [middleTxt stringByAppendingString:@" | "];
+    }
+    if(![StringUtils isBlankString:packInfo.game_type_name]){
+        middleTxt = [middleTxt stringByAppendingString:packInfo.game_type_name];
+    }
+    self.lblMiddle.text = middleTxt;
     
     self.lblDescribe.text = packInfo.introduction;
     

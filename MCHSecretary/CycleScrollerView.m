@@ -28,6 +28,9 @@
     
     // 下载统计
     NSInteger totalCount;
+    
+    BOOL isShowSelf;
+    BOOL isFirstShow;
 }
 
 @end
@@ -52,6 +55,8 @@
 }
 
 -(void) addScrollView{
+    isShowSelf = YES;
+    isFirstShow = YES;
     currentPage = 0;
     totalPage = 0;
     rollingDelayTime = RollingTime;
@@ -238,8 +243,26 @@
     [self startRolling];
 }
 
+- (void)didMoveToWindow{
+    [super didMoveToWindow];
+    if(!isFirstShow){
+        isShowSelf = !isShowSelf;
+        if(isShowSelf && totalCount <= 0){
+            [self restartRolling];
+        }else{
+            [self stopRolling];
+        }
+    }
+    isFirstShow = NO;
+}
+
+-(void)didMoveToSuperview{
+    [super didMoveToSuperview];
+    isFirstShow = YES;
+}
+
 -(void)rollingScrollAction {
-//    NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
+//    NSLog(@"rollingScrollAction:%@", NSStringFromCGPoint(scrollView.contentOffset));
     [UIView animateWithDuration:0.25 animations:^{
         scrollView.contentOffset = CGPointMake(1.99 * scrollView.frame.size.width, 0);
     } completion:^(BOOL finished) {

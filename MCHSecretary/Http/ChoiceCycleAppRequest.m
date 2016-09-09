@@ -25,6 +25,17 @@
 
 @implementation ChoiceCycleAppRequest
 
+@synthesize gameName, gameServer, limit, type;
+
+-(instancetype) init{
+    if(self = [super init]){
+        gameName = @"";
+        gameServer = @"0";
+        type = @"0";
+        limit = @"1";
+    }
+    return self;
+}
 //轮番图
 -(void) getScrollViewInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
@@ -41,13 +52,31 @@
 }
 
 -(void) getCycleAppInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+    NSString *url = allGameInfoUrl;
+    if(![@"" isEqualToString:gameName]){
+        url = [url stringByAppendingString:@"/game_name/"];
+        url = [url stringByAppendingString:gameName];
+    }
+    if(![@"" isEqualToString:gameServer]){
+        url = [url stringByAppendingString:@"/game_server/"];
+        url = [url stringByAppendingString:gameServer];
+    }
+    if(![@"" isEqualToString:type]){
+        url = [url stringByAppendingString:@"/type/"];
+        url = [url stringByAppendingString:type];
+    }
+    if(![@"" isEqualToString:limit]){
+        url = [url stringByAppendingString:@"/limit/"];
+        url = [url stringByAppendingString:limit];
+    }
+    NSLog(@"[ChoiceCycleAppRequest] CycleAppInfo url : %@", url);
     
     [[BaseNetManager sharedInstance] get:allGameInfoUrl success:^(NSDictionary *dic) {
         
         NSMutableArray *result = [self dicToArray:dic];
         resultBlock(result);
         
-        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
+//        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
         /*
                NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){
@@ -77,7 +106,7 @@
          NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
          return dataArray;
      }
-     return nil;
+     return [[NSMutableArray alloc] init];
 }
 
 -(NSMutableArray *) getData:(NSArray *)datas{
@@ -93,33 +122,21 @@
         }
         return array;
     }else{
-        return nil;
+        return [[NSMutableArray alloc] init];
     }
     
 }
 
 //游戏列表
 -(NSMutableArray *) dicToArray:(NSDictionary *)dic{
-    /*
-     NSString *dataListStr = checkNull([dic objectForKey:@"data"]);
-     
-     //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
-     if(![StringUtils isBlankString:dataListStr]){
-     NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
-     return dataArray;
-     }
-     return nil;
-     */
-    
-    //临时测试
+//     NSLog(@"ChoiceCycleAppRequest# dic: %@", dic);
     NSString *dataListStr = checkNull([dic objectForKey:@"list"]);
     
-    //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
     if(![StringUtils isBlankString:dataListStr]){
         NSMutableArray *dataArray = [self getItems:[dic objectForKey:@"list"]];
         return dataArray;
     }
-    return nil;
+    return [[NSMutableArray alloc] init];
 }
 
 
@@ -137,7 +154,7 @@
         }
         return frameArray;
     }else{
-        return nil;
+        return [[NSMutableArray alloc] init];
     }
     
     

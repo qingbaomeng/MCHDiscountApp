@@ -15,10 +15,12 @@
 
 @end
 
+
 @interface CycleScrollerView : UIView<UIScrollViewDelegate>
 
 -(void) setImageArray:(NSMutableArray *)array;
 
 @property (nonatomic, weak) id<CycleScrollItemDelegate> delegate;
+
 
 @end

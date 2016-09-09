@@ -9,7 +9,7 @@
 #import "AppInfoTableView.h"
 
 #import "MJRefresh.h"
-
+#import "StringUtils.h"
 #import "ChoiceCycleAppRequest.h"
 
 #import "NomalFrame.h"
@@ -24,6 +24,7 @@
 
 @interface AppInfoTableView(){
     UITableView *appInfoTable;
+    int page;
 }
 
 
@@ -43,6 +44,7 @@
 }
 
 -(void) initData{
+    page = 1;
     listItemArray = [[NSMutableArray alloc] init];
     scrolImagesArray = [[NSMutableArray alloc]init];
     
@@ -55,7 +57,7 @@
     
     // 下拉刷新
     appInfoTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
+        page = 1;
         [self requestAppInfo];
     }];
     
@@ -71,11 +73,8 @@
 //    }];
     // 上拉刷新
     appInfoTable.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [appInfoTable.mj_footer endRefreshing];
-        });
+        page++;
+        [self loadMoreAppInfo];
     }];
     
     [self addSubview:appInfoTable];
@@ -140,7 +139,9 @@
         
     }];
     
-    [[[ChoiceCycleAppRequest alloc] init] getCycleAppInfo:^(NSMutableArray *result) {
+    ChoiceCycleAppRequest *appRequest = [[ChoiceCycleAppRequest alloc] init];
+    [appRequest setLimit:[NSString stringWithFormat:@"%d", page]];
+    [appRequest getCycleAppInfo:^(NSMutableArray *result) {
         //        NSLog(@"success dic:%@", dic);
         listItemArray = result;
         [appInfoTable reloadData];
@@ -154,6 +155,25 @@
     }];
 }
 
+-(void) loadMoreAppInfo{
+    
+    ChoiceCycleAppRequest *appRequest = [[ChoiceCycleAppRequest alloc] init];
+    [appRequest setLimit:[NSString stringWithFormat:@"%d", page]];
+    [appRequest getCycleAppInfo:^(NSMutableArray *result) {
+        //        NSLog(@"success dic:%@", dic);
+        listItemArray = result;
+        [listItemArray addObjectsFromArray:result];
+        [appInfoTable reloadData];
+        
+        [appInfoTable.mj_footer endRefreshing];
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+        NSLog(@"errorMsg:%@", errorMsg);
+        
+        [appInfoTable.mj_footer endRefreshing];
+    }];
+}
+
 #pragma mark - DownloadAppDelegate
 
 -(void) startDownloadApp:(NSInteger)section index:(NSInteger)index{
@@ -164,8 +184,12 @@
     NomalFrame *frame = [listItemArray objectAtIndex:index];
     
     NSString *downUrl = frame.packetInfo.downloadUrl;
-    NSLog(@"%ld_url: %@", (long)index, downUrl);
+//    NSLog(@"%ld_url: %@", (long)index, downUrl);
     
+    if([StringUtils isBlankString:downUrl]){
+        NSLog(@"download app url is null");
+        return;
+    }
     InstallAppInfo *appInfo = [[InstallAppInfo alloc] init];
     appInfo.iconUrl = frame.packetInfo.gameIconUrl;
     appInfo.gameName = frame.packetInfo.gameName;
@@ -173,14 +197,13 @@
     appInfo.gameType = frame.packetInfo.game_type_name;
     appInfo.gameDescribe = frame.packetInfo.introduction;
     appInfo.gameDiscount = frame.packetInfo.appDiscount;
-    appInfo.gameBundleId = @"com.dell.MCHShop";
+    appInfo.gameBundleId = frame.packetInfo.gameBundleID;
 //    if(
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSArray *allInstalled = [InstallAppInfo findAll];
         BOOL isHave = false;
         for (int i = 0; i < allInstalled.count; i++) {
             InstallAppInfo *info = allInstalled[i];
-            NSLog(@"");
             if([appInfo.gameBundleId isEqualToString:info.gameBundleId]){
                 isHave = true;
                 break;
