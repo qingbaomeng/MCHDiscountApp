@@ -58,7 +58,6 @@
 		5A74C33B1D76D9E600CBC262 /* tabbtn_help_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */; };
 		5A74C33C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */; };
 		5A74C33D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */; };
-		5ABA29681D80F20B00B44ACE /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA29671D80F20B00B44ACE /* HttpEngine.m */; };
 		5ABA296A1D8105BE00B44ACE /* load_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA29691D8105BE00B44ACE /* load_fail.png */; };
 		5ABA296D1D81434F00B44ACE /* HomeGameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA296C1D81434F00B44ACE /* HomeGameInfo.m */; };
 		5AD614841D812FEE005E9406 /* apprepair.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD614831D812FEE005E9406 /* apprepair.png */; };
@@ -116,6 +115,7 @@
 		5AEFAB3D1D6C47FE007DEADE /* ScoreLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEFAB3C1D6C47FE007DEADE /* ScoreLineView.m */; };
 		5AF626A81D7D010100A3786F /* Share.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF626A71D7D010100A3786F /* Share.m */; };
 		5AF626B01D7D6F1F00A3786F /* clear_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF626AF1D7D6F1F00A3786F /* clear_btn.png */; };
+		5AF655301D86AC200082339D /* HelpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6552F1D86AC200082339D /* HelpRequest.m */; };
 		5AF8A7701D791D1500DDF1B3 /* SearchOpenServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */; };
 		5AF8A7731D79309100DDF1B3 /* SearchAppRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8A7721D79309100DDF1B3 /* SearchAppRequest.m */; };
 		B76CAE331D5EC3C000A0D261 /* DetailsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76CAE321D5EC3C000A0D261 /* DetailsInfoViewController.m */; };
@@ -299,8 +299,6 @@
 		5A74C32B1D76D9E600CBC262 /* tabbtn_help_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_select@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_select@3x.png"; sourceTree = "<group>"; };
 		5A74C32C1D76D9E600CBC262 /* tabbtn_help_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@2x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@2x.png"; sourceTree = "<group>"; };
 		5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbtn_help_unselect@3x.png"; path = "Images/tabbaritemImages/tabbtn_help_unselect@3x.png"; sourceTree = "<group>"; };
-		5ABA29661D80F20B00B44ACE /* HttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpEngine.h; sourceTree = "<group>"; };
-		5ABA29671D80F20B00B44ACE /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
 		5ABA29691D8105BE00B44ACE /* load_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load_fail.png; sourceTree = "<group>"; };
 		5ABA296B1D81434F00B44ACE /* HomeGameInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeGameInfo.h; sourceTree = "<group>"; };
 		5ABA296C1D81434F00B44ACE /* HomeGameInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeGameInfo.m; sourceTree = "<group>"; };
@@ -398,6 +396,8 @@
 		5AF626A61D7D010100A3786F /* Share.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Share.h; sourceTree = "<group>"; };
 		5AF626A71D7D010100A3786F /* Share.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Share.m; sourceTree = "<group>"; };
 		5AF626AF1D7D6F1F00A3786F /* clear_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear_btn.png; sourceTree = "<group>"; };
+		5AF6552E1D86AC200082339D /* HelpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpRequest.h; sourceTree = "<group>"; };
+		5AF6552F1D86AC200082339D /* HelpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpRequest.m; sourceTree = "<group>"; };
 		5AF8A76E1D791D1500DDF1B3 /* SearchOpenServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchOpenServerRequest.h; path = Http/SearchOpenServerRequest.h; sourceTree = "<group>"; };
 		5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchOpenServerRequest.m; path = Http/SearchOpenServerRequest.m; sourceTree = "<group>"; };
 		5AF8A7711D79309100DDF1B3 /* SearchAppRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchAppRequest.h; path = Http/SearchAppRequest.h; sourceTree = "<group>"; };
@@ -1234,8 +1234,8 @@
 				5AF8A7721D79309100DDF1B3 /* SearchAppRequest.m */,
 				5AF8A76E1D791D1500DDF1B3 /* SearchOpenServerRequest.h */,
 				5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */,
-				5ABA29661D80F20B00B44ACE /* HttpEngine.h */,
-				5ABA29671D80F20B00B44ACE /* HttpEngine.m */,
+				5AF6552E1D86AC200082339D /* HelpRequest.h */,
+				5AF6552F1D86AC200082339D /* HelpRequest.m */,
 			);
 			name = Http;
 			sourceTree = "<group>";
@@ -1462,7 +1462,6 @@
 				B7E759021D587DFE008C7ED8 /* MJRefreshStateHeader.m in Sources */,
 				5AEFAB3D1D6C47FE007DEADE /* ScoreLineView.m in Sources */,
 				5AE061C71D7FFF450032189F /* InstallAppFrame.m in Sources */,
-				5ABA29681D80F20B00B44ACE /* HttpEngine.m in Sources */,
 				B7E759B11D5DC9A8008C7ED8 /* SearchViewController.m in Sources */,
 				5A5E0E3B1D78171F00E60A46 /* SVProgressHUD.m in Sources */,
 				B7E759001D587DFE008C7ED8 /* MJRefreshGifHeader.m in Sources */,
@@ -1528,6 +1527,7 @@
 				B7E758FF1D587DFE008C7ED8 /* MJRefreshBackStateFooter.m in Sources */,
 				5AE3D34E1D7564FB00EBD9D9 /* InstallAppViewController.m in Sources */,
 				5AE061BB1D7FF25D0032189F /* FMResultSet.m in Sources */,
+				5AF655301D86AC200082339D /* HelpRequest.m in Sources */,
 				B7E759621D5AFCC4008C7ED8 /* CycleScrollerView.m in Sources */,
 				5AF626A81D7D010100A3786F /* Share.m in Sources */,
 				5ABA296D1D81434F00B44ACE /* HomeGameInfo.m in Sources */,

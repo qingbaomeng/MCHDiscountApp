@@ -64,6 +64,7 @@
 
 -(void) initData{
     listItemArray = [[NSMutableArray alloc] init];
+     page = 1;
 }
 
 -(void) initView{
@@ -118,7 +119,7 @@
     
     // 下拉刷新
     openserverTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
+         page = 1;
         [self requestAppInfo];
     }];
     
@@ -129,13 +130,14 @@
     openserverTable.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            page++;
+            [self loadMoreAppInfo];
             // 结束刷新
-            [openserverTable.mj_footer endRefreshing];
+//            [openserverTable.mj_footer endRefreshing];
         });
     }];
     
     [self addSubview:openserverTable];
-    
 }
 
 #pragma mark - UITableViewDelegate
@@ -183,7 +185,10 @@
 
 -(void)requestAppInfo{
 
-    [[[OpenServerGameRequest alloc] init]requestOpenServerGame:^(NSMutableArray *opserverArray) {
+    OpenServerGameRequest *gameRequest = [[OpenServerGameRequest alloc] init];
+    
+    [gameRequest setLimit:[NSString stringWithFormat:@"%d", page]];
+    [gameRequest requestOpenServerGame:^(NSMutableArray *opserverArray) {
 
         listItemArray = opserverArray;
         
@@ -201,7 +206,28 @@
     }];
     
 }
-
+-(void)loadMoreAppInfo
+{
+    OpenServerGameRequest *gameRequest = [[OpenServerGameRequest alloc] init];
+    [gameRequest setLimit:[NSString stringWithFormat:@"%d", page]];
+    [gameRequest requestOpenServerGame:^(NSMutableArray *opserverArray) {
+        
+        listItemArray = opserverArray;
+        
+        [listItemArray addObjectsFromArray:opserverArray];
+        
+        [openserverTable reloadData];
+        
+        [openserverTable.mj_header endRefreshing];
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+        NSLog(@"errorMsg:%@", errorMsg);
+        
+        [openserverTable.mj_header endRefreshing];
+        
+    }];
+}
 #pragma OpenServerSearchDelegate
 
 -(void) showAppDetail:(NSInteger)section index:(NSInteger)index{

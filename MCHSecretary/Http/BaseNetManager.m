@@ -8,12 +8,12 @@
 
 #import "BaseNetManager.h"
 #import "DialogTipView.h"
-
+#import "CommonFunc.h"
 #import "StringUtils.h"
 
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
-
+#define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 //static AFHTTPSessionManager *httpManager = nil;
 void (^completionBlock)(NSData *data, NSURLResponse *response, NSError *error);
 
@@ -98,9 +98,73 @@ DialogTipView *dialogView;
     }];
     [dataTask resume];
 }
+- (void)noget:(NSString *)urlstr success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+    
+//    [self showIndicatorView];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", urlpre, urlstr];
+    // 一些特殊字符编码
+    urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];
+    
+    NSURLSession *sharedSession = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *dataTask = [sharedSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        //        NSLog(@"%@",[NSThread currentThread]);
+        if (data && (error == nil)) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            long status = (long)httpResponse.statusCode;
+            if(status >= 200 && status < 299) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self removeIndicatorView];
+                    
+                    NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+                    //                    NSLog(@"[BaseNetManager] resultStr : %@", res);
+                    if(![StringUtils isBlankString:res]){
+                        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        if(responseDictionary != nil){
+                            successblock(responseDictionary);
+                        }else{
+                            NSLog(@"[BaseNetManager] response json exception : %@", res);
+                            NSDictionary *resultDic = @{@"status":@"-1001", @"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
+                            failureBlock(response, error, resultDic);
+                        }
+                        
+                    }else{
+                        NSLog(@"[BaseNetManager] response is null : %@", res);
+                        NSDictionary *resultDic = @{@"status":@"-1001", @"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
+                        failureBlock(response, error, resultDic);
+                    }
+                });
+            } else {
+                NSLog(@"[BaseNetManager] http response status : %ld",status);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self removeIndicatorView];
+                    
+                    failureBlock(response, error, @{@"status":@"-1000", @"return_msg":NSLocalizedString(@"HTTPStatusException", @"")});
+                });
+            }
+            
+        } else {
+            NSLog(@"[BaseNetManager] error=%@",error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self removeIndicatorView];
+                
+                failureBlock(response, error, @{@"status":@"-1000", @"return_msg":NSLocalizedString(@"HTTPError", @"")});
+            });
+        }
+    }];
+    [dataTask resume];
+}
 
--(void) httpPost:(NSString *)urlstr gameName:(NSString *)gamename param:(NSString *)param success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+-(void) httpPost:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     [self showIndicatorView];
+    
+    NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *param=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+
     NSString *strURL = [NSString stringWithFormat:@"%@%@",urlpre,urlstr];
     
     NSURL *url = [NSURL URLWithString:strURL];
@@ -111,9 +175,7 @@ DialogTipView *dialogView;
     
     [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
 
-    request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
-    
-     [request setValue:gamename forHTTPHeaderField:@"gamename"];
+     request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
 
 //    NSLog(@"%@",[param dataUsingEncoding:NSUTF8StringEncoding]);
     completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
@@ -127,6 +189,77 @@ DialogTipView *dialogView;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
 //                    NSLog(@"[BaseNetManager] resultStr : %@", res);
+                    if(![StringUtils isBlankString:res]){
+                        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        if(responseDictionary != nil){
+                            successblock(responseDictionary);
+                            
+                        }else{
+                            NSLog(@"[BaseNetManager] resultStr : %@", res);
+                            NSDictionary *resultDic = @{@"status":@"-1001", @"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
+                            failureBlock(response, error, resultDic);
+                        }
+                    }else{
+                        NSDictionary *resultDic = @{@"status":@"-1",@"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
+                        successblock(resultDic);
+                    }
+                    [self removeIndicatorView];
+                });
+                
+            } else {
+                NSLog(@"[BaseNetManager] http response status : %ld",status);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self removeIndicatorView];
+                    
+                    failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPStatusException", @"")});
+                });
+            }
+        } else {
+            NSLog(@"[BaseNetManager] error=%@",error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self removeIndicatorView];
+                
+                failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPError", @"")});
+            });
+        }
+    };
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:completionBlock];
+    [task resume];
+}
+
+-(void) httpPostByEncryption:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+    [self showIndicatorView];
+    
+    NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *param=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSString *paramByEncode = [CommonFunc base64StringFromText:param];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@",urlpre,urlstr];
+    
+    NSURL *url = [NSURL URLWithString:strURL];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setTimeoutInterval:5.0];
+    [request setHTTPMethod:@"POST"];
+    
+    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    
+    request.HTTPBody = [paramByEncode dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //    NSLog(@"%@",[param dataUsingEncoding:NSUTF8StringEncoding]);
+    completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
+        //             NSLog(@"response : %@", response);
+        if (data && (error == nil)) {
+            NSLog(@"[BaseNetManager] data=%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            long status = (long)httpResponse.statusCode;
+            if(status >= 200 && status < 299) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+                    //                    NSLog(@"[BaseNetManager] resultStr : %@", res);
                     if(![StringUtils isBlankString:res]){
                         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                         if(responseDictionary != nil){

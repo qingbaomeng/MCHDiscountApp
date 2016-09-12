@@ -11,6 +11,7 @@
 @interface HelpViewController : UIViewController
 {
 UIView *topview;
+    NSDictionary *resultDict;
 }
 @property(nonatomic,retain)UILabel *lab;
 @end

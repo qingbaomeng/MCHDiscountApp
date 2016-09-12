@@ -24,6 +24,7 @@
     UIButton *btnToday;
     UIButton *btnTomorrow;
     UIView *selectLineView;
+    int page;
 }
 
 @property (strong, nonatomic) NSMutableArray *listItemArray;

@@ -12,6 +12,7 @@
 #import "TopSearchView.h"
 #import "MJRefresh.h"
 #import "FileUtils.h"
+#import "WebImage.h"
 
 #import "DetailsInfoViewController.h"
 #import "OpenServerSearchFrame.h"
@@ -76,13 +77,15 @@
 
 @implementation SearchViewController
 
-@synthesize listItemArray, listsearchItemArray;
+@synthesize listItemArray, listsearchItemArray,defaultItemArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     isAddRommentView = YES;
     searchKey = @"";
+    page = 1;
+    [self requestForRecommandApp];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -94,8 +97,10 @@
     appSearchHisArray = [[NSMutableArray alloc] init];
     listItemArray = [[NSMutableArray alloc] init];
     listsearchItemArray = [[NSMutableArray alloc] init];
+    defaultItemArray = [[NSMutableArray alloc]init];
     
     [self initSearchKey];
+    
     if ([searchKey isEqualToString:@""])
     {
         [self addTopView];
@@ -105,8 +110,24 @@
         [self showSearchView];
         [self requestAppInfo];
     }
-    
+
 }
+-(void)requestForRecommandApp
+{
+    [[[SearchAppRequest alloc]init]requstForDefaultGameserverInfo:^(NSMutableArray *array) {
+        [defaultItemArray addObjectsFromArray:array];
+        
+        if (isAddRommentView) {
+            [self addRecommentView:NO];
+        }else{
+            [self showSearchView];
+        }
+
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
+}
+
 //设置搜索开服游戏
 -(void) searchOpenServerGame{
     isSearchOpenServerGame = YES;
@@ -176,12 +197,6 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, searchY, searchH, searchH)];
     [imageView setImage:image];
     [btnSearchContent addSubview:imageView];
-    
-    if (isAddRommentView) {
-        [self addRecommentView:NO];
-    }else{
-        [self showSearchView];
-    }
 }
 
 //添加推荐区域
@@ -225,28 +240,35 @@
 
 //添加推荐游戏
 -(void) addRecommentApp:(UIView *)parentView posy:(CGFloat)posy{
-    
     CGFloat iconW = 60;
     CGFloat nameW = 20;
     CGFloat spaceW = (kScreenWidth - iconW * 4) / 5;
-    for (int i = 0; i < 4; i++) {
+    if (defaultItemArray.count < 4)
+    {
+        
+   
+    for (int i = 0; i < defaultItemArray.count; i++) {
         UIButton *btnRecoment = [[UIButton alloc] initWithFrame:CGRectMake(spaceW + (spaceW + iconW) * i, posy, iconW, iconW + nameW)];
         btnRecoment.tag = 10+i;
         [btnRecoment addTarget:self action:@selector(recomentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [parentView addSubview:btnRecoment];
         
         UIImageView *iconApp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iconW, iconW)];
-        [iconApp setImage:[UIImage imageNamed:@"appinstall.png"]];
+        
         [btnRecoment addSubview:iconApp];
         
         UILabel *lblRecomment = [[UILabel alloc] initWithFrame:CGRectMake(0, iconW + 2, iconW, 13)];
         [lblRecomment setFont:AppNameFont];
         [lblRecomment setTextColor:AppNameColor];
-        [lblRecomment setText:@"test"];
+        
         [lblRecomment setTextAlignment:NSTextAlignmentCenter];
         [btnRecoment addSubview:lblRecomment];
+        
+        OpenServerEntity *info = defaultItemArray[i];
+        [iconApp sd_setImageWithURL:[NSURL URLWithString:info.smallImageUrl] placeholderImage:[UIImage imageNamed:@"appinstall.png"]];
+        [lblRecomment setText:info.packetName];
     }
-
+ }
     UILabel *lblSearchHis = [[UILabel alloc] initWithFrame:CGRectMake(15, posy + iconW + nameW + 10, kScreenHeight, 15)];
     [lblSearchHis setFont:TitleFont];
     [lblSearchHis setTextColor:TitleColor];
@@ -270,8 +292,8 @@
 }
 -(void)recomentBtnClick:(UIButton *)btn
 {
-    NSArray *arr = [NSArray arrayWithObjects:@"热门一",@"热门二",@"热门三",@"热门四", nil];
-    searchKey = arr[btn.tag - 10];
+    OpenServerEntity *info = defaultItemArray[btn.tag - 10];
+    searchKey = info.packetName;
     [self showSearchView];
     [searchField setText:searchKey];
     [self saveSearchKey];
@@ -397,7 +419,25 @@
     appInfoTable.dataSource = self;
     appInfoTable.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);;
     
-    [self.view addSubview:appInfoTable];
+    // 下拉刷新
+    appInfoTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        page = 1;
+        [self requestAppInfo];
+    }];
+    
+    // 设置自动切换透明度(在导航栏下面自动隐藏)
+    appInfoTable.mj_header.automaticallyChangeAlpha = YES;
+    
+        appInfoTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                page++;
+                [self loadMore];
+                // 结束刷新
+//                [appInfoTable.mj_footer endRefreshing];
+            });
+        }];
+     [self.view addSubview:appInfoTable];
 }
 
 #pragma mark - UITableViewDelegate
@@ -454,12 +494,15 @@
     [self.navigationController pushViewController:detailsView animated:YES];
     isAddRommentView = NO;
 }
-
 //搜索app
 -(void) requestAppInfo{
+    if ([searchKey isEqualToString:@""])
+    {
+        return;
+    }
     if(isSearchOpenServerGame){
         
-        [[[SearchOpenServerRequest alloc] init] search:@"修仙奇缘" FromOpenServerInfo:^(NSMutableArray *opserverArray) {
+        [[[SearchOpenServerRequest alloc] init] search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
             [listsearchItemArray removeAllObjects];
             if(opserverArray != nil){
                 [listsearchItemArray addObjectsFromArray:opserverArray];
@@ -476,24 +519,26 @@
         return;
     }
     
-    [[[SearchAppRequest alloc] init] searchOpenServerInfo:^(NSMutableArray *result) {
-        //        NSLog(@"success dic:%@", dic);
+    [[[SearchAppRequest alloc] init]gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
         [listItemArray removeAllObjects];
-//        result = nil;
-        if(result != nil){
-            [listItemArray addObjectsFromArray:result];
+        //        result = nil;
+        if(serverArray != nil){
+            [listItemArray addObjectsFromArray:serverArray];
             [self addScrollView];
         }else{
             [self addRecommentView:YES];
         }
-        
+
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         [self addRecommentView:YES];
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
         NSLog(@"errorMsg:%@", errorMsg);
     }];
 }
+-(void)loadMore
+{
 
+}
 //显示搜索
 -(void)setSearchContent:(UIButton *)sender{
     [self showSearchView];

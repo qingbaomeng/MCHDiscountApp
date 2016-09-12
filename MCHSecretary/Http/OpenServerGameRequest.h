@@ -10,6 +10,8 @@
 
 @interface OpenServerGameRequest : NSObject
 
+@property (nonatomic, copy) NSString *limit;
+
 -(void) requestOpenServerGame:(void(^)(NSMutableArray * opserverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
 @end

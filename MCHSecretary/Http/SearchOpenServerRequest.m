@@ -27,15 +27,14 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
     [dic setObject:gameName forKey:@"gamename"];
+    [dic setObject:@"0" forKey:@"version"];
+    [dic setObject:@"0" forKey:@"limit"];
 
-    NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *str=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-
-    [[BaseNetManager sharedInstance]httpPost:searchopenserverurl gameName:gameName  param:str success:^(NSDictionary *dic) {
+    [[BaseNetManager sharedInstance]httpPost:searchopenserverurl datas:dic success:^(NSDictionary *dic) {
        int status = [dic[@"status"] intValue];
         if (status == 1)
         {
-            NSLog(@"====%@",dic);
+            NSLog(@"[SearchOpenServerRequest]====%@",dic);
             NSMutableArray *result = [self dicToArray:dic];
             
             resultBlock(result);

@@ -8,10 +8,12 @@
 
 #import "HomeGameInfo.h"
 
+#define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
+
 @implementation HomeGameInfo
 
 @synthesize gameID,recommend_status;
-@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,appDiscount,openServerTime,openServerInfomation;
+@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl,appDiscount;
 
 -(id) init{
     if (self = [super init]) {
@@ -22,8 +24,6 @@
         introduction = @"";
         downloadUrl = @"";
         appDiscount = @"";
-        openServerTime = @"";
-        openServerInfomation = @"";
     }
     return self;
 }
@@ -44,27 +44,22 @@
         //游戏id
         gameID = [[dict objectForKey:@"id"] intValue];
         //应用名称
-        gameName = [dict objectForKey:@"game_name"];
+        gameName = checkNull([dict objectForKey:@"game_name"]);
         //图片地址
-        gameIconUrl = [dict objectForKey:@"icon"];
+        gameIconUrl = checkNull([dict objectForKey:@"icon"]);
         //游戏标识
-        gameBundleID = [dict objectForKey:@"marking"];
+        gameBundleID = checkNull([dict objectForKey:@"marking"]);
         //应用包大小
-        packetSize = [dict objectForKey:@"game_size"];
+        packetSize = checkNull([dict objectForKey:@"game_size"]);
         //游戏类型
-        game_type_name = [dict objectForKey:@"game_type_name"];
+        game_type_name = checkNull([dict objectForKey:@"game_type_name"]);
         //应用描述
-        introduction = [dict objectForKey:@"features"];
+        introduction = checkNull([dict objectForKey:@"features"]);
         //推荐状态(0不推荐；1推荐；2热门；3最新)
         recommend_status = [[dict objectForKey:@"recommend_status"] intValue];
         //下载地址
-        downloadUrl = [dict objectForKey:@"and_dow_address"];
+        downloadUrl = checkNull([dict objectForKey:@"and_dow_address"]);
         //折扣
-        appDiscount = [dict objectForKey:@"discount"];
-    
-    //开服时间
-    openServerTime = [dict objectForKey:@"开服时间"];
-    //开服信息
-    openServerInfomation = [dict objectForKey:@"开服信息"];
+        appDiscount = checkNull([dict objectForKey:@"discount"]);
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "FeedBackViewController.h"
+#import "HelpRequest.h"
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -114,6 +115,21 @@ UITextField *textField;
         }
         else
         {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            
+            [dict setObject:textView.text forKey:@"content"];
+            
+            [dict setObject:textField.text forKey:@"title"];
+            
+            [dict setObject:@"0" forKey:@"type"];
+            
+           [[[HelpRequest alloc]init]postMessage:dict success:^(NSString *resultStr) {
+               
+                
+            } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+                
+            }];
+            
             alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"反馈信息发送成功" preferredStyle:UIAlertControllerStyleAlert];
             
             [self presentViewController:alertVC animated:YES completion:^{

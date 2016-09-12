@@ -167,9 +167,6 @@
         NSString *leftdiscountStr = [NSString stringWithFormat:@"%@%@", packInfo.appDiscount, NSLocalizedString(@"AppDiscount", @"")];
         [self.btnDiscount setTitle:leftdiscountStr forState:UIControlStateNormal];
     }
-    
-    self.timeLab.text = packInfo.openServerTime;
-    
 }
 
 -(void) setSubViewFrame{

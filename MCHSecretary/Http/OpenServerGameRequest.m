@@ -23,7 +23,12 @@
 @implementation OpenServerGameRequest
 
 -(void) requestOpenServerGame:(void(^)(NSMutableArray * opserverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
-    
+    NSString *url = appdetailinfourl;
+    if(![@"" isEqualToString:_limit]){
+        url = [url stringByAppendingString:@"/limit/"];
+        url = [url stringByAppendingString:_limit];
+    }
+    NSLog(@"[ChoiceCycleAppRequest] CycleAppInfo url : %@", url);
     [[BaseNetManager sharedInstance] get:appdetailinfourl success:^(NSDictionary *dic) {
         
         NSMutableArray *result = [self dicToArray:dic];

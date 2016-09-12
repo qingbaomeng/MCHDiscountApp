@@ -17,43 +17,44 @@
 
 #define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 
-#define searchopenserverurl @"/app.php/server/get_game_list"
+#define searchopenserverurl @"/app.php?s=/server/seach_game"
+#define defaultserverurl @"/app.php/server/default_search/version/0"
 
 @implementation SearchAppRequest
 
--(void) searchOpenServerInfo:(void(^)(NSMutableArray * opserverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+-(void)gamename:(NSString *)gameName serverInfo:(void(^)(NSMutableArray * serverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@",searchopenserverurl];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
-    [[BaseNetManager sharedInstance] get:strUrl success:^(NSDictionary *dic) {
-        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
-        NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
-        if([@"1" isEqualToString:status]){
-            //            NSMutableArray *result = [self dicToArray:dic];
-            //            AppPacketInfo *appInfo = [self analysisJsonStrToClass:dic];
-            resultBlock([self dicToArray:dic]);
-        }else{
-            NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
-            if([StringUtils isBlankString:errorMsg]){
-                errorMsg = NSLocalizedString(@"HTTPDataException", @"");
-            }
+    [dic setObject:gameName forKey:@"gamename"];
+    [dic setObject:@"0" forKey:@"version"];
+    [dic setObject:@"0" forKey:@"limit"];
+    
+    [[BaseNetManager sharedInstance]httpPost:searchopenserverurl datas:dic success:^(NSDictionary *dic) {
+        int status = [dic[@"status"] intValue];
+        if (status == 1)
+        {
+            NSLog(@"[SearchServerRequest]====%@",dic);
+            NSMutableArray *result = [self dicToArray:dic];
             
-            failureBlock(nil, nil, @{@"status":@"-1001", @"return_msg":errorMsg});
+            resultBlock(result);
         }
-        
+        else
+        {
+            NSLog(@"请求失败");
+        }
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
-        failureBlock(response, error, dic);
+        
+        NSLog(@"请求失败");
     }];
-    
 }
 
 -(NSMutableArray *) dicToArray:(NSDictionary *)dic{
-    NSString *dataListStr = checkNull([dic objectForKey:@"gamelist"]);
+    NSString *dataListStr = checkNull([dic objectForKey:@"list"]);
     
     //        NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
     if(![StringUtils isBlankString:dataListStr]){
-        NSMutableArray *dataArray = [self getData:[dic objectForKey:@"gamelist"]];
+        NSMutableArray *dataArray = [self getData:[dic objectForKey:@"list"]];
         return dataArray;
     }
     return nil;
@@ -77,6 +78,47 @@
     }
     
 }
+-(void)requstForDefaultGameserverInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock
+{
+    [[BaseNetManager sharedInstance] noget:defaultserverurl success:^(NSDictionary *dic) {
+        int status = [dic[@"status"] intValue];
+        if (status == 1)
+        {
+            NSLog(@"[DefaultAppRequest] takeTransUrl : %@", dic);
+            NSMutableArray *result = [self defaultDicToArray:dic];
+            resultBlock(result);
+        }
+        else
+        {
+            NSLog(@"请求失败");
+        }
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
+        failureBlock(response, error, dic);
+    }];
+}
+-(NSMutableArray *)defaultDicToArray:(NSDictionary *)dict
+{
+    NSString *dataListStr = checkNull([dict objectForKey:@"list"]);
+    if(![StringUtils isBlankString:dataListStr]){
+       NSMutableArray *dataArray = [self getDefaultInfo:[dict objectForKey:@"list"]];
+      return dataArray;
+    }
+    return nil;
+}
+-(NSMutableArray *)getDefaultInfo:(NSArray *)datas
+{
+    if(datas && [datas count] > 0){
+        NSMutableArray *openServerArray = [NSMutableArray arrayWithCapacity:datas.count];
+        for (int i = 0; i < [datas count]; i++) {
+            NSDictionary *dataDic = [datas objectAtIndex:i];
+            OpenServerEntity *openserver = [OpenServerEntity packWithDict:dataDic];
+            [openServerArray addObject:openserver];
+        }
+        return openServerArray;
+    }else{
+        return nil;
+    }
 
-
+}
 @end
