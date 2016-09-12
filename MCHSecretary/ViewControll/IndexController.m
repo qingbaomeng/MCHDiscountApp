@@ -208,7 +208,7 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
-    detailsView.infoID = appid;
+    detailsView.appId = [NSString stringWithFormat:@"%d", appid];
     [self.navigationController pushViewController:detailsView animated:YES];
 }
 
