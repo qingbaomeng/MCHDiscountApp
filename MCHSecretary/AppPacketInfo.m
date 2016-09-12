@@ -15,9 +15,8 @@
 
 @synthesize gameID,recommend_status;
 @synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl;
-@synthesize largeImageUrl, describeimageUrl, describeImages;
-@synthesize contentDescribe, updateLogs, versionInfo;
-@synthesize language, developCompany, compatible, appDiscount;
+@synthesize describeImages, contentDescribe, versionInfo;
+@synthesize language, appDiscount, appOS, appUrl;
 
 -(id) init{
     if (self = [super init]) {
@@ -27,8 +26,6 @@
         game_type_name = @"";
         introduction = @"";
         downloadUrl = @"";
-        largeImageUrl = @"";
-        describeimageUrl = @"";
         describeImages = @"";
         appDiscount = @"";
         
@@ -71,36 +68,31 @@
     //推荐状态(0不推荐；1推荐；2热门；3最新)
     recommend_status = [[dict objectForKey:@"recommend_status"] intValue];
     
-    
-//    //应用下载量
-//    appDownloadNum = [NSString stringWithFormat:@"%@", [dict objectForKey:@"downloadnum"]];
-    
     //下载地址
     downloadUrl = checkNull([dict objectForKey:@"downloadurl"]);
-    //图片地址
-    largeImageUrl = checkNull([dict objectForKey:@"largeiconurl"]);
-    //应用介绍图片地址
-    describeimageUrl = checkNull([dict objectForKey:@"describeurl"]);
     describeImages = checkNull([dict objectForKey:@"describeimages"]);
     contentDescribe = checkNull([dict objectForKey:@"describecontent"]);
     if ([StringUtils isBlankString:contentDescribe]) {
         contentDescribe = NSLocalizedString(@"AppDescribeContent", @"");
     }
-    updateLogs = checkNull([dict objectForKey:@"updatelogs"]);
     versionInfo = checkNull([dict objectForKey:@"version"]);
     
     _updateData = checkNull([dict objectForKey:@"create_time"]);
     language = checkNull([dict objectForKey:@"language"]);
-    developCompany = checkNull([dict objectForKey:@"developcompany"]);
-    compatible = checkNull([dict objectForKey:@"compatible"]);
     
     //折扣
     appDiscount = checkNull([dict objectForKey:@"discount"]);
+    
+    appOS = checkNull([dict objectForKey:@"appos"]);
+    appUrl = checkNull([dict objectForKey:@"appurl"]);
+    if ([StringUtils isBlankString:appUrl]) {
+        appUrl = @"http://www.baidu.com";
+    }
 }
 
 -(NSString *) updateData{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yy/MM/dd"];
+    [dateFormatter setDateFormat:@"yy-MM-dd"];
     return [StringUtils TimeLongToString:_updateData dataDormatter:dateFormatter];
 }
 

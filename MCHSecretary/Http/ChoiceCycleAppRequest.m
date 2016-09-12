@@ -21,7 +21,7 @@
 
 #define cycleappinfourl @"/appinfo.html"
 #define allGameInfoUrl @"/app.php/server/get_game_list"
-#define takeTransUrl @"/app.php/server/rotation_img"
+#define takeTransUrl @"/app.php/server/get_app_adv"
 
 @implementation ChoiceCycleAppRequest
 
@@ -100,11 +100,11 @@
 }
 -(NSMutableArray *) cycleDictToArray:(NSDictionary *)dic{
     
-     NSString *dataListStr = checkNull([dic objectForKey:@"data"]);
+     NSString *dataListStr = checkNull([dic objectForKey:@"list"]);
      
      //    NSLog(@"ChoiceCycleAppRequest# packsListStr: %@", dataListStr);
      if(![StringUtils isBlankString:dataListStr]){
-         NSMutableArray *dataArray = [self getData:[dic objectForKey:@"data"]];
+         NSMutableArray *dataArray = [self getData:[dic objectForKey:@"list"]];
          return dataArray;
      }
      return [[NSMutableArray alloc] init];
@@ -117,7 +117,7 @@
         for (int i = 0; i < [datas count]; i++) {
             NSDictionary *listDic = [datas objectAtIndex:i];
             TopCycleImage *cyucleImage = [[TopCycleImage alloc] init];
-            [cyucleImage setAppId:0];
+            [cyucleImage setAppId:[[NSString stringWithFormat:@"%@", [listDic objectForKey:@"game_id"]] intValue]];
             [cyucleImage setImageUrl:[NSString stringWithFormat:@"%@", [listDic objectForKey:@"data"]]];
             
             [array addObject:cyucleImage];

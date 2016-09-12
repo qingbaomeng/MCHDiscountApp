@@ -27,7 +27,7 @@
 #define TextFont GetFont(ContentTextSize)
 
 CGFloat LineY;
-UIView *bgView;
+//UIView *bgView;
 
 @implementation DetailDescribeView
 
@@ -150,38 +150,38 @@ UIView *bgView;
 //    descriptLine.hidden = YES;
     moreButton.hidden = YES;
     
-    bgView.frame = CGRectMake(0,txtDescribe.frame.origin.y + descMax.height + 15, kScreenWidth, ContentTextSize * 4 +160);
+//    bgView.frame = CGRectMake(0,txtDescribe.frame.origin.y + descMax.height + 15, kScreenWidth, ContentTextSize * 4 +160);
 }
 
 //版本信息
 -(void)addVerisionView:(AppPacketInfo*)info position:(CGFloat)posY extend:(BOOL)isextend{
-    bgView = [[UIView alloc]initWithFrame:CGRectMake(0, posY, kScreenWidth, ContentTextSize * 4 +160)];
-    [self addSubview:bgView];
+//    bgView = [[UIView alloc]initWithFrame:CGRectMake(0, posY, kScreenWidth, ContentTextSize * 4)];
+//    [self addSubview:bgView];
     
     UILabel *lblVerision = [[UILabel alloc] init];
-    [lblVerision setFrame:CGRectMake(15, 0, 100, 20)];
+    [lblVerision setFrame:CGRectMake(15, posY, 100, 20)];
     [lblVerision setFont:TitleFont];
     [lblVerision setTextColor:[UIColor blackColor]];
     [lblVerision setNumberOfLines:1];
     [lblVerision setText:NSLocalizedString(@"VersionInfo", @"")];
-    [bgView addSubview:lblVerision];
+    [self addSubview:lblVerision];
     
     float padding = 15;
     
     //应用包大小
-    
-    UILabel *lblSize = [[UILabel alloc] initWithFrame:CGRectMake(15, 30, LABWIDTH, ContentTextSize)];
+    CGFloat firstY = CGRectGetMaxY(lblVerision.frame) + padding;
+    UILabel *lblSize = [[UILabel alloc] initWithFrame:CGRectMake(15, firstY, LABWIDTH, ContentTextSize)];
     [lblSize setFont:TextFont];
     [lblSize setTextColor:TextColor];
     lblSize.text = [NSString stringWithFormat:@"%@ : %@MB",NSLocalizedString(@"AppSize", @""),info.packetSize];
-    [bgView addSubview:lblSize];
+    [self addSubview:lblSize];
     
     //版本信息
-    UILabel *lblVersionNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2,30, LABWIDTH, ContentTextSize)];
+    UILabel *lblVersionNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2, firstY, LABWIDTH, ContentTextSize)];
     [lblVersionNum setFont:TextFont];
     [lblVersionNum setTextColor:TextColor];
     lblVersionNum.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"VersionNumber", @""),info.versionInfo];
-    [bgView addSubview:lblVersionNum];
+    [self addSubview:lblVersionNum];
     
     //更新时间
     CGFloat upDataY = CGRectGetMaxY(lblSize.frame) + padding;
@@ -189,7 +189,7 @@ UIView *bgView;
     [lblUpdateData setFont:TextFont];
     [lblUpdateData setTextColor:TextColor];
     lblUpdateData.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppUpdateData", @""),info.updateData];
-    [bgView addSubview:lblUpdateData];
+    [self addSubview:lblUpdateData];
     
     
     //应用类型
@@ -197,7 +197,7 @@ UIView *bgView;
     [lblType setFont:TextFont];
     [lblType setTextColor:TextColor];
     lblType.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppType", @""),info.game_type_name];
-    [bgView addSubview:lblType];
+    [self addSubview:lblType];
     
     //语言
     CGFloat languageY = CGRectGetMaxY(lblType.frame) + padding;
@@ -205,26 +205,18 @@ UIView *bgView;
     [lblLanguage setFont:TextFont];
     [lblLanguage setTextColor:TextColor];
     lblLanguage.text = [NSString stringWithFormat:@"%@ :%@",NSLocalizedString(@"AppLanguage", @""),info.language];
-    [bgView addSubview:lblLanguage];
+    [self addSubview:lblLanguage];
     
-    //开发商
+    //系统
     UILabel *lblDevelop = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2, languageY, LABWIDTH, ContentTextSize)];
     [lblDevelop setFont:TextFont];
     [lblDevelop setTextColor:TextColor];
-    lblDevelop.text = [NSString stringWithFormat:@"%@ :%@",NSLocalizedString(@"AppDeveloper", @""),info.developCompany];
-    [bgView addSubview:lblDevelop];
-    
-    //兼容性
-    CGFloat compatibleY = CGRectGetMaxY(lblDevelop.frame) + padding;
-    UILabel *lblCompatible = [[UILabel alloc] initWithFrame:CGRectMake(15, compatibleY, kScreenWidth - 30, ContentTextSize*3)];
-    [lblCompatible setFont:TextFont];
-    [lblCompatible setTextColor:TextColor];
-    lblCompatible.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppCompatible", @""),info.compatible];
-    [lblCompatible setNumberOfLines:0];
-    [bgView addSubview:lblCompatible];
+    lblDevelop.text = [NSString stringWithFormat:@"%@ :%@",NSLocalizedString(@"AppOS", @""),info.appOS];
+    [self addSubview:lblDevelop];
+
     
     //    NSLog(@"%@", NSStringFromCGRect(txtVerision.frame));
-    CGFloat detailY = CGRectGetMaxY(bgView.frame);
+    CGFloat detailY = CGRectGetMaxY(lblLanguage.frame) + 10;
     CGRect r = self.frame;
     r.size.height = detailY;
     [self setFrame:r];

@@ -11,4 +11,6 @@
 
 @interface Share : NSObject
 +(void)shareWithTitle:(NSString *)title ImageUrl:(NSString *)imageURl Message:(NSString *)msg URL:(NSString *)url ViewControl:(UIViewController *)vc;
+
++(void)shareWithURLImageTitle:(NSString *)title ImageUrl:(NSArray*)imageArray Message:(NSString *)msg URL:(NSString *)url ViewControl:(UIViewController *)vc;
 @end

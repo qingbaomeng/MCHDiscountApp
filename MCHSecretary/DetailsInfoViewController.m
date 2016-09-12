@@ -111,6 +111,7 @@
     button.tag = 2;
     [topview addSubview:button];
 }
+
 -(void)barbuttonClick:(UIButton *)button
 {
     if (button.tag == 1)
@@ -119,13 +120,17 @@
     }
     if (button.tag == 2)
     {
-        [Share shareWithTitle:@"这是title" ImageUrl:@"qq" Message:@"这是描述" URL:@"http://www.baidu.com" ViewControl:self];
+        if (info) {
+//            [Share shareWithTitle:info.gameName ImageUrl:@[info.gameIconUrl] Message:info.introduction URL:info.appUrl ViewControl:self];
+            [Share shareWithURLImageTitle:info.gameName ImageUrl:@[info.gameIconUrl] Message:info.introduction URL:info.appUrl ViewControl:self];
+        }
     }
     if (button.tag == 3)
     {
         NSLog(@"下载/打开软件");
     }
 }
+
 -(void)addDownButton
 {
     UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight - 50, kScreenWidth, 50)];

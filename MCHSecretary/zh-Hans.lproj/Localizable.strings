@@ -41,7 +41,7 @@ UpdateLogs="更新日志";
 VersionInfo="版本信息";
 VersionNumber="版本";
 AppSize="大小";
-AppUpdateData="更新日期";
+AppUpdateData="时间";
 AppType="类别";
 AppLanguage="语言";
 AppDeveloper="开发商";
@@ -49,6 +49,7 @@ AppCompatible="兼容性";
 CurrentComment="当前版本";
 AppCommentTotalPre="共";
 AppCommentTotal="个用户评论";
+AppOS="系统";
 
 ChoiceTopType="分类";
 ChoiceTopNecessary="必备";
