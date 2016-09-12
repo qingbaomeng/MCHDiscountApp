@@ -122,7 +122,7 @@
         }else{
             [self showSearchView];
         }
-
+        
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         
     }];
@@ -197,6 +197,8 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, searchY, searchH, searchH)];
     [imageView setImage:image];
     [btnSearchContent addSubview:imageView];
+    
+    
 }
 
 //添加推荐区域
@@ -245,8 +247,6 @@
     CGFloat spaceW = (kScreenWidth - iconW * 4) / 5;
     if (defaultItemArray.count < 4)
     {
-        
-   
     for (int i = 0; i < defaultItemArray.count; i++) {
         UIButton *btnRecoment = [[UIButton alloc] initWithFrame:CGRectMake(spaceW + (spaceW + iconW) * i, posy, iconW, iconW + nameW)];
         btnRecoment.tag = 10+i;

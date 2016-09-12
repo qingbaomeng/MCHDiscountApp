@@ -101,5 +101,6 @@
     }else{
         openServerArray = [[NSArray alloc] init];
     }
+    
 }
 @end

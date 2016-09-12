@@ -75,11 +75,11 @@
                 y = row * (itempadding + btnH) + itempadding + CGRectGetMaxY(self.imageFrame);
                 
                 OpenServerPostion *pos = [[OpenServerPostion alloc] init];
+               
                 [pos setPosX:x];
                 [pos setPosY:y];
                 [pos setPosW:(mScreenWidth - itempadding * 3) / 2];
                 [pos setOpenTime:_packetInfo.openServerArray[i]];
-                
                 [self.openServerFrameArray addObject:pos];
             }
             

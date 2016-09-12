@@ -53,15 +53,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self addTopView];
-    
-    [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
-        
-        resultDict = dict;
-        [self addSCrollView];
-    
-    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        
-    }];
+    [self addSCrollView];
 }
 -(void) addTopView{
     topview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, TopViewH)];
@@ -115,7 +107,15 @@
         if (a == 3)
         {
             [vie addSmallLab];
-            [vie.titleLab setText:resultDict[@"app_version"]];
+            [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
+                
+                resultDict = dict;
+                [vie.titleLab setText:resultDict[@"app_version"]];
+                
+            } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+                
+            }];
+        
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap4)];
             
             [vie addGestureRecognizer:tapRecognizer];

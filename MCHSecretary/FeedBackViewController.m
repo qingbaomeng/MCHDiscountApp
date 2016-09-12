@@ -102,10 +102,10 @@ UITextField *textField;
     }
     if (btn.tag == 2)
     {
-        UIAlertController *alertVC;
+        
         if (textView.text.length == 0)
         {
-            alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"反馈信息不能为空" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"反馈信息不能为空" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *alert = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
             
@@ -125,18 +125,22 @@ UITextField *textField;
             
            [[[HelpRequest alloc]init]postMessage:dict success:^(NSString *resultStr) {
                
-                
+               [self.navigationController popViewControllerAnimated:YES];
+               
             } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
                 
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"反馈失败" preferredStyle:UIAlertControllerStyleAlert];
+                
+                [self presentViewController:alertVC animated:YES completion:^{
+                    
+                    [self performSelector:@selector(dismiss:) withObject:alertVC afterDelay:1.0f];
+                    
+                }];
+
             }];
             
-            alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"反馈信息发送成功" preferredStyle:UIAlertControllerStyleAlert];
             
-            [self presentViewController:alertVC animated:YES completion:^{
-                
-                [self performSelector:@selector(dismiss:) withObject:alertVC afterDelay:1.0f];
-                
-            }];
+
         }
     }
 }

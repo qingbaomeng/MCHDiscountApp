@@ -29,13 +29,13 @@
         int status = [dic[@"status"] intValue];
         if (status == 1)
         {
-            NSLog(@"[SearchOpenServerRequest]====%@",dic);
+//            NSLog(@"[SearchOpenServerRequest]====%@",dic);
             
-            result(@"成功");
+            result(@"反馈成功");
         }
         else
         {
-            NSLog(@"请求失败");
+            NSLog(@"反馈失败");
         }
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         

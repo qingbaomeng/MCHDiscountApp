@@ -49,7 +49,7 @@
     
     if ([self.descriptStr isEqualToString:@"安装工具"])
     {
-        url  = [[NSURL alloc]initWithString:@"http://www.baidu.com"];
+        url  = [[NSURL alloc]initWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"];
     }
     else
     {

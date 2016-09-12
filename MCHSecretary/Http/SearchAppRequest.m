@@ -16,8 +16,8 @@
 #import "OpenServerSearchFrame.h"
 
 #define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
-
-#define searchopenserverurl @"/app.php?s=/server/seach_game"
+                           
+#define searchopenserverurl @"/app.php/server/seach_game"
 #define defaultserverurl @"/app.php/server/default_search/version/0"
 
 @implementation SearchAppRequest
