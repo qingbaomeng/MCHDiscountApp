@@ -29,6 +29,8 @@
  **/
 + (NSString *)TimeLongToString:(NSString *)str;
 
++ (NSString *)TimeLongToString:(NSString *)str dataDormatter:(NSDateFormatter *)formatter;
+
 /**
  * 得到中英文混合字符串长度
  **/

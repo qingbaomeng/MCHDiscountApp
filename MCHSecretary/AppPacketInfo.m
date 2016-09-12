@@ -17,7 +17,7 @@
 @synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl;
 @synthesize largeImageUrl, describeimageUrl, describeImages;
 @synthesize contentDescribe, updateLogs, versionInfo;
-@synthesize updateData, appType, language, developCompany, compatible, appDiscount;
+@synthesize language, developCompany, compatible, appDiscount;
 
 -(id) init{
     if (self = [super init]) {
@@ -56,15 +56,18 @@
     
     gameName = checkNull([dict objectForKey:@"game_name"]);
     //图片地址
-    gameIconUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"icon"]];
+    gameIconUrl = checkNull([dict objectForKey:@"icon"]);
     //游戏标识
-    gameBundleID = [dict objectForKey:@"marking"];
+    gameBundleID = checkNull([dict objectForKey:@"marking"]);
     //应用包大小
-    packetSize = [NSString stringWithFormat:@"%@", [dict objectForKey:@"game_size"]];
+    packetSize = checkNull([dict objectForKey:@"game_size"]);
     //游戏类型
-    game_type_name = [dict objectForKey:@"game_type_name"];
+    game_type_name = checkNull([dict objectForKey:@"game_type_name"]);
     //应用描述
-    introduction = [NSString stringWithFormat:@"%@", [dict objectForKey:@"introduction"]];
+    introduction = checkNull([dict objectForKey:@"introduction"]);
+    if ([StringUtils isBlankString:introduction]) {
+        introduction = NSLocalizedString(@"AppDescribeContent", @"");
+    }
     //推荐状态(0不推荐；1推荐；2热门；3最新)
     recommend_status = [[dict objectForKey:@"recommend_status"] intValue];
     
@@ -73,30 +76,32 @@
 //    appDownloadNum = [NSString stringWithFormat:@"%@", [dict objectForKey:@"downloadnum"]];
     
     //下载地址
-    downloadUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"downloadurl"]];
+    downloadUrl = checkNull([dict objectForKey:@"downloadurl"]);
     //图片地址
-    largeImageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"largeiconurl"]];
+    largeImageUrl = checkNull([dict objectForKey:@"largeiconurl"]);
     //应用介绍图片地址
-    describeimageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describeurl"]];
-    describeImages = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describeimages"]];
+    describeimageUrl = checkNull([dict objectForKey:@"describeurl"]);
+    describeImages = checkNull([dict objectForKey:@"describeimages"]);
+    contentDescribe = checkNull([dict objectForKey:@"describecontent"]);
+    if ([StringUtils isBlankString:contentDescribe]) {
+        contentDescribe = NSLocalizedString(@"AppDescribeContent", @"");
+    }
+    updateLogs = checkNull([dict objectForKey:@"updatelogs"]);
+    versionInfo = checkNull([dict objectForKey:@"version"]);
     
-    contentDescribe = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describecontent"]];
-    updateLogs = [NSString stringWithFormat:@"%@", [dict objectForKey:@"updatelogs"]];
-    versionInfo = [NSString stringWithFormat:@"%@", [dict objectForKey:@"version"]];
-    
-    updateData = [NSString stringWithFormat:@"%@", [dict objectForKey:@"updatedata"]];
-    appType = [NSString stringWithFormat:@"%@", [dict objectForKey:@"apptype"]];
-    language = [NSString stringWithFormat:@"%@", [dict objectForKey:@"language"]];
-    developCompany = [NSString stringWithFormat:@"%@", [dict objectForKey:@"developcompany"]];
-    compatible = [NSString stringWithFormat:@"%@", [dict objectForKey:@"compatible"]];
+    _updateData = checkNull([dict objectForKey:@"create_time"]);
+    language = checkNull([dict objectForKey:@"language"]);
+    developCompany = checkNull([dict objectForKey:@"developcompany"]);
+    compatible = checkNull([dict objectForKey:@"compatible"]);
     
     //折扣
-    NSString *resultDiscount = checkNull([dict objectForKey:@"discount"]);
-    if(![StringUtils isBlankString:resultDiscount]){
-        appDiscount = [NSString stringWithFormat:@"%@", resultDiscount];
-    }else{
-        appDiscount = @"";
-    }
+    appDiscount = checkNull([dict objectForKey:@"discount"]);
+}
+
+-(NSString *) updateData{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yy/MM/dd"];
+    return [StringUtils TimeLongToString:_updateData dataDormatter:dateFormatter];
 }
 
 //-(NSString *)appDownloadNum{

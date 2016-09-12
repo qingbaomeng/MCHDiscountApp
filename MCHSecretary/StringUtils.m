@@ -76,6 +76,19 @@
     return currentDateStr;
 }
 
++ (NSString *)TimeLongToString:(NSString *)str dataDormatter:(NSDateFormatter *)formatter{
+    NSTimeInterval time = [str doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
+    
+    NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
+    //    NSLog(@"date:%@",[detaildate description]);
+    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yy-MM-dd HH:mm"];
+    
+    NSString *currentDateStr = [formatter stringFromDate:detaildate];
+    return currentDateStr;
+}
+
 //得到中英文混合字符串长度 方法1
 + (int)stringByteLength:(NSString*)strtemp {
     return (short)[strtemp lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];

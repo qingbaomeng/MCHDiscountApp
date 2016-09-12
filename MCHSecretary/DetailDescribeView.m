@@ -80,11 +80,11 @@ UIView *bgView;
     [scrollLine setBackgroundColor:LineColor];
     [self addSubview:scrollLine];
     
-    [self addDescribeView:info position:CGRectGetMaxY(scrollLine.frame) + 15 extend:YES];
+    [self addDescribeView:info position:CGRectGetMaxY(scrollLine.frame) + 15];
     
 }
 //内容简介
--(void)addDescribeView:(AppPacketInfo*)info position:(CGFloat)posY extend:(BOOL)isextend{
+-(void)addDescribeView:(AppPacketInfo*)info position:(CGFloat)posY{
     
     UILabel *lblDescribe = [[UILabel alloc] init];
     [lblDescribe setFrame:CGRectMake(15, posY, 100, 20)];
@@ -92,23 +92,27 @@ UIView *bgView;
     [lblDescribe setTextColor:[UIColor blackColor]];
     [lblDescribe setNumberOfLines:1];
     [lblDescribe setText:NSLocalizedString(@"ContentDescribe", @"")];
+    [self addSubview:lblDescribe];
+    
     
     LineY = posY + 30;
+    descMax = [StringUtils sizeWithString:info.contentDescribe font:TextFont maxSize:CGSizeMake(kScreenWidth - 30, 0)];
+    NSLog(@"descMax:%@", NSStringFromCGSize(descMax));
+    BOOL isBeyond = descMax.height > ContentTextSize * 3;
     
     txtDescribe = [[UILabel alloc] init];
-    if(isextend){
-        [txtDescribe setNumberOfLines:3];
-        descMax = [StringUtils sizeWithString:info.contentDescribe font:TextFont maxSize:CGSizeMake(kScreenWidth - 30, 0)];
-        [txtDescribe setFrame:CGRectMake(15, LineY, descMax.width, 50)];
+    if(!isBeyond){
+        [txtDescribe setNumberOfLines:0];
+        [txtDescribe setFrame:CGRectMake(15, LineY, descMax.width, descMax.height)];
     }else{
         [txtDescribe setNumberOfLines:2];
-        [txtDescribe setFrame:CGRectMake(15, posY + 30, kScreenWidth - 30, ContentTextSize * 2)];
+        [txtDescribe setFrame:CGRectMake(15, posY + 30, descMax.width, ContentTextSize * 2)];
     }
     [txtDescribe setFont:TextFont];
     [txtDescribe setTextColor:TextColor];
     [txtDescribe setText:info.contentDescribe];
-    [self addSubview:lblDescribe];
     [self addSubview:txtDescribe];
+    
     
     CGFloat sLineY = CGRectGetMaxY(txtDescribe.frame) + 15;
     descriptLine = [[UIView alloc] initWithFrame:CGRectMake(0, sLineY, kScreenWidth - 100, 1)];
@@ -120,19 +124,35 @@ UIView *bgView;
     [moreButton setTitleColor:TextColor forState:UIControlStateNormal];
     moreButton.titleLabel.font = [UIFont systemFontOfSize:13];
     moreButton.frame = CGRectMake(descriptLine.frame.size.width, CGRectGetMaxY(txtDescribe.frame), 100, 30);
+    [moreButton setHidden:YES];
     [moreButton addTarget:self action:@selector(moreClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:moreButton];
     
+    if (isBeyond) {
+        [descriptLine setFrame:CGRectMake(15, sLineY, kScreenWidth - 100, 1)];
+//        [descriptLine setHidden:NO];
+        [moreButton setHidden:NO];
+    }else{
+//        [descriptLine setHidden:YES];
+        [descriptLine setFrame:CGRectMake(15, sLineY, kScreenWidth - 30, 1)];
+        [moreButton setHidden:YES];
+    }
+    
     [self addVerisionView:info position:CGRectGetMaxY(descriptLine.frame)+ 15 extend:YES];
 }
+
 -(void)moreClick
 {
     txtDescribe.numberOfLines = 0;
     [txtDescribe setFrame:CGRectMake(15, LineY, descMax.width, descMax.height)];
-    descriptLine.hidden = YES;
+    
+    [descriptLine setFrame:CGRectMake(15, CGRectGetMaxY(txtDescribe.frame) + 15, kScreenWidth - 30, 1)];
+//    descriptLine.hidden = YES;
     moreButton.hidden = YES;
+    
     bgView.frame = CGRectMake(0,txtDescribe.frame.origin.y + descMax.height + 15, kScreenWidth, ContentTextSize * 4 +160);
 }
+
 //版本信息
 -(void)addVerisionView:(AppPacketInfo*)info position:(CGFloat)posY extend:(BOOL)isextend{
     bgView = [[UIView alloc]initWithFrame:CGRectMake(0, posY, kScreenWidth, ContentTextSize * 4 +160)];
@@ -176,7 +196,7 @@ UIView *bgView;
     UILabel *lblType = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2, upDataY, LABWIDTH, ContentTextSize)];
     [lblType setFont:TextFont];
     [lblType setTextColor:TextColor];
-    lblType.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppType", @""),info.appType];
+    lblType.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppType", @""),info.game_type_name];
     [bgView addSubview:lblType];
     
     //语言

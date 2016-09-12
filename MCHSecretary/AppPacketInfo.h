@@ -48,8 +48,6 @@
 @property (nonatomic, copy) NSString *versionInfo;
 //更新时间
 @property (nonatomic, copy) NSString *updateData;
-//应用类型
-@property (nonatomic, copy) NSString *appType;
 //语言
 @property (nonatomic, copy) NSString *language;
 //开发商

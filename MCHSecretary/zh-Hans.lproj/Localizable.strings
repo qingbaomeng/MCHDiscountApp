@@ -19,6 +19,8 @@ InstallTitle="我的";
 ClearSearchHis="清除";
 NoOpenServerInfo="暂无任何该游戏的开服信息";
 ShowAllServer="展开查看全部开服V";
+AppDescribeContent="暂无介绍";
+
 
 SearchContent="大家都在搜";
 AppDownNumber="次下载";

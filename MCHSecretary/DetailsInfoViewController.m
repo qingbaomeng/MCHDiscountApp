@@ -166,7 +166,7 @@
     if(nil == info){
         return;
     }
-    [appSmallIcon sd_setImageWithURL:[NSURL URLWithString:info.gameIconUrl] placeholderImage:nil];
+    [appSmallIcon sd_setImageWithURL:[NSURL URLWithString:info.gameIconUrl] placeholderImage:[UIImage imageNamed:@"load_fail"]];
     [appName setText:info.gameName];
     [_descriptLab setText:info.introduction];
     [_zhekouBtn setTitle:[NSString stringWithFormat:@"%@折",info.appDiscount] forState:UIControlStateNormal];
