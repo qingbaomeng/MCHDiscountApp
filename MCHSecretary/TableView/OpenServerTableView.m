@@ -12,7 +12,7 @@
 #import "MJRefresh.h"
 
 #import "NomalCell.h"
-#import "HomeGameInfo.h"
+#import "OpenServerEntity.h"
 
 #import "ChoiceListItem.h"
 #import "NomalFrame.h"
@@ -170,7 +170,9 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     [self showAppDetail:indexPath.section index:indexPath.row];
+    
 }
 
 -(void)serachOpenServerApp:(UIButton *)sender{
@@ -182,6 +184,7 @@
 -(void)requestAppInfo{
 
     [[[OpenServerGameRequest alloc] init]requestOpenServerGame:^(NSMutableArray *opserverArray) {
+
         listItemArray = opserverArray;
         
         [openserverTable reloadData];
@@ -202,9 +205,9 @@
 #pragma OpenServerSearchDelegate
 
 -(void) showAppDetail:(NSInteger)section index:(NSInteger)index{
-    NSLog(@"section:%ld, index:%ld", section, index);
+    NomalFrame *frame = listItemArray[index];
     if(_delegate){
-        [_delegate showAppDetailInfo:@"testid"];
+        [_delegate showAppDetailInfo:frame.openServerInfo.gameID];
     }
 }
 

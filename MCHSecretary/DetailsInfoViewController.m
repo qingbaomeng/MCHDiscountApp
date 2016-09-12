@@ -148,7 +148,7 @@
 -(void) initData{
     info = nil;
     
-    [[[DetailInfoRequest alloc] init]request:self.homeInfo getAppInfo:^(AppPacketInfo *appinfo) {
+    [[[DetailInfoRequest alloc] init]request:self.infoID getAppInfo:^(AppPacketInfo *appinfo) {
         info = appinfo;
 //        NSLog(@"%@", appinfo.describeImages);
         [self initAppInfo];
@@ -166,7 +166,7 @@
     [appSmallIcon sd_setImageWithURL:[NSURL URLWithString:info.gameIconUrl] placeholderImage:nil];
     [appName setText:info.gameName];
     [_descriptLab setText:info.introduction];
-    [_zhekouBtn setTitle:info.appDiscount forState:UIControlStateNormal];
+    [_zhekouBtn setTitle:[NSString stringWithFormat:@"%@折",info.appDiscount] forState:UIControlStateNormal];
     CGSize nameSize = [StringUtils sizeWithString:info.gameName font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake([[UIScreen mainScreen] bounds].size.width - 160, 42)];
     CGRect nameRect = appName.frame;
     nameRect.size = nameSize;

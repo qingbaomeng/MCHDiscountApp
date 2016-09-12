@@ -58,7 +58,6 @@
     }else{
         serverDesc = @"";
     }
-    NSLog(@"===%@",serverDesc);
     
     NSString *game = checkNull([dict objectForKey:@"features"]);
     if(![StringUtils isBlankString:game]){
@@ -81,7 +80,6 @@
     }else{
         openServerArray = [[NSArray alloc] init];
     }
-    NSLog(@"openserverStr1111: %@", openServerArray);
 }
 
 

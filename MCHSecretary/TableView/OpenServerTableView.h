@@ -14,7 +14,7 @@
 
 -(void) startSearchApp;
 
--(void) showAppDetailInfo:(NSString *)appid;
+-(void) showAppDetailInfo:(int)appid;
 
 @end
 

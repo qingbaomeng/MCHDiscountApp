@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class HomeGameInfo;
 @class AppPacketInfo;
 
 @interface DetailInfoRequest : NSObject
 
--(void)request:(HomeGameInfo *)info getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
+-(void)request:(int)infoID getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
 @end

@@ -31,6 +31,7 @@
         describeimageUrl = @"";
         describeImages = @"";
         appDiscount = @"";
+        
     }
     return self;
 }
@@ -80,7 +81,7 @@
     
     contentDescribe = [NSString stringWithFormat:@"%@", [dict objectForKey:@"describecontent"]];
     updateLogs = [NSString stringWithFormat:@"%@", [dict objectForKey:@"updatelogs"]];
-    versionInfo = [NSString stringWithFormat:@"%@", [dict objectForKey:@"versioninfo"]];
+    versionInfo = [NSString stringWithFormat:@"%@", [dict objectForKey:@"version"]];
     
     updateData = [NSString stringWithFormat:@"%@", [dict objectForKey:@"updatedata"]];
     appType = [NSString stringWithFormat:@"%@", [dict objectForKey:@"apptype"]];
@@ -89,7 +90,7 @@
     compatible = [NSString stringWithFormat:@"%@", [dict objectForKey:@"compatible"]];
     
     //折扣
-    NSString *resultDiscount = checkNull([dict objectForKey:@"Discount"]);
+    NSString *resultDiscount = checkNull([dict objectForKey:@"discount"]);
     if(![StringUtils isBlankString:resultDiscount]){
         appDiscount = [NSString stringWithFormat:@"%@", resultDiscount];
     }else{

@@ -14,23 +14,24 @@
 #import "HomeGameInfo.h"
 #import "AppPacketInfo.h"
 
-#define appdetailinfourl @"/app.php/server/get_game_list"
+#define appdetailinfourl @"/app.php?s=/server/get_game_info"
 
 @implementation DetailInfoRequest
 
--(void)request:(HomeGameInfo *)info getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+-(void)request:(int)infoID getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?gamename=%@&type=%d&game_server=0&limit=1",appdetailinfourl,info.gameName,info.recommend_status];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/id/%d",appdetailinfourl,infoID];
     
 //    NSLog(@"[DetailInfoRequest] URLStr : %@",urlStr);
     
     [[BaseNetManager sharedInstance] get:urlStr success:^(NSDictionary *dic) {
-//        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
+        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
+        
         NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){
 //            NSMutableArray *result = [self dicToArray:dic];
 //            AppPacketInfo *appInfo = [self analysisJsonStrToClass:dic];
-            resultBlock([self analysisJsonStrToClass:dic]);
+            resultBlock([self analysisJsonStrToClass:dic[@"data"]]);
         }else{
             NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
             if([StringUtils isBlankString:errorMsg]){

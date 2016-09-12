@@ -23,7 +23,7 @@ UIScrollViewDelegate
 {
     UIView *topview;
 }
-@property(nonatomic,strong)HomeGameInfo *homeInfo;
+@property(nonatomic,assign)int infoID;
 
 @property (nonatomic, strong) AppPacketInfo *appInfo;
 

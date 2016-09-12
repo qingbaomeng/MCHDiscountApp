@@ -13,9 +13,6 @@
 #import "MJRefresh.h"
 #import "FileUtils.h"
 
-
-#import "OpenServerSearchFrame.h"
-
 #import "DetailsInfoViewController.h"
 #import "OpenServerSearchFrame.h"
 #import "OpenServerEntity.h"
@@ -437,11 +434,23 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    int infoid;
+    if (isSearchOpenServerGame)
+    {
+        OpenServerSearchFrame *serverFrame = listsearchItemArray[indexPath.row];
+        infoid = serverFrame.packetInfo.gameID;
+    }
+    else
+    {
+     OpenServerSearchFrame *frame = listItemArray[indexPath.row];
+        infoid = frame.packetInfo.gameID;
+    }
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
+    detailsView.infoID = infoid;
     [self.navigationController pushViewController:detailsView animated:YES];
     isAddRommentView = NO;
 }

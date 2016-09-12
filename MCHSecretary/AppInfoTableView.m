@@ -128,7 +128,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NomalFrame *frame = listItemArray[indexPath.row];
     
-    [_delegate showAppInfo:frame.packetInfo];
+    [_delegate showAppInfo:frame.packetInfo.gameID];
 }
 
 -(void) requestAppInfo{

@@ -14,7 +14,7 @@
 
 @protocol AppInfoDelegate <NSObject>
 
--(void) showAppInfo:(HomeGameInfo *)info;
+-(void) showAppInfo:(int)infoID;
 
 @end
 
