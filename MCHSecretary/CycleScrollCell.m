@@ -67,7 +67,8 @@
     for (NSInteger i = 0; i < urlArray.count; i++) {
         TopCycleImage *cyucleImage = urlArray[i];
         
-        [urlArrays addObject:cyucleImage.imageUrl];
+//        [urlArrays addObject:cyucleImage.imageUrl];
+        [urlArrays addObject:cyucleImage];
     }
     
     [self.cycleScrollView setImageArray:urlArrays];

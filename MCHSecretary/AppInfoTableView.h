@@ -14,7 +14,7 @@
 
 @protocol AppInfoDelegate <NSObject>
 
--(void) showAppInfo:(int)infoID;
+-(void) showAppInfo:(NSString *)appid;
 
 @end
 

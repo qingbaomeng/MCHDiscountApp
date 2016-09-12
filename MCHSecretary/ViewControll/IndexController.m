@@ -169,7 +169,7 @@
 
 #pragma mark - AppInfoDelegate
 
--(void) showAppInfo:(int)infoID{
+-(void) showAppInfo:(NSString *)appid{
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     //    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
@@ -179,7 +179,7 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
-    detailsView.infoID = infoID;
+    detailsView.appId = appid;
     [self.navigationController pushViewController:detailsView animated:YES];
 }
 

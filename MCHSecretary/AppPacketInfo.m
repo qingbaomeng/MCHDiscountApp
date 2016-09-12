@@ -53,7 +53,8 @@
     //游戏id
     gameID = [[dict objectForKey:@"id"] intValue];
     //应用名称
-    gameName = [NSString stringWithFormat:@"%@", [dict objectForKey:@"game_name"]];
+    
+    gameName = checkNull([dict objectForKey:@"game_name"]);
     //图片地址
     gameIconUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"icon"]];
     //游戏标识

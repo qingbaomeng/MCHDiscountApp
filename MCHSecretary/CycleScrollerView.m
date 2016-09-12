@@ -9,6 +9,7 @@
 #import "CycleScrollerView.h"
 
 #import "StringUtils.h"
+#import "TopCycleImage.h"
 
 #define ImageView_StartTag     1000
 #define RollingTime 2.0
@@ -103,12 +104,12 @@
     }
 }
 
--(void) addSubImageView:(NSString *)imageurl{
-    [imageArray addObject:imageurl];
-    totalPage = imageArray.count;
-    pageControl.numberOfPages = totalPage;
-    totalCount = totalPage;
-}
+//-(void) addSubImageView:(NSString *)imageurl{
+//    [imageArray addObject:imageurl];
+//    totalPage = imageArray.count;
+//    pageControl.numberOfPages = totalPage;
+//    totalCount = totalPage;
+//}
 
 - (void)refreshScrollView {
     if(totalPage > 0){
@@ -117,13 +118,15 @@
         for (NSInteger i = 0; i < 3; i++)
         {
             UIImageView *imageView = (UIImageView *)[scrollView viewWithTag:ImageView_StartTag+i];
-            NSString *url = [curimageUrls objectAtIndex:i];
+            TopCycleImage *cyucleImage = [curimageUrls objectAtIndex:i];
+            NSString *url = cyucleImage.imageUrl;
             if (imageView && [imageView isKindOfClass:[UIImageView class]] && ![StringUtils isBlankString:url])
             {
                 [imageView sd_setImageWithURL:[NSURL URLWithString:url]];
             }else{
                 NSLog(@"imageView is null");
             }
+//            imageView.tag = cyucleImage.appId;
         }
         
         scrollView.contentOffset = CGPointMake(scrollView.frame.size.width, 0);
@@ -167,7 +170,9 @@
     SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
 
     for (NSInteger i = 0; i < imageArray.count; ++i) {
-        NSString *url = [imageArray objectAtIndex:i];
+        TopCycleImage *cyucleImage = [imageArray objectAtIndex:i];
+        NSString *url = cyucleImage.imageUrl;
+//        NSString *url = [imageArray objectAtIndex:i];
         
         if (![StringUtils isBlankString:url]) {
             [downloader downloadImageWithURL:[NSURL URLWithString:url] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
@@ -215,7 +220,14 @@
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)tap {
-    [delegate clickItem:currentPage];
+//    NSInteger selIndex = tap.view.tag - ImageView_StartTag;
+//    NSLog(@"currentPage: %ld", currentPage);
+    TopCycleImage *cyucleImage = [imageArray objectAtIndex:currentPage];
+    NSLog(@"cyucleImage appId: %d", cyucleImage.appId);
+    if(delegate){
+        [delegate clickItem:cyucleImage.appId];
+    }
+    
 }
 
 -(void) startRolling{

@@ -46,7 +46,7 @@
 
 @implementation DetailsInfoViewController
 
-@synthesize appSmallIcon, appName, detailScrollView, infoView;
+@synthesize appSmallIcon, appName, detailScrollView, infoView, appId;
 //@synthesize lblDescribe, lblVerision, lblUpdateRecord, txtDescribe, txtVerision, txtUpdateList;
 
 - (void)viewDidLoad {
@@ -148,7 +148,10 @@
 -(void) initData{
     info = nil;
     
-    [[[DetailInfoRequest alloc] init]request:self.infoID getAppInfo:^(AppPacketInfo *appinfo) {
+    DetailInfoRequest *detail = [[DetailInfoRequest alloc] init];
+    [detail setAppId:appId];
+    
+    [detail request:^(AppPacketInfo *appinfo) {
         info = appinfo;
 //        NSLog(@"%@", appinfo.describeImages);
         [self initAppInfo];

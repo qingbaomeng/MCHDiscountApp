@@ -128,7 +128,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NomalFrame *frame = listItemArray[indexPath.row];
     
-    [_delegate showAppInfo:frame.packetInfo.gameID];
+    HomeGameInfo *gameInfo = frame.packetInfo;
+    if(_delegate){
+        [_delegate showAppInfo: [NSString stringWithFormat:@"%d", gameInfo.gameID]];
+    }
 }
 
 -(void) requestAppInfo{
@@ -223,8 +226,11 @@
 
 #pragma mark - CycleScrollItemDelegate
 
--(void) clickItem:(NSInteger)selectedIndex{
-    NSLog(@"clickItem : %ld", (long)selectedIndex);
+-(void) clickItem:(NSInteger)appid{
+    NSLog(@"clickItem : %ld", (long)appid);
+    if(_delegate){
+        [_delegate showAppInfo: [NSString stringWithFormat:@"%ld", appid]];
+    }
 }
 
 /*

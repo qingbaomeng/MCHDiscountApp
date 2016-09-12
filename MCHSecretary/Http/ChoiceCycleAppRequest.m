@@ -40,7 +40,7 @@
 -(void) getScrollViewInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
     [[BaseNetManager sharedInstance] get:takeTransUrl success:^(NSDictionary *dic) {
-//        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
+        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
         NSMutableArray *result = [self cycleDictToArray:dic];
         resultBlock(result);
         
@@ -117,6 +117,7 @@
         for (int i = 0; i < [datas count]; i++) {
             NSDictionary *listDic = [datas objectAtIndex:i];
             TopCycleImage *cyucleImage = [[TopCycleImage alloc] init];
+            [cyucleImage setAppId:0];
             [cyucleImage setImageUrl:[NSString stringWithFormat:@"%@", [listDic objectForKey:@"data"]]];
             
             [array addObject:cyucleImage];

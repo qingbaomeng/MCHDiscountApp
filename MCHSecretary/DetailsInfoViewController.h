@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "HomeGameInfo.h"
 #import "AppPacketInfo.h"
 #import "CWStarRateView.h"
 #import "DetailDescribeView.h"
@@ -23,7 +22,8 @@ UIScrollViewDelegate
 {
     UIView *topview;
 }
-@property(nonatomic,assign)int infoID;
+ 
+@property(nonatomic,strong)NSString *appId;
 
 @property (nonatomic, strong) AppPacketInfo *appInfo;
 

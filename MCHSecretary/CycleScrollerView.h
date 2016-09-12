@@ -11,7 +11,7 @@
 
 @protocol CycleScrollItemDelegate <NSObject>
 
--(void) clickItem:(NSInteger)selectedIndex;
+-(void) clickItem:(NSInteger)appid;
 
 @end
 

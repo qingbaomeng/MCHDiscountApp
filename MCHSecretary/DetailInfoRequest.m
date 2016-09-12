@@ -18,11 +18,13 @@
 
 @implementation DetailInfoRequest
 
--(void)request:(int)infoID getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+@synthesize appId;
+
+-(void)request:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/id/%d",appdetailinfourl,infoID];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/id/%@",appdetailinfourl, appId];
     
-//    NSLog(@"[DetailInfoRequest] URLStr : %@",urlStr);
+    NSLog(@"[DetailInfoRequest] URLStr : %@",urlStr);
     
     [[BaseNetManager sharedInstance] get:urlStr success:^(NSDictionary *dic) {
         NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
@@ -31,7 +33,8 @@
         if([@"1" isEqualToString:status]){
 //            NSMutableArray *result = [self dicToArray:dic];
 //            AppPacketInfo *appInfo = [self analysisJsonStrToClass:dic];
-            resultBlock([self analysisJsonStrToClass:dic[@"data"]]);
+            
+            resultBlock([self analysisJsonStrToClass:[dic objectForKey:@"data"]]);
         }else{
             NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
             if([StringUtils isBlankString:errorMsg]){

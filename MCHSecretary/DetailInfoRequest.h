@@ -12,6 +12,8 @@
 
 @interface DetailInfoRequest : NSObject
 
--(void)request:(int)infoID getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
+@property (nonatomic, copy) NSString *appId;
+
+-(void)request:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
 @end

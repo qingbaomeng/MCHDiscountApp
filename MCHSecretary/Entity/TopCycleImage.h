@@ -10,6 +10,8 @@
 
 @interface TopCycleImage : NSObject
 
+@property (nonatomic, assign) int appId;
+
 @property (nonatomic, copy) NSString *imageUrl;
 
 @end

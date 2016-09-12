@@ -19,7 +19,6 @@
 
 #define searchopenserverurl @"/app.php/server/get_game_list"
 
-
 @implementation SearchAppRequest
 
 -(void) searchOpenServerInfo:(void(^)(NSMutableArray * opserverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
@@ -27,7 +26,7 @@
     NSString *strUrl = [NSString stringWithFormat:@"%@",searchopenserverurl];
     
     [[BaseNetManager sharedInstance] get:strUrl success:^(NSDictionary *dic) {
-        //        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
+        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
         NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){
             //            NSMutableArray *result = [self dicToArray:dic];
