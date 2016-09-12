@@ -35,6 +35,7 @@
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
         [self setValuesByDic:dict];
+        [self setOpenServerInfoByArray:dict];
     }
     return self;
 }
@@ -72,7 +73,27 @@
     }else{
         appDiscount = @"";
     }
+}
+
+- (id)initWithDictByString:(NSDictionary *)dict {
+    if (self = [super init]) {
+        [self setValuesByDic:dict];
+        [self setOpenServerInfoByString:dict];
+    }
+    return self;
+}
+
+-(void) setOpenServerInfoByArray:(NSDictionary *)dict{
+    NSString *openserverStr = checkNull([dict objectForKey:@"time"]);
     
+    if(![StringUtils isBlankString:openserverStr]){
+        openServerArray = [dict objectForKey:@"time"];
+    }else{
+        openServerArray = [[NSArray alloc] init];
+    }
+}
+
+-(void) setOpenServerInfoByString:(NSDictionary *)dict{
     NSString *openserverStr = checkNull([dict objectForKey:@"time"]);
     
     if(![StringUtils isBlankString:openserverStr]){
@@ -81,7 +102,4 @@
         openServerArray = [[NSArray alloc] init];
     }
 }
-
-
-
 @end

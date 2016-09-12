@@ -8,7 +8,6 @@
 
 #import "BaseNetManager.h"
 #import "DialogTipView.h"
-#import "CommonFunc.h"
 #import "StringUtils.h"
 
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -189,77 +188,6 @@ DialogTipView *dialogView;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
 //                    NSLog(@"[BaseNetManager] resultStr : %@", res);
-                    if(![StringUtils isBlankString:res]){
-                        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        if(responseDictionary != nil){
-                            successblock(responseDictionary);
-                            
-                        }else{
-                            NSLog(@"[BaseNetManager] resultStr : %@", res);
-                            NSDictionary *resultDic = @{@"status":@"-1001", @"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
-                            failureBlock(response, error, resultDic);
-                        }
-                    }else{
-                        NSDictionary *resultDic = @{@"status":@"-1",@"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
-                        successblock(resultDic);
-                    }
-                    [self removeIndicatorView];
-                });
-                
-            } else {
-                NSLog(@"[BaseNetManager] http response status : %ld",status);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self removeIndicatorView];
-                    
-                    failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPStatusException", @"")});
-                });
-            }
-        } else {
-            NSLog(@"[BaseNetManager] error=%@",error);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self removeIndicatorView];
-                
-                failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPError", @"")});
-            });
-        }
-    };
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:completionBlock];
-    [task resume];
-}
-
--(void) httpPostByEncryption:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
-    [self showIndicatorView];
-    
-    NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *param=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-    NSString *paramByEncode = [CommonFunc base64StringFromText:param];
-    NSString *strURL = [NSString stringWithFormat:@"%@%@",urlpre,urlstr];
-    
-    NSURL *url = [NSURL URLWithString:strURL];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setTimeoutInterval:5.0];
-    [request setHTTPMethod:@"POST"];
-    
-    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
-    
-    request.HTTPBody = [paramByEncode dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //    NSLog(@"%@",[param dataUsingEncoding:NSUTF8StringEncoding]);
-    completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
-        //             NSLog(@"response : %@", response);
-        if (data && (error == nil)) {
-            NSLog(@"[BaseNetManager] data=%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
-            long status = (long)httpResponse.statusCode;
-            if(status >= 200 && status < 299) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-                    //                    NSLog(@"[BaseNetManager] resultStr : %@", res);
                     if(![StringUtils isBlankString:res]){
                         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                         if(responseDictionary != nil){

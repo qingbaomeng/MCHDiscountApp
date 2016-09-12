@@ -36,4 +36,7 @@
 
 + (id)packWithDict:(NSDictionary *)dict;
 
+- (id)initWithDictByString:(NSDictionary *)dict;
+
+
 @end

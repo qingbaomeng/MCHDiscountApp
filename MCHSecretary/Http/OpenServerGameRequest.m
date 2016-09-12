@@ -84,8 +84,8 @@
         for (int i = 0; i < [lists count]; i++){
             NSDictionary *listDic = [lists objectAtIndex:i];
             NomalFrame *frame = [[NomalFrame alloc] init];
-            OpenServerEntity *packInfo = [OpenServerEntity packWithDict:listDic];
-
+            OpenServerEntity *packInfo = [[OpenServerEntity alloc] initWithDictByString:listDic];
+            
             [frame setOpenServerInfo:packInfo];
             
             [frameArray addObject:frame];
