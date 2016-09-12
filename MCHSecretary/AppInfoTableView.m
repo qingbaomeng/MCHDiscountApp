@@ -52,6 +52,7 @@
 
 -(void) addScrollView{
     appInfoTable = [[UITableView alloc] initWithFrame:self.bounds];
+    appInfoTable.separatorStyle = UITableViewCellSelectionStyleNone;
     appInfoTable.delegate = self;
     appInfoTable.dataSource = self;
     
@@ -199,6 +200,7 @@
     appInfo.gameDescribe = frame.packetInfo.introduction;
     appInfo.gameDiscount = frame.packetInfo.appDiscount;
     appInfo.gameBundleId = frame.packetInfo.gameBundleID;
+    appInfo.gameBundleId = @"com.mchdemo.paysdk";
 //    if(
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSArray *allInstalled = [InstallAppInfo findAll];

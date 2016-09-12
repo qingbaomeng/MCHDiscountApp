@@ -78,7 +78,6 @@
 		5AE3D34B1D752CF100EBD9D9 /* OpenServerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D34A1D752CF100EBD9D9 /* OpenServerEntity.m */; };
 		5AE3D34E1D7564FB00EBD9D9 /* InstallAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D34D1D7564FB00EBD9D9 /* InstallAppViewController.m */; };
 		5AE3D3511D75733500EBD9D9 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3D3501D75733500EBD9D9 /* FileUtils.m */; };
-		5AE456521D8256E800EB31DC /* RecommendAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE456511D8256E800EB31DC /* RecommendAppInfo.m */; };
 		5AE522891D6E7FDD001AE3A5 /* CommentStarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE522881D6E7FDD001AE3A5 /* CommentStarCell.m */; };
 		5AE5228C1D6E801D001AE3A5 /* CommentStarFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE5228B1D6E801D001AE3A5 /* CommentStarFrame.m */; };
 		5AE86AB91D77D7D800A01AB1 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE86AB81D77D7D800A01AB1 /* HelpViewController.m */; };
@@ -338,8 +337,6 @@
 		5AE3D34D1D7564FB00EBD9D9 /* InstallAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstallAppViewController.m; sourceTree = "<group>"; };
 		5AE3D34F1D75733500EBD9D9 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileUtils.h; path = Utils/FileUtils.h; sourceTree = "<group>"; };
 		5AE3D3501D75733500EBD9D9 /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileUtils.m; path = Utils/FileUtils.m; sourceTree = "<group>"; };
-		5AE456501D8256E800EB31DC /* RecommendAppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecommendAppInfo.h; path = Entity/RecommendAppInfo.h; sourceTree = "<group>"; };
-		5AE456511D8256E800EB31DC /* RecommendAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecommendAppInfo.m; path = Entity/RecommendAppInfo.m; sourceTree = "<group>"; };
 		5AE522871D6E7FDD001AE3A5 /* CommentStarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentStarCell.h; path = Cells/CommentStarCell.h; sourceTree = "<group>"; };
 		5AE522881D6E7FDD001AE3A5 /* CommentStarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentStarCell.m; path = Cells/CommentStarCell.m; sourceTree = "<group>"; };
 		5AE5228A1D6E801D001AE3A5 /* CommentStarFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentStarFrame.h; path = Frame/CommentStarFrame.h; sourceTree = "<group>"; };
@@ -1120,8 +1117,6 @@
 				5AE061CF1D8019DA0032189F /* DeviceAppInfo.m */,
 				5AD614851D813A9E005E9406 /* TopCycleImage.h */,
 				5AD614861D813A9E005E9406 /* TopCycleImage.m */,
-				5AE456501D8256E800EB31DC /* RecommendAppInfo.h */,
-				5AE456511D8256E800EB31DC /* RecommendAppInfo.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -1544,7 +1539,6 @@
 				5AE3D34B1D752CF100EBD9D9 /* OpenServerEntity.m in Sources */,
 				B7E7595E1D5ACEE5008C7ED8 /* ChoiceListItem.m in Sources */,
 				B78FA1B61D531E100092A043 /* main.m in Sources */,
-				5AE456521D8256E800EB31DC /* RecommendAppInfo.m in Sources */,
 				B7E759801D5D7A89008C7ED8 /* NSDictionary+Log.m in Sources */,
 				B7E759491D59874D008C7ED8 /* MKAnnotationView+WebCache.m in Sources */,
 				B7E7597C1D5C8174008C7ED8 /* BaseNetManager.m in Sources */,
