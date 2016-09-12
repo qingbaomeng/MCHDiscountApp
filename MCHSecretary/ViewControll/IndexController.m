@@ -169,7 +169,7 @@
 
 #pragma mark - AppInfoDelegate
 
--(void) showAppInfo{
+-(void) showAppInfo:(HomeGameInfo *)info{
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     //    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
@@ -179,6 +179,7 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
+    detailsView.homeInfo = info;
     [self.navigationController pushViewController:detailsView animated:YES];
 }
 

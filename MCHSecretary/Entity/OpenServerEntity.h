@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString *appDiscount;
 //游戏大小
 @property(nonatomic,copy)NSString *gameSize;
+
 //开服信息
 @property (nonatomic, strong) NSArray *openServerArray;
 //下载地址

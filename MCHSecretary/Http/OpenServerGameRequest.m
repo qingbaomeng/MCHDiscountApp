@@ -30,7 +30,7 @@
         
         resultBlock(result);
         
-//        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
+        NSLog(@"[OpenServerGameRequest] resultStr : %@", dic);
         
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);

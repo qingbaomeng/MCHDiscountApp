@@ -415,7 +415,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(isSearchOpenServerGame){
         OpenServerSearchFrame *serverFrame = listsearchItemArray[indexPath.row];
-        OpenServerSearchCell * serverCell = [OpenServerSearchCell cellWithTableView:tableView];;
+        NSLog(@"123123===%@",serverFrame.openServerFrameArray);
+        OpenServerSearchCell * serverCell = [OpenServerSearchCell cellWithTableView:tableView];
         serverCell.delegate = self;
         [serverCell setOpenServerSearchFrame:serverFrame pos:indexPath.row openserver:YES];
         return serverCell;

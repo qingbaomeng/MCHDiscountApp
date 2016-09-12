@@ -199,6 +199,8 @@
             lblos.layer.borderColor = [TopBackColor CGColor];
             lblos.font = OpenServerFont;
             [lblos setText:pos.openTime];
+            [lblos setText:@"111111"];
+            NSLog(@"[OpenServerSearchCell] pos.openTime:%@", pos.openTime);
             [lblos setTextColor:TopBackColor];
             [lblos setTextAlignment:NSTextAlignmentCenter];
             
@@ -236,6 +238,7 @@
                 lblos.layer.borderColor = [TopBackColor CGColor];
                 lblos.font = OpenServerFont;
                 [lblos setText:pos.openTime];
+                NSLog(@"[OpenServerSearchCell] pos.openTime:%@", pos.openTime);
                 [lblos setTextColor:TopBackColor];
                 [lblos setTextAlignment:NSTextAlignmentCenter];
                 

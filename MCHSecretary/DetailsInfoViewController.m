@@ -148,7 +148,7 @@
 -(void) initData{
     info = nil;
     
-    [[[DetailInfoRequest alloc] init] getAppInfo:^(AppPacketInfo *appinfo) {
+    [[[DetailInfoRequest alloc] init]request:self.homeInfo getAppInfo:^(AppPacketInfo *appinfo) {
         info = appinfo;
 //        NSLog(@"%@", appinfo.describeImages);
         [self initAppInfo];

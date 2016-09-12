@@ -77,10 +77,11 @@
     NSString *openserverStr = checkNull([dict objectForKey:@"time"]);
     
     if(![StringUtils isBlankString:openserverStr]){
-        openServerArray = [openserverStr componentsSeparatedByString:@"time"];
+        openServerArray = [openserverStr componentsSeparatedByString:@","];
     }else{
         openServerArray = [[NSArray alloc] init];
     }
+    NSLog(@"openserverStr1111: %@", openServerArray);
 }
 
 

@@ -99,19 +99,21 @@ DialogTipView *dialogView;
     [dataTask resume];
 }
 
--(void) httpPost:(NSString *)urlstr param:(NSString *)param success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+-(void) httpPost:(NSString *)urlstr gameName:(NSString *)gamename param:(NSString *)param success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     [self showIndicatorView];
     NSString *strURL = [NSString stringWithFormat:@"%@%@",urlpre,urlstr];
     
     NSURL *url = [NSURL URLWithString:strURL];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setTimeoutInterval:5];
+    [request setTimeoutInterval:5.0];
     [request setHTTPMethod:@"POST"];
-    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     
-    [request setValue:@"修仙奇缘" forHTTPHeaderField:@"gamename"];
+    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+
     request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+    
+     [request setValue:gamename forHTTPHeaderField:@"gamename"];
 
 //    NSLog(@"%@",[param dataUsingEncoding:NSUTF8StringEncoding]);
     completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
@@ -129,6 +131,7 @@ DialogTipView *dialogView;
                         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                         if(responseDictionary != nil){
                             successblock(responseDictionary);
+                            
                         }else{
                             NSLog(@"[BaseNetManager] resultStr : %@", res);
                             NSDictionary *resultDic = @{@"status":@"-1001", @"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
@@ -138,6 +141,7 @@ DialogTipView *dialogView;
                         NSDictionary *resultDic = @{@"status":@"-1",@"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
                         successblock(resultDic);
                     }
+                    [self removeIndicatorView];
                 });
                 
             } else {

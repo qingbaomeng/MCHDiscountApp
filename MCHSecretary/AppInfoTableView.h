@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "HomeGameInfo.h"
 #import "NomalCell.h"
 #import "CycleScrollerView.h"
 
 @protocol AppInfoDelegate <NSObject>
 
--(void) showAppInfo;
+-(void) showAppInfo:(HomeGameInfo *)info;
 
 @end
 

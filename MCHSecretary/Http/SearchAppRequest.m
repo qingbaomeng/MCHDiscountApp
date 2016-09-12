@@ -17,14 +17,16 @@
 
 #define checkNull(__X__) (__X__) == [NSNull null] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 
-#define searchopenserverurl @"/searchopenserver.html"
+#define searchopenserverurl @"/app.php/server/get_game_list"
 
 
 @implementation SearchAppRequest
 
 -(void) searchOpenServerInfo:(void(^)(NSMutableArray * opserverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
-    [[BaseNetManager sharedInstance] get:searchopenserverurl success:^(NSDictionary *dic) {
+    NSString *strUrl = [NSString stringWithFormat:@"%@",searchopenserverurl];
+    
+    [[BaseNetManager sharedInstance] get:strUrl success:^(NSDictionary *dic) {
         //        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
         NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){

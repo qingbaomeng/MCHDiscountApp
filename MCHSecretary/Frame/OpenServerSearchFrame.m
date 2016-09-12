@@ -78,6 +78,7 @@
                 [pos setPosX:x];
                 [pos setPosY:y];
                 [pos setPosW:(mScreenWidth - itempadding * 3) / 2];
+                NSLog(@"openServertime: %@", _packetInfo.openServerArray[i]);
                 [pos setOpenTime:_packetInfo.openServerArray[i]];
                 
                 [self.openServerFrameArray addObject:pos];

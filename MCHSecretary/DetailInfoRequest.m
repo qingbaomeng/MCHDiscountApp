@@ -11,15 +11,20 @@
 #import "BaseNetManager.h"
 #import "StringUtils.h"
 
+#import "HomeGameInfo.h"
 #import "AppPacketInfo.h"
 
-#define appdetailinfourl @"/singleappinfo.html"
+#define appdetailinfourl @"/app.php/server/get_game_list"
 
 @implementation DetailInfoRequest
 
--(void) getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+-(void)request:(HomeGameInfo *)info getAppInfo:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     
-    [[BaseNetManager sharedInstance] get:appdetailinfourl success:^(NSDictionary *dic) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@?gamename=%@&type=%d&game_server=0&limit=1",appdetailinfourl,info.gameName,info.recommend_status];
+    
+//    NSLog(@"[DetailInfoRequest] URLStr : %@",urlStr);
+    
+    [[BaseNetManager sharedInstance] get:urlStr success:^(NSDictionary *dic) {
 //        NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
         NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){

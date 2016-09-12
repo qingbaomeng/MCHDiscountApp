@@ -26,6 +26,6 @@
 
 //-(NSString * _Nonnull) sortDicToString:(NSMutableDictionary * _Nonnull)dic;
 
--(void) httpPost:(NSString *)urlstr param:(NSString *)param success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
+-(void) httpPost:(NSString *)urlstr gameName:(NSString *)gamename param:(NSString *)param success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
 @end
