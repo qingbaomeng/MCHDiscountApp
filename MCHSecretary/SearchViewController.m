@@ -450,7 +450,7 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
-    detailsView.infoID = infoid;
+    detailsView.appId = [NSString stringWithFormat:@"%d", infoid];
     [self.navigationController pushViewController:detailsView animated:YES];
     isAddRommentView = NO;
 }
