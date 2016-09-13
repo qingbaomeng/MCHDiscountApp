@@ -14,11 +14,14 @@
 #import "FileUtils.h"
 #import "WebImage.h"
 
+#import "InstallAppInfo.h"
+
 #import "DetailsInfoViewController.h"
 #import "OpenServerSearchFrame.h"
 #import "OpenServerEntity.h"
 #import "SearchOpenServerRequest.h"
 #import "SearchAppRequest.h"
+#import "InstallAppRequest.h"
 
 //#import "ChoiceCycleAppRequest.h"
 
@@ -461,6 +464,7 @@
     OpenServerSearchFrame *frame = listItemArray[indexPath.row];
     OpenServerSearchCell * cell = [OpenServerSearchCell cellWithTableView:tableView];
     [cell setOpenServerSearchFrame:frame pos:indexPath.row openserver:NO];
+    cell.delegate = self;
     return cell;
 }
 
@@ -662,21 +666,64 @@
 #pragma mark - OpenServerSearchDelegate
 
 -(void) startDownloadApp:(NSInteger)index{
-
-    NSString *downUrl = @"";
-    
+    OpenServerEntity *selGame;
     if(isSearchOpenServerGame && index < listsearchItemArray.count){
         OpenServerSearchFrame *serverFrame = listsearchItemArray[index];
-        downUrl = serverFrame.packetInfo.downloadUrl;
+        selGame = serverFrame.packetInfo;
     }else if(!isSearchOpenServerGame && index < listItemArray.count){
         OpenServerSearchFrame *frame = listItemArray[index];
-        downUrl = frame.packetInfo.downloadUrl;
+        selGame = frame.packetInfo;
     }
     
+    [self requestDownloadUrl:selGame.gameID];
     
-    NSLog(@"%ld_url: %@", (long)index, downUrl);
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
+    InstallAppInfo *appInfo = [[InstallAppInfo alloc] init];
+    appInfo.appid = selGame.gameID;
+    appInfo.iconUrl = selGame.smallImageUrl;
+    appInfo.gameName = selGame.packetName;
+    appInfo.gameSize = selGame.gameSize;
+    appInfo.gameType = selGame.game_type_name;
+    appInfo.gameDescribe = selGame.gameDesc;
+    appInfo.gameDiscount = selGame.appDiscount;
+    appInfo.gameBundleId = selGame.appBundleId;
+    
+    if([@"" isEqualToString:appInfo.gameBundleId]){
+        NSLog(@"BundleId is null");
+        return;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSArray *allInstalled = [InstallAppInfo findAll];
+        BOOL isHave = false;
+        for (int i = 0; i < allInstalled.count; i++) {
+            InstallAppInfo *info = allInstalled[i];
+            if([appInfo.gameBundleId isEqualToString:info.gameBundleId]){
+                isHave = true;
+                break;
+            }
+        }
+        if(!isHave){
+            [appInfo save];
+        }
+    });
 }
+
+-(void) requestDownloadUrl:(int)appid{
+    InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
+    [installapprequest setGameAppId:[NSString stringWithFormat:@"%d", appid]];
+    [installapprequest getAppList:^(NSString *resultStr) {
+        NSLog(@"resultStr : %@", resultStr);
+        if (![@"" isEqualToString:@""]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resultStr]];
+        }
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+        NSLog(@"fun# errorMsg:%@", errorMsg);
+    }];
+}
+
+
 
 -(void) showAllOpenServerInfo:(NSInteger)index{
      NSLog(@"[SearchViewController] fun#showAllOpenServer:%ld", (long)index);

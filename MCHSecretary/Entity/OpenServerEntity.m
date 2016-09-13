@@ -14,7 +14,7 @@
 @implementation OpenServerEntity
 
 @synthesize gameID;
-@synthesize packetName, smallImageUrl, gameDesc, appDiscount, openServerArray, downloadUrl,gameSize,game_type_name,serverDesc;
+@synthesize packetName, smallImageUrl, gameDesc, appDiscount, openServerArray, downloadUrl,gameSize,game_type_name,serverDesc,appBundleId;
 
 -(id) init{
     if (self = [super init]) {
@@ -52,6 +52,8 @@
     smallImageUrl = [NSString stringWithFormat:@"%@", [dict objectForKey:@"icon"]];
 
     packetName = [NSString stringWithFormat:@"%@", [dict objectForKey:@"game_name"]];
+    
+    appBundleId = checkNull([dict objectForKey:@"mark"]);
     
     NSString *resultDesc = checkNull([dict objectForKey:@"server_name"]);
     if(![StringUtils isBlankString:resultDesc]){

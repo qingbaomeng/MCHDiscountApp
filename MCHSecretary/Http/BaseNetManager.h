@@ -29,4 +29,8 @@
 -(void) httpPost:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
 - (void)noget:(NSString *)urlstr success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
+
+
+-(void) httpPostByBaseResult:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSString * result))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
+
 @end

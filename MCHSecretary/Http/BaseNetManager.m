@@ -9,6 +9,7 @@
 #import "BaseNetManager.h"
 #import "DialogTipView.h"
 #import "StringUtils.h"
+#import "CommonFunc.h"
 
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
@@ -227,6 +228,65 @@ DialogTipView *dialogView;
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:completionBlock];
     [task resume];
 }
+
+-(void) httpPostByBaseResult:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSString * result))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+    [self showIndicatorView];
+    
+    NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *param=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSString *strURL = [NSString stringWithFormat:@"%@%@",urlpre,urlstr];
+    
+    NSURL *url = [NSURL URLWithString:strURL];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setTimeoutInterval:5.0];
+    [request setHTTPMethod:@"POST"];
+    
+//    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    
+//    request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody = [[CommonFunc base64StringFromText:param] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //    NSLog(@"%@",[param dataUsingEncoding:NSUTF8StringEncoding]);
+    completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
+        //             NSLog(@"response : %@", response);
+        if (data && (error == nil)) {
+//            NSLog(@"[BaseNetManager] data=%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            long status = (long)httpResponse.statusCode;
+            if(status >= 200 && status < 299) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+                    NSLog(@"[BaseNetManager] data : %@", res);
+                    successblock(res);
+                    [self removeIndicatorView];
+                });
+                
+            } else {
+                NSLog(@"[BaseNetManager] http response status : %ld",status);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self removeIndicatorView];
+                    
+                    failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPStatusException", @"")});
+                });
+            }
+        } else {
+            NSLog(@"[BaseNetManager] error=%@",error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self removeIndicatorView];
+                
+                failureBlock(response, error, @{@"return_msg":NSLocalizedString(@"HTTPError", @"")});
+            });
+        }
+    };
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:completionBlock];
+    [task resume];
+}
+
 
 -(void) showIndicatorView {
 //    DialogTipView *dialogView = [[DialogTipView alloc] initWithFrame:CGRectMake((kScreenWidth - 30) / 2, (kScreenHeight - 30) / 2, 30, 30)];

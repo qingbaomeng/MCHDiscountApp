@@ -11,6 +11,7 @@
 
 @interface InstallAppInfo : JKDBModel
 
+@property (nonatomic, assign) int appid;
 
 @property (nonatomic, copy) NSString *iconUrl;
 

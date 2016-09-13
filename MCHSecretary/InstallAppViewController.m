@@ -23,6 +23,7 @@
 
 #import "CurrentAppUtils.h"
 #import "DeviceAppInfo.h"
+#import "InstallAppRequest.h"
 
 #define TopViewH 65
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -189,10 +190,24 @@
 -(void) repairApp:(NSInteger)index{
     if(index < listItemArray.count){
         InstallAppFrame *frame = listItemArray[index];
-        NSString *downUrl = frame.installAppInfo.gameInstallUrl;
-        NSLog(@"%ld_url: %@", (long)index, downUrl);
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downUrl]];
+
+        [self requestDownloadUrl:frame.installAppInfo.appid];
     }
+}
+
+-(void) requestDownloadUrl:(int)appid{
+    InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
+    [installapprequest setGameAppId:[NSString stringWithFormat:@"%d", appid]];
+    [installapprequest getAppList:^(NSString *resultStr) {
+        NSLog(@"resultStr : %@", resultStr);
+        if (![@"" isEqualToString:@""]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resultStr]];
+        }
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+        NSLog(@"errorMsg:%@", errorMsg);
+    }];
 }
 
 /*

@@ -12,6 +12,8 @@
 		5A11E6AF1D6D7CB10065BAF5 /* AppCommentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11E6AE1D6D7CB10065BAF5 /* AppCommentInfo.m */; };
 		5A11E6B21D6D90E40065BAF5 /* CommentFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11E6B11D6D90E40065BAF5 /* CommentFrame.m */; };
 		5A11E6B51D6D93BC0065BAF5 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11E6B41D6D93BC0065BAF5 /* CommentCell.m */; };
+		5A18DE681D86E2DA00252ACC /* InstallAppRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A18DE671D86E2DA00252ACC /* InstallAppRequest.m */; };
+		5A18DE6B1D86E63600252ACC /* CommonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A18DE6A1D86E63600252ACC /* CommonFunc.m */; };
 		5A28C4FD1D7EAC6C00132F27 /* mchannelinfos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A28C4FC1D7EAC6C00132F27 /* mchannelinfos.plist */; };
 		5A28C5001D7EACB300132F27 /* PreferencesUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28C4FF1D7EACB300132F27 /* PreferencesUtils.m */; };
 		5A28F8AA1D6FD55900D58BB5 /* IndexController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A28F8A91D6FD55900D58BB5 /* IndexController.m */; };
@@ -235,6 +237,10 @@
 		5A11E6B11D6D90E40065BAF5 /* CommentFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentFrame.m; path = Frame/CommentFrame.m; sourceTree = "<group>"; };
 		5A11E6B31D6D93BC0065BAF5 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentCell.h; path = Cells/CommentCell.h; sourceTree = "<group>"; };
 		5A11E6B41D6D93BC0065BAF5 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentCell.m; path = Cells/CommentCell.m; sourceTree = "<group>"; };
+		5A18DE661D86E2DA00252ACC /* InstallAppRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstallAppRequest.h; path = Http/InstallAppRequest.h; sourceTree = "<group>"; };
+		5A18DE671D86E2DA00252ACC /* InstallAppRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstallAppRequest.m; path = Http/InstallAppRequest.m; sourceTree = "<group>"; };
+		5A18DE691D86E63600252ACC /* CommonFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonFunc.h; path = Utils/CommonFunc.h; sourceTree = "<group>"; };
+		5A18DE6A1D86E63600252ACC /* CommonFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommonFunc.m; path = Utils/CommonFunc.m; sourceTree = "<group>"; };
 		5A28C4FC1D7EAC6C00132F27 /* mchannelinfos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mchannelinfos.plist; sourceTree = "<group>"; };
 		5A28C4FE1D7EACB300132F27 /* PreferencesUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesUtils.h; path = Utils/PreferencesUtils.h; sourceTree = "<group>"; };
 		5A28C4FF1D7EACB300132F27 /* PreferencesUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesUtils.m; path = Utils/PreferencesUtils.m; sourceTree = "<group>"; };
@@ -1205,6 +1211,8 @@
 		B7E759631D5B0C78008C7ED8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5A18DE691D86E63600252ACC /* CommonFunc.h */,
+				5A18DE6A1D86E63600252ACC /* CommonFunc.m */,
 				5A28C4FE1D7EACB300132F27 /* PreferencesUtils.h */,
 				5A28C4FF1D7EACB300132F27 /* PreferencesUtils.m */,
 				B7E759641D5B0C86008C7ED8 /* StringUtils.h */,
@@ -1236,6 +1244,8 @@
 				5AF8A76F1D791D1500DDF1B3 /* SearchOpenServerRequest.m */,
 				5AF6552E1D86AC200082339D /* HelpRequest.h */,
 				5AF6552F1D86AC200082339D /* HelpRequest.m */,
+				5A18DE661D86E2DA00252ACC /* InstallAppRequest.h */,
+				5A18DE671D86E2DA00252ACC /* InstallAppRequest.m */,
 			);
 			name = Http;
 			sourceTree = "<group>";
@@ -1543,6 +1553,7 @@
 				B7E759491D59874D008C7ED8 /* MKAnnotationView+WebCache.m in Sources */,
 				B7E7597C1D5C8174008C7ED8 /* BaseNetManager.m in Sources */,
 				5AE86ABC1D77DD0600A01AB1 /* ListView.m in Sources */,
+				5A18DE6B1D86E63600252ACC /* CommonFunc.m in Sources */,
 				B7E7591A1D596D4D008C7ED8 /* AppPacketInfo.m in Sources */,
 				5A28F8C11D7037AE00D58BB5 /* OpenServerItem.m in Sources */,
 				5AE061BA1D7FF25D0032189F /* FMDatabaseQueue.m in Sources */,
@@ -1552,6 +1563,7 @@
 				B7E7594D1D59874D008C7ED8 /* SDWebImageDecoder.m in Sources */,
 				B7E7594C1D59874D008C7ED8 /* SDWebImageCompat.m in Sources */,
 				5AE061C01D7FF2670032189F /* JKDBHelper.m in Sources */,
+				5A18DE681D86E2DA00252ACC /* InstallAppRequest.m in Sources */,
 				5A5E0E381D78171F00E60A46 /* SVIndefiniteAnimatedView.m in Sources */,
 				5AE061C41D7FF2C40032189F /* InstallAppInfo.m in Sources */,
 				5A28F8C71D703EF900D58BB5 /* OpenServerCell.m in Sources */,

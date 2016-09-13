@@ -32,6 +32,10 @@
 //区服
 @property(nonatomic,copy)NSString *serverDesc;
 
+@property(nonatomic,copy)NSString *appBundleId;
+
+
+
 - (id)initWithDict:(NSDictionary *)dict;
 
 + (id)packWithDict:(NSDictionary *)dict;

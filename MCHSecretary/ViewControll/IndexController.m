@@ -12,6 +12,8 @@
 #import "SearchViewController.h"
 #import "Share.h"
 
+#import "InstallAppRequest.h"
+
 #define BarWIDTH 30
 #define TopViewH 65
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
