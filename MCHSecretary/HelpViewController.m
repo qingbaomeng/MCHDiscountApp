@@ -172,6 +172,7 @@
 }
 -(void)cellUS
 {
+    NSLog(@"service_tel===%@",resultDict[@"service_tel"]);
     //拨电话
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",resultDict[@"service_tel"]];
     

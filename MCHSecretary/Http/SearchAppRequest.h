@@ -10,6 +10,8 @@
 
 @interface SearchAppRequest : NSObject
 
+@property(nonatomic,copy)NSString *limit;
+
 -(void)gamename:(NSString *)gameName serverInfo:(void(^)(NSMutableArray * serverArray))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
 

@@ -245,12 +245,19 @@
 
 //添加推荐游戏
 -(void) addRecommentApp:(UIView *)parentView posy:(CGFloat)posy{
+    int btnNum;
     CGFloat iconW = 60;
     CGFloat nameW = 20;
     CGFloat spaceW = (kScreenWidth - iconW * 4) / 5;
     if (defaultItemArray.count < 4)
     {
-    for (int i = 0; i < defaultItemArray.count; i++) {
+        btnNum = (int)defaultItemArray.count;
+    }
+    else
+    {
+        btnNum = 4;
+    }
+    for (int i = 0; i < btnNum; i++) {
         UIButton *btnRecoment = [[UIButton alloc] initWithFrame:CGRectMake(spaceW + (spaceW + iconW) * i, posy, iconW, iconW + nameW)];
         btnRecoment.tag = 10+i;
         [btnRecoment addTarget:self action:@selector(recomentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -270,8 +277,9 @@
         OpenServerEntity *info = defaultItemArray[i];
         [iconApp sd_setImageWithURL:[NSURL URLWithString:info.smallImageUrl] placeholderImage:[UIImage imageNamed:@"appinstall.png"]];
         [lblRecomment setText:info.packetName];
-    }
- }
+      }
+   
+
     UILabel *lblSearchHis = [[UILabel alloc] initWithFrame:CGRectMake(15, posy + iconW + nameW + 10, kScreenHeight, 15)];
     [lblSearchHis setFont:TitleFont];
     [lblSearchHis setTextColor:TitleColor];
@@ -505,8 +513,9 @@
         return;
     }
     if(isSearchOpenServerGame){
-        
-        [[[SearchOpenServerRequest alloc] init] search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
+      SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
+        [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+        [searchOpenRequest search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
             [listsearchItemArray removeAllObjects];
             if(opserverArray != nil){
                 [listsearchItemArray addObjectsFromArray:opserverArray];
@@ -514,16 +523,19 @@
             }else{
                 [self addRecommentView:YES];
             }
-            
+            [appInfoTable.mj_header endRefreshing];
         } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
             [self addRecommentView:YES];
             NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
             NSLog(@"errorMsg:%@", errorMsg);
+            [appInfoTable.mj_header endRefreshing];
         }];
         return;
     }
     
-    [[[SearchAppRequest alloc] init]gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
+  SearchAppRequest *searchRequest  = [[SearchAppRequest alloc] init];
+    [searchRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+    [searchRequest gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
         [listItemArray removeAllObjects];
         //        result = nil;
         if(serverArray != nil){
@@ -532,15 +544,56 @@
         }else{
             [self addRecommentView:YES];
         }
-
+        [appInfoTable.mj_header endRefreshing];
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         [self addRecommentView:YES];
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
         NSLog(@"errorMsg:%@", errorMsg);
+        [appInfoTable.mj_header endRefreshing]; 
     }];
 }
 -(void)loadMore
 {
+    if(isSearchOpenServerGame){
+        SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
+        [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+        [searchOpenRequest search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
+            [listsearchItemArray removeAllObjects];
+            if(opserverArray != nil){
+                listItemArray = opserverArray;
+                [listsearchItemArray addObjectsFromArray:opserverArray];
+                [self addScrollView];
+            }else{
+                
+            }
+            [appInfoTable.mj_footer endRefreshing];
+        } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+            [self addRecommentView:YES];
+            NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+            NSLog(@"errorMsg:%@", errorMsg);
+            [appInfoTable.mj_footer endRefreshing];
+        }];
+        return;
+    }
+    
+    SearchAppRequest *searchRequest  = [[SearchAppRequest alloc] init];
+    [searchRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+    [searchRequest gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
+        [listItemArray removeAllObjects];
+        //        result = nil;
+        if(serverArray != nil){
+            [listItemArray addObjectsFromArray:serverArray];
+            [self addScrollView];
+        }else{
+           
+        }
+        [appInfoTable.mj_footer endRefreshing];
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        [self addRecommentView:YES];
+        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+        NSLog(@"errorMsg:%@", errorMsg);
+        [appInfoTable.mj_footer endRefreshing];
+    }];
 
 }
 //显示搜索
