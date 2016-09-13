@@ -54,8 +54,6 @@
     
     _titleLab.textColor = [UIColor grayColor];
     
-    _titleLab.text = @"v1.0.0";
-    
     [self addSubview:_titleLab];
 }
 /*

@@ -13,7 +13,7 @@
 #import "ChoiceListItem.h"
 #import "NomalFrame.h"
 #import "HomeGameInfo.h"
-
+#import "PreferencesUtils.h"
 #import "TopCycleImage.h"
 
 #define TopViewHeight 70
@@ -22,6 +22,7 @@
 #define cycleappinfourl @"/appinfo.html"
 #define allGameInfoUrl @"/app.php/server/get_game_list"
 #define takeTransUrl @"/app.php/server/get_app_adv"
+#define shareAPP @"/app.php/server/get_share_content"
 
 @implementation ChoiceCycleAppRequest
 
@@ -35,6 +36,24 @@
         limit = @"1";
     }
     return self;
+}
+//分享
+-(void)requestForShare:(void(^)(NSDictionary *dict))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock
+{
+
+    NSString *promoreid = [PreferencesUtils getPromoteId];
+    NSString *urlstr = [NSString stringWithFormat:@"%@/promote_id/%@",shareAPP,promoreid];
+    [[BaseNetManager sharedInstance] get:urlstr success:^(NSDictionary *dic) {
+        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
+        resultBlock(dic);
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
+        failureBlock(response, error, dic);
+    }];
+    
+
+    
 }
 //轮番图
 -(void) getScrollViewInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
@@ -73,11 +92,12 @@
     
     [[BaseNetManager sharedInstance] get:allGameInfoUrl success:^(NSDictionary *dic) {
         
+        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
+        
         NSMutableArray *result = [self dicToArray:dic];
         
         resultBlock(result);
         
-//        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
         /*
                NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
         if([@"1" isEqualToString:status]){

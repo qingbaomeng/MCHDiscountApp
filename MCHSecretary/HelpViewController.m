@@ -18,6 +18,9 @@
 
 #import "Share.h"
 #import "HelpRequest.h"
+#import "InstallAppRequest.h"
+#import "ChoiceCycleAppRequest.h"
+#import "CurrentAppUtils.h"
 
 @interface HelpViewController ()
 
@@ -54,6 +57,7 @@
     
     [self addTopView];
     [self addSCrollView];
+   
 }
 -(void) addTopView{
     topview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, TopViewH)];
@@ -76,6 +80,10 @@
 }
 -(void)addSCrollView
 {
+    [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
+        resultDict = dict;
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+    }];
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, TopViewH, kScreenWidth, kScreenHeight - TopViewH)];
     scrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight - 60);
     [self.view addSubview:scrollView];
@@ -107,15 +115,8 @@
         if (a == 3)
         {
             [vie addSmallLab];
-            [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
-                
-                resultDict = dict;
-                [vie.titleLab setText:resultDict[@"app_version"]];
-                
-            } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-                
-            }];
-        
+            NSString *version = [CurrentAppUtils appVersion];
+            vie.titleLab.text = version;
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap4)];
             
             [vie addGestureRecognizer:tapRecognizer];
@@ -203,7 +204,23 @@
 
 -(void)barImageTap
 {
-    [Share shareWithTitle:@"这是title" ImageUrl:@"qq" Message:@"这是描述" URL:@"http://www.baidu.com" ViewControl:self];
+    [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
+        
+        if ([dict[@"status"]intValue] == 1)
+        {
+            NSLog(@"====%@",dict[@"list"]);
+            NSDictionary *dic = dict[@"list"];
+            //
+            [Share shareWithTitle:dic[@"title"] ImageUrl:dic[@"icon"] Message:dic[@"introduction"]  URL:dic[@"url"]  ViewControl:self];
+            NSLog(@"SHARETitle=%@,ImageUrl=%@,Message=%@,URL=%@",dic[@"title"],
+                  dic[@"icon"],
+                  dic[@"introduction"],
+                  dic[@"url"]);
+        }
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
 }
 #pragma mark 手势
 -(void)handleTap1:(UITapGestureRecognizer *)tap
@@ -224,6 +241,8 @@
     
     webVC.descriptStr = @"折扣";
     
+    webVC.webURL = resultDict[@"icon"];
+    
     [self.navigationController pushViewController:webVC animated:YES];
     
 }
@@ -238,22 +257,60 @@
 -(void)handleTap4
 {
     _lab.frame = CGRectMake(0, VIEHEIGHT *3,kScreenWidth, VIEHEIGHT);
-    
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-    
-    [SVProgressHUD showWithStatus:@"检查更新中...."];
-    
-    [self performSelector:@selector(dismissSVPressHUD) withObject:nil afterDelay:3.0f];
-    
+
+    [[[HelpRequest alloc]init]requestForUpdata:^(NSDictionary *dict) {
+        
+        if ([dict[@"status"]intValue] == 1)
+        {
+            NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",dict[@"url"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        }
+        else
+        {
+             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+             [SVProgressHUD showWithStatus:@"检查更新中...."];
+             [self performSelector:@selector(dismissSVPressHUD) withObject:nil afterDelay:3.0f];
+         }
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
     //    [self checkVersionUpdata];
 }
+//-(void) requestDownloadUrl{
+//    InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
+//    [installapprequest setGameAppId:appId];
+//    [installapprequest getAppList:^(NSString *resultStr) {
+//        NSLog(@"resultStr : %@", resultStr);
+//        if (![@"" isEqualToString:@""]) {
+//            
+//        }
+//        
+//    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+//        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+//        NSLog(@"fun# errorMsg:%@", errorMsg);
+//    }];
+//}
+
 -(void)dismissSVPressHUD
 {
     _lab.frame = LABORFRAME;
-    
+    [self alertViewWithMessage:@"已是最新版本"];
     [SVProgressHUD dismiss];
 }
-
+-(void)alertViewWithMessage:(NSString *)message
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self presentViewController:alertVC animated:YES completion:^{
+        
+        [self performSelector:@selector(dismiss:) withObject:alertVC afterDelay:1.0f];
+        
+    }];
+}
+-(void)dismiss:(UIAlertController *)alertVC
+{
+    [alertVC dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

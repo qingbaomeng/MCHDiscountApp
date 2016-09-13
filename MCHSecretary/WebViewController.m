@@ -8,6 +8,7 @@
 
 #import "WebViewController.h"
 #import "NJKWebViewProgress.h"
+#import "WebImage.h"
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -43,17 +44,24 @@
     webView.delegate = progressProxy;
     progressProxy.webViewProxyDelegate = self;
     progressProxy.progressDelegate = self;
-    [self.view addSubview:webView];
+    
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
     
     NSURL *url;
     
     if ([self.descriptStr isEqualToString:@"安装工具"])
     {
         url  = [[NSURL alloc]initWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"];
+        [self.view addSubview:webView];
     }
     else
     {
-        url = [[NSURL alloc]initWithString:@"http://www.weibo.com"];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.webURL] placeholderImage:[UIImage imageNamed:@"load_fail"]];
+        
+//        url = [[NSURL alloc]initWithString:@"http://zhekou.vlcms.com/Uploads/Picture/2016-09-09/57d270ea40857.jpg"];
+        
+        [self.view addSubview:imageView];
     }
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];

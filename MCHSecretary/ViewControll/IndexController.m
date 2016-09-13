@@ -12,6 +12,7 @@
 #import "SearchViewController.h"
 #import "Share.h"
 
+#import "ChoiceCycleAppRequest.h"
 #import "InstallAppRequest.h"
 
 #define BarWIDTH 30
@@ -97,7 +98,24 @@
 }
 
 -(void)barImageTap {
- [Share shareWithTitle:@"这是我们的软件名" ImageUrl:@"qq" Message:@"这是我们软件描述" URL:@"http://www.baidu.com" ViewControl:self];
+    
+    [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
+        
+        if ([dict[@"status"]intValue] == 1)
+        {
+            NSLog(@"====%@",dict[@"list"]);
+            NSDictionary *dic = dict[@"list"];
+//
+            [Share shareWithTitle:dic[@"title"] ImageUrl:dic[@"icon"] Message:dic[@"introduction"]  URL:dic[@"url"]  ViewControl:self];
+            NSLog(@"SHARETitle=%@,ImageUrl=%@,Message=%@,URL=%@",dic[@"title"],
+                  dic[@"icon"],
+                  dic[@"introduction"],
+                  dic[@"url"]);
+        }
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
 }
 
 -(void)showGame{

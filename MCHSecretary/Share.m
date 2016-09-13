@@ -17,7 +17,7 @@
 @implementation Share
 +(void)shareWithTitle:(NSString *)title ImageUrl:(NSString *)imageURl Message:(NSString *)msg URL:(NSString *)url ViewControl:(UIViewController *)vc
 {
-    NSArray* imageArray = @[[UIImage imageNamed:imageURl]];
+    NSArray* imageArray = @[imageURl];
     //    （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     if (imageArray) {
         

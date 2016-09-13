@@ -16,5 +16,6 @@
     UIProgressView *progressView;
 }
 @property(nonatomic,copy)NSString *descriptStr;
+@property(nonatomic,copy)NSString *webURL;
 
 @end

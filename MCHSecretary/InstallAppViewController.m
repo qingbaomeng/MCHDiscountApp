@@ -153,13 +153,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    InstallAppFrame *infoFrame = listItemArray[indexPath.row];
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
-//    detailsView.appId = [NSString stringWithFormat:@"%d",infoFrame.installAppInfo.appid];
     [self.navigationController pushViewController:detailsView animated:YES];
 }
 
