@@ -431,15 +431,15 @@
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     appInfoTable.mj_header.automaticallyChangeAlpha = YES;
     
-        appInfoTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                page++;
-                [self loadMore];
-                // 结束刷新
-//                [appInfoTable.mj_footer endRefreshing];
-            });
-        }];
+    appInfoTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            page++;
+            [self loadMore];
+            // 结束刷新
+            [appInfoTable.mj_footer endRefreshing];
+        });
+    }];
      [self.view addSubview:appInfoTable];
 }
 
