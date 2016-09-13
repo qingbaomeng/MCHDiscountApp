@@ -256,24 +256,10 @@
 }
 -(void)handleTap4
 {
-    _lab.frame = CGRectMake(0, VIEHEIGHT *3,kScreenWidth, VIEHEIGHT);
-
-    [[[HelpRequest alloc]init]requestForUpdata:^(NSDictionary *dict) {
-        
-        if ([dict[@"status"]intValue] == 1)
-        {
-            NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",dict[@"url"]];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-        }
-        else
-        {
-             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-             [SVProgressHUD showWithStatus:@"检查更新中...."];
-             [self performSelector:@selector(dismissSVPressHUD) withObject:nil afterDelay:3.0f];
-         }
-    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        
-    }];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"检查更新中...."];
+    [self performSelector:@selector(dismissSVPressHUD) withObject:nil afterDelay:3.0f];
+        _lab.frame = LABORFRAME;
     //    [self checkVersionUpdata];
 }
 //-(void) requestDownloadUrl{
@@ -293,9 +279,21 @@
 
 -(void)dismissSVPressHUD
 {
-    _lab.frame = LABORFRAME;
-    [self alertViewWithMessage:@"已是最新版本"];
     [SVProgressHUD dismiss];
+    [[[HelpRequest alloc]init]requestForUpdata:^(NSDictionary *dict) {
+        
+        if ([dict[@"status"]intValue] == 1)
+        {
+            NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",dict[@"url"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        }
+        else
+        {
+            [self alertViewWithMessage:@"已是最新版本"];
+        }
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
 }
 -(void)alertViewWithMessage:(NSString *)message
 {
