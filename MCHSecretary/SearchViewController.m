@@ -107,6 +107,7 @@
     if ([searchKey isEqualToString:@""])
     {
         [self addTopView];
+        [self addRecommentView:NO];
     }
     else
     {

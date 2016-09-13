@@ -202,7 +202,7 @@
     appInfo.gameDescribe = frame.packetInfo.introduction;
     appInfo.gameDiscount = frame.packetInfo.appDiscount;
     appInfo.gameBundleId = frame.packetInfo.gameBundleID;
-    
+    NSLog(@"BundleId: %@", appInfo.gameBundleId);
     if([@"" isEqualToString:appInfo.gameBundleId]){
         NSLog(@"BundleId is null");
         return;
