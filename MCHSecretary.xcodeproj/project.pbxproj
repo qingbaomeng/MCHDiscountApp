@@ -1326,7 +1326,6 @@
 				TargetAttributes = {
 					B78FA1B01D531E100092A043 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6DS2EQ8R3E;
 					};
 					B78FA1C91D531E100092A043 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1760,7 +1759,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: jin zhu (6DS2EQ8R3E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1779,7 +1778,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dell.MCHShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9a09086f-fb40-429f-bb36-afda731b169e";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

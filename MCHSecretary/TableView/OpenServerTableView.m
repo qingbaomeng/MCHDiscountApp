@@ -115,6 +115,7 @@
 -(void) addTableView{
     
     openserverTable = [[UITableView alloc] initWithFrame:CGRectMake(0, SelectDateH, kScreenWidth, kScreenHeight - SelectDateH - 65)];
+    openserverTable.separatorStyle = UITableViewCellSelectionStyleNone;
     openserverTable.delegate = self;
     openserverTable.dataSource = self;
     

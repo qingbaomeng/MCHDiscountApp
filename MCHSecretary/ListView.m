@@ -40,7 +40,7 @@
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, HEIGHT - 1, WIDTH - 20, 1)];
     
-    label.backgroundColor = [UIColor grayColor];
+    label.backgroundColor = [UIColor lightGrayColor];
     
     [self addSubview:label];
 }

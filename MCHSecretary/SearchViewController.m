@@ -559,14 +559,13 @@
         SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
         [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
         [searchOpenRequest search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
-            [listsearchItemArray removeAllObjects];
-            if(opserverArray != nil){
-                listItemArray = opserverArray;
+//            if(opserverArray != nil){
+                opserverArray = listsearchItemArray;
                 [listsearchItemArray addObjectsFromArray:opserverArray];
                 [self addScrollView];
-            }else{
-                
-            }
+//            }else{
+            
+//            }
             [appInfoTable.mj_footer endRefreshing];
         } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
             [self addRecommentView:YES];
@@ -580,14 +579,15 @@
     SearchAppRequest *searchRequest  = [[SearchAppRequest alloc] init];
     [searchRequest setLimit:[NSString stringWithFormat:@"%d",page]];
     [searchRequest gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
-        [listItemArray removeAllObjects];
+//        [listItemArray removeAllObjects];
         //        result = nil;
-        if(serverArray != nil){
+//        if(serverArray != nil){
+            serverArray = listItemArray;
             [listItemArray addObjectsFromArray:serverArray];
             [self addScrollView];
-        }else{
-           
-        }
+//        }else{
+//           
+//        }
         [appInfoTable.mj_footer endRefreshing];
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         [self addRecommentView:YES];

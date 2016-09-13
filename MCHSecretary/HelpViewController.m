@@ -167,7 +167,9 @@
     }
     else
     {
-        [self joinGroup:@"微微一笑再一笑" key:@"微微一笑再一笑"];
+        NSLog(@"groupID=%@,groupKey=%@",resultDict[@"service_group"],resultDict[@"service_group_key"]);
+        
+        [self joinGroup:resultDict[@"service_group"] key:resultDict[@"service_group_key"]];
     }
 }
 -(void)cellUS
@@ -183,11 +185,12 @@
     [self.view addSubview:callWebview];
 }
 
-- (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key
+- (BOOL)joinGroup:(NSString *)groupID key:(NSString *)key
 {
     //一键添加QQ群
     
-    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", @"580687890",@"ddd6433f481109643677839e21a17bf41a995e633a34fb8e4806075d676afe10"];
+    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", groupID,key];
+//    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", @"580687890",@"ddd6433f481109643677839e21a17bf41a995e633a34fb8e4806075d676afe10"];
     
     NSURL *url = [NSURL URLWithString:urlStr];
     
@@ -249,45 +252,6 @@
     _lab.frame = LABORFRAME;
     
     [SVProgressHUD dismiss];
-}
-#pragma mark 检查更新
--(void)checkVersionUpdata{
-    //    NSLog(@"输出当前的版本%@",currentVersion);
-    NSString *urlStr = @"http://itunes.apple.com/lookup?id=1071365437";
-    NSURL *url = [NSURL URLWithString:urlStr];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    [NSURLConnection connectionWithRequest:req delegate:self];
-}
--(void)connection:(NSURLConnection *)connection didReceiveData:(nonnull NSData *)data{
-    NSError *error;
-    id jsonObject =[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    NSDictionary *appInfo =(NSDictionary*)jsonObject;
-    NSArray *infoContent = [appInfo objectForKey:@"results"];
-    NSString * version =[[infoContent objectAtIndex:0]objectForKey:@"version"];
-    double doubleVersion = [version doubleValue];
-    //    trackViewUrl =[[infoContent objectAtIndex:0]objectForKey:@"trackViewUrl"];
-    NSLog(@"获取服务器的版本%@",version);
-    //获取当前版本
-    NSString *currentVersion =[[NSUserDefaults standardUserDefaults] objectForKey:@"CFBundleShortVersionString"];
-    double doubleCurrentVersion = [currentVersion doubleValue];
-    NSLog(@"获取当前的版本%@",currentVersion);
-    if (doubleCurrentVersion<doubleVersion) {
-        
-        //        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"更新" message:@"有新的版本" preferredStyle: UIAlertControllerStyleAlert];
-        
-        //        UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:<#^(UIAlertAction * _Nonnull action)handler#>];
-        
-        
-        //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"更新" message:@"有新的版本更新，是否前往更新？" delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"更新", nil];
-        //        alert.delegate =self;
-        //        [alert show];
-        //        alert.tag =20;
-    }else{
-        
-//        [SVProgressHUD dismiss];
-        
-        //[[[UIAlertView alloc] initWithTitle:nil message:@"已是最高版本" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil]show];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
