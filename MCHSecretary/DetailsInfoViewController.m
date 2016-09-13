@@ -13,6 +13,8 @@
 
 #import "WebImage.h"
 #import "StringUtils.h"
+#import "InstallAppRequest.h"
+
 #define TopViewH 65
 #define BarWIDTH 30
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -128,7 +130,26 @@
     if (button.tag == 3)
     {
         NSLog(@"下载/打开软件");
+        if (info){
+            [self requestDownloadUrl];
+        }
     }
+}
+
+
+-(void) requestDownloadUrl{
+    InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
+    [installapprequest setGameAppId:appId];
+    [installapprequest getAppList:^(NSString *resultStr) {
+        NSLog(@"resultStr : %@", resultStr);
+        if (![@"" isEqualToString:@""]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resultStr]];
+        }
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+        NSLog(@"fun# errorMsg:%@", errorMsg);
+    }];
 }
 
 -(void)addDownButton

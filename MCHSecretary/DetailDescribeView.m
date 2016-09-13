@@ -20,6 +20,7 @@
 #define GetColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 #define LineColor GetColor(230,230,230,1.0)
 #define TextColor GetColor(102,102,102,1.0)
+#define ScrollBackColor GetColor(200,200,200,1.0)
 
 #define GetFont(s) [UIFont systemFontOfSize:s]
 #define TitleFont GetFont(18)
@@ -52,14 +53,14 @@ CGFloat LineY;
 -(void)initAppDetail:(AppPacketInfo *)info{
     CGFloat ivScrollY = 0;
     UIScrollView *imageScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, ivScrollY, kScreenWidth, 304)];
-    imageScroll.backgroundColor = [UIColor cyanColor];
+    imageScroll.backgroundColor = ScrollBackColor;
     imageScroll.scrollEnabled = YES;
     imageScroll.showsHorizontalScrollIndicator = NO;
     imageScroll.showsVerticalScrollIndicator = NO;
     //    imageScroll.bounces = YES;
     
-    NSString *imageUrls = info.describeImages;
-    NSArray *array = [imageUrls componentsSeparatedByString:@","];
+//    NSString *imageUrls = info.describeImages;
+    NSArray *array = info.describeImages;
     CGFloat contentW = 0;
     for (int i = 0; i < array.count; i++) {
         //        NSLog(@"image url(%d):%@", i, [array objectAtIndex:i]);
@@ -80,7 +81,15 @@ CGFloat LineY;
     [scrollLine setBackgroundColor:LineColor];
     [self addSubview:scrollLine];
     
-    [self addDescribeView:info position:CGRectGetMaxY(scrollLine.frame) + 15];
+    if(array.count > 0){
+        
+        [self addDescribeView:info position:CGRectGetMaxY(scrollLine.frame) + 15];
+    }else{
+        [scrollLine setHidden:YES];
+        [imageScroll setHidden:YES];
+        [self addDescribeView:info position:ivScrollY];
+    }
+    
     
 }
 //内容简介
@@ -173,14 +182,14 @@ CGFloat LineY;
     UILabel *lblSize = [[UILabel alloc] initWithFrame:CGRectMake(15, firstY, LABWIDTH, ContentTextSize)];
     [lblSize setFont:TextFont];
     [lblSize setTextColor:TextColor];
-    lblSize.text = [NSString stringWithFormat:@"%@ : %@MB",NSLocalizedString(@"AppSize", @""),info.packetSize];
+    lblSize.text = [NSString stringWithFormat:@"%@ : %@B",NSLocalizedString(@"AppSize", @""),info.packetSize];
     [self addSubview:lblSize];
     
     //版本信息
     UILabel *lblVersionNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2, firstY, LABWIDTH, ContentTextSize)];
     [lblVersionNum setFont:TextFont];
     [lblVersionNum setTextColor:TextColor];
-    lblVersionNum.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"VersionNumber", @""),info.versionInfo];
+    lblVersionNum.text = [NSString stringWithFormat:@"%@ : v%@",NSLocalizedString(@"VersionNumber", @""),info.versionInfo];
     [self addSubview:lblVersionNum];
     
     //更新时间

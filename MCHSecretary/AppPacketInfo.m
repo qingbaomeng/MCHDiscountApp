@@ -14,7 +14,7 @@
 @implementation AppPacketInfo
 
 @synthesize gameID,recommend_status;
-@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction, downloadUrl;
+@synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction;
 @synthesize describeImages, contentDescribe, versionInfo;
 @synthesize language, appDiscount, appOS, appUrl;
 
@@ -25,8 +25,7 @@
         packetSize = @"";
         game_type_name = @"";
         introduction = @"";
-        downloadUrl = @"";
-        describeImages = @"";
+        describeImages = [[NSArray alloc] init];
         appDiscount = @"";
         
     }
@@ -61,17 +60,19 @@
     //游戏类型
     game_type_name = checkNull([dict objectForKey:@"game_type_name"]);
     //应用描述
-    introduction = checkNull([dict objectForKey:@"introduction"]);
+    introduction = checkNull([dict objectForKey:@"features"]);
     if ([StringUtils isBlankString:introduction]) {
         introduction = NSLocalizedString(@"AppDescribeContent", @"");
     }
     //推荐状态(0不推荐；1推荐；2热门；3最新)
     recommend_status = [[dict objectForKey:@"recommend_status"] intValue];
     
-    //下载地址
-    downloadUrl = checkNull([dict objectForKey:@"downloadurl"]);
-    describeImages = checkNull([dict objectForKey:@"describeimages"]);
-    contentDescribe = checkNull([dict objectForKey:@"describecontent"]);
+//    describeImages = checkNull([dict objectForKey:@"screenshot"]);
+    if(![StringUtils isBlankString:checkNull([dict objectForKey:@"screenshot"])]){
+        describeImages = [dict objectForKey:@"screenshot"];
+    }
+    
+    contentDescribe = checkNull([dict objectForKey:@"introduction"]);
     if ([StringUtils isBlankString:contentDescribe]) {
         contentDescribe = NSLocalizedString(@"AppDescribeContent", @"");
     }

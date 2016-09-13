@@ -30,7 +30,7 @@
 @property(nonatomic,assign)int recommend_status;
 
 //图片介绍
-@property (nonatomic, copy) NSString *describeImages;
+@property (nonatomic, copy) NSArray *describeImages;
 
 //内容简介
 @property (nonatomic, copy) NSString *contentDescribe;
@@ -50,10 +50,6 @@
 @property (nonatomic, copy) NSString *appOS;
 //系统
 @property (nonatomic, copy) NSString *appUrl;
-
-
-//下载地址
-@property (nonatomic, copy) NSString *downloadUrl;
 
 
 
