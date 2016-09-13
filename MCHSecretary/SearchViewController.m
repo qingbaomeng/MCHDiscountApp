@@ -100,7 +100,7 @@
     appSearchHisArray = [[NSMutableArray alloc] init];
     listItemArray = [[NSMutableArray alloc] init];
     listsearchItemArray = [[NSMutableArray alloc] init];
-    defaultItemArray = [[NSMutableArray alloc]init];
+//    defaultItemArray = [[NSMutableArray alloc]init];
     
     [self initSearchKey];
     
@@ -118,7 +118,8 @@
 -(void)requestForRecommandApp
 {
     [[[SearchAppRequest alloc]init]requstForDefaultGameserverInfo:^(NSMutableArray *array) {
-        [defaultItemArray addObjectsFromArray:array];
+        
+        defaultItemArray = array;
         
         if (isAddRommentView) {
             [self addRecommentView:NO];
