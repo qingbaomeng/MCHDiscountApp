@@ -107,7 +107,6 @@
     if ([searchKey isEqualToString:@""])
     {
         [self addTopView];
-        [self addRecommentView:NO];
     }
     else
     {
@@ -258,6 +257,7 @@
     {
         btnNum = 4;
     }
+    NSLog(@"--------btnNum:%d",btnNum);
     for (int i = 0; i < btnNum; i++) {
         UIButton *btnRecoment = [[UIButton alloc] initWithFrame:CGRectMake(spaceW + (spaceW + iconW) * i, posy, iconW, iconW + nameW)];
         btnRecoment.tag = 10+i;
@@ -433,7 +433,7 @@
     
     // 下拉刷新
     appInfoTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        page = 1;
+        
         [self requestAppInfo];
     }];
     
@@ -441,13 +441,8 @@
     appInfoTable.mj_header.automaticallyChangeAlpha = YES;
     
     appInfoTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            page++;
-            [self loadMore];
-            // 结束刷新
-            [appInfoTable.mj_footer endRefreshing];
-        });
+        page++;
+        [self loadMore];
     }];
      [self.view addSubview:appInfoTable];
 }
@@ -513,6 +508,7 @@
     {
         return;
     }
+    page = 1;
     if(isSearchOpenServerGame){
       SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
         [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
@@ -559,13 +555,14 @@
         SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
         [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
         [searchOpenRequest search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
-//            if(opserverArray != nil){
-                opserverArray = listsearchItemArray;
+//            [listsearchItemArray removeAllObjects];
+            if(opserverArray != nil){
+                listItemArray = opserverArray;
                 [listsearchItemArray addObjectsFromArray:opserverArray];
-                [self addScrollView];
-//            }else{
-            
-//            }
+                [appInfoTable reloadData];
+            }else{
+                
+            }
             [appInfoTable.mj_footer endRefreshing];
         } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
             [self addRecommentView:YES];
@@ -581,13 +578,13 @@
     [searchRequest gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
 //        [listItemArray removeAllObjects];
         //        result = nil;
-//        if(serverArray != nil){
+        if(serverArray != nil){
             serverArray = listItemArray;
             [listItemArray addObjectsFromArray:serverArray];
-            [self addScrollView];
-//        }else{
-//           
-//        }
+            [appInfoTable reloadData];
+        }else{
+           
+        }
         [appInfoTable.mj_footer endRefreshing];
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         [self addRecommentView:YES];
@@ -692,7 +689,7 @@
     searchKey = @"";
     isAddRommentView = YES;
     
-    [self addRecommentView:NO];
+    [self requestForRecommandApp];
     
     if(appInfoTable){
         [appInfoTable removeFromSuperview];
