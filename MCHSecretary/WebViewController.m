@@ -7,8 +7,10 @@
 //
 
 #import "WebViewController.h"
+#import "HelpRequest.h"
 #import "NJKWebViewProgress.h"
 #import "WebImage.h"
+
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -23,19 +25,25 @@
 
 @end
 
+UIImageView *imageView;
+
 @implementation WebViewController
 
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [super.navigationController setToolbarHidden:YES animated:TRUE];
     [super viewWillAppear:animated];
+    [self initView];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self addTopView];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
+}
+-(void)initView
+{
     progressProxy = [[NJKWebViewProgress alloc]init];
     
     CGRect rect = CGRectMake(0, TopViewH, kScreenWidth, kScreenHeight-TopViewH);
@@ -46,8 +54,6 @@
     progressProxy.progressDelegate = self;
     
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
-    
     NSURL *url;
     
     if ([self.descriptStr isEqualToString:@"安装工具"])
@@ -57,17 +63,25 @@
     }
     else
     {
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.webURL] placeholderImage:[UIImage imageNamed:@"load_fail"]];
-        
-//        url = [[NSURL alloc]initWithString:@"http://zhekou.vlcms.com/Uploads/Picture/2016-09-09/57d270ea40857.jpg"];
+        imageView = [[UIImageView alloc]initWithFrame:rect];
         
         [self.view addSubview:imageView];
+        [self performSelector:@selector(requestForView) withObject:nil afterDelay:1.0f];
     }
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
     progressView.frame = CGRectMake(0, 65, self.view.frame.size.width, 3);
     progressView.progressTintColor = [UIColor blueColor];
     [self.view addSubview:progressView];
+}
+-(void)requestForView
+{
+    [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:dict[@"icon"]] placeholderImage:[UIImage imageNamed:@"load_fail"]];
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+    }];
 }
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress

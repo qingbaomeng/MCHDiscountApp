@@ -106,5 +106,15 @@
     }
     return ret;
 }
-
+#pragma mark 通过包名打开软件
++(void)openAPPWithBundleID:(NSString *)bundleID
+{
+    Class lsawsc = objc_getClass("LSApplicationWorkspace");
+    NSObject* workspace = [lsawsc performSelector:NSSelectorFromString(@"defaultWorkspace")];
+    // iOS6 没有defaultWorkspace
+    if ([workspace respondsToSelector:NSSelectorFromString(@"openApplicationWithBundleID:")])
+    {
+        [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:bundleID];
+    }
+}
 @end

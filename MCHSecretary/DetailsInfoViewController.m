@@ -14,6 +14,7 @@
 #import "WebImage.h"
 #import "StringUtils.h"
 #import "InstallAppRequest.h"
+#import "CurrentAppUtils.h"
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -129,14 +130,22 @@
     }
     if (button.tag == 3)
     {
-        NSLog(@"下载/打开软件");
+        
         if (info){
+            if (self.open)
+            {
+            NSLog(@"打开软件");
+            NSLog(@"bundleID===%@",self.bundleId);
+            [CurrentAppUtils openAPPWithBundleID:self.bundleId];
+            }
+            else
+            {
             [self requestDownloadUrl];
+            NSLog(@"下载软件");
+            }
         }
     }
 }
-
-
 -(void) requestDownloadUrl{
     InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
     [installapprequest setGameAppId:appId];
@@ -162,12 +171,19 @@
     [btnDownload setFrame:CGRectMake(50, 10, kScreenWidth - 100, 30)];
     [btnDownload addTarget:self action:@selector(barbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [btnDownload setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btnDownload setTitle:NSLocalizedString(@"AppDetailDownload", @"") forState:UIControlStateNormal];
-    [btnDownload setBackgroundColor:TopBackColor];
+    
     btnDownload.tag = 3;
     btnDownload.titleLabel.font = [UIFont systemFontOfSize:15];
-    [bgView addSubview:btnDownload];
     
+    if (self.open)
+    {
+        [btnDownload setTitle:@"立即打开" forState:UIControlStateNormal];
+    }else
+    {
+        [btnDownload setTitle:NSLocalizedString(@"AppDetailDownload", @"") forState:UIControlStateNormal];
+    }
+    [btnDownload setBackgroundColor:TopBackColor];
+    [bgView addSubview:btnDownload];
     [self.view addSubview:bgView];
 }
 

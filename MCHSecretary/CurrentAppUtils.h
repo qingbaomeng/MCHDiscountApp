@@ -16,4 +16,5 @@
 
 +(BOOL) isContainBundle:(NSMutableArray *)appInfo bundleid:(NSString *)bundleid;
 
++(void)openAPPWithBundleID:(NSString *)bundleID;
 @end

@@ -22,7 +22,10 @@ UIScrollViewDelegate
 {
     UIView *topview;
 }
- 
+@property(nonatomic,assign)BOOL open;
+
+@property(nonatomic,strong)NSString *bundleId;
+
 @property(nonatomic,strong)NSString *appId;
 
 @property (nonatomic, strong) AppPacketInfo *appInfo;

@@ -116,7 +116,15 @@
         {
             [vie addSmallLab];
             NSString *version = [CurrentAppUtils appVersion];
-            vie.titleLab.text = version;
+            if (![version isEqualToString:@""])
+            {
+                 vie.titleLab.text = [NSString stringWithFormat:@"v%@",version];
+            }
+            else
+            {
+                
+                vie.titleLab.text = [NSString stringWithFormat:@"v%@",resultDict[@"version"]];
+            }
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap4)];
             
             [vie addGestureRecognizer:tapRecognizer];
@@ -240,8 +248,6 @@
     WebViewController *webVC = [[WebViewController alloc]init];
     
     webVC.descriptStr = @"折扣";
-    
-    webVC.webURL = resultDict[@"icon"];
     
     [self.navigationController pushViewController:webVC animated:YES];
     
