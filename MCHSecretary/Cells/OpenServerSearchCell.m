@@ -187,7 +187,7 @@
 
 -(void) addOpenServerList:(NSInteger)index{{
     if(_openServerSearchFrame.openServerFrameArray){
-        
+        [self.btnShowAll removeFromSuperview];
         NSInteger openserNum = _openServerSearchFrame.openServerFrameArray.count > 2 ? 2 : _openServerSearchFrame.openServerFrameArray.count;
         
         for (int i = 0; i < openserNum; i++) {
@@ -206,12 +206,13 @@
             
             [self.contentView addSubview:lblos];
         }
-        
+        NSLog(@"isdShowAll：%d", isdShowAll);
         if(_openServerSearchFrame.openServerFrameArray.count > 2 && !isdShowAll){
             UIButton *showAll = [[UIButton alloc] initWithFrame:_openServerSearchFrame.showAllServerFrame];
             [showAll setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             showAll.titleLabel.font = ButtonShowFont;
             [showAll setTitle:NSLocalizedString(@"ShowAllServer", @"") forState:UIControlStateNormal];
+            NSLog(@"----------");
             showAll.tag = index;
             [showAll addTarget:self action:@selector(showAllOpenServer:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -227,7 +228,7 @@
             lineF.origin.y = (row + 1) * 40 + 10 + CGRectGetMaxY(self.ivAppIcon.frame);
             lineF.size.width = kScreesWidth - 10;
             self.lineview.frame = lineF;
-            [self.btnShowAll removeFromSuperview];
+            
             
             for (int i = 2; i < _openServerSearchFrame.openServerFrameArray.count; i++) {
                 OpenServerPostion *pos = _openServerSearchFrame.openServerFrameArray[i];
