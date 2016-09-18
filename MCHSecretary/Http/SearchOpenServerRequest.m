@@ -28,7 +28,7 @@
     
     [dic setObject:gameName forKey:@"gamename"];
     [dic setObject:@"0" forKey:@"version"];
-    [dic setObject:_limit forKey:@"limit"];
+//    [dic setObject:_limit forKey:@"limit"];
 
     [[BaseNetManager sharedInstance]httpPost:searchopenserverurl datas:dic success:^(NSDictionary *dic) {
        int status = [dic[@"status"] intValue];

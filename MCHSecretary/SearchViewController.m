@@ -87,20 +87,12 @@
     
     isAddRommentView = YES;
     searchKey = @"";
-    page = 1;
     [self requestForRecommandApp];
-}
-
--(void) viewWillAppear:(BOOL)animated {
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
-    [super.navigationController setToolbarHidden:YES animated:TRUE];
-    [super viewWillAppear:animated];
-    
     
     appSearchHisArray = [[NSMutableArray alloc] init];
     listItemArray = [[NSMutableArray alloc] init];
     listsearchItemArray = [[NSMutableArray alloc] init];
-//    defaultItemArray = [[NSMutableArray alloc]init];
+    //    defaultItemArray = [[NSMutableArray alloc]init];
     
     [self initSearchKey];
     
@@ -113,7 +105,12 @@
         [self showSearchView];
         [self requestAppInfo];
     }
+}
 
+-(void) viewWillAppear:(BOOL)animated {
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    [super.navigationController setToolbarHidden:YES animated:TRUE];
+    [super viewWillAppear:animated];
 }
 -(void)requestForRecommandApp
 {
@@ -201,8 +198,6 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, searchY, searchH, searchH)];
     [imageView setImage:image];
     [btnSearchContent addSubview:imageView];
-    
-    
 }
 
 //添加推荐区域
@@ -433,18 +428,17 @@
     appInfoTable.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);;
     
     // 下拉刷新
-    appInfoTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
-        [self requestAppInfo];
-    }];
-    
-    // 设置自动切换透明度(在导航栏下面自动隐藏)
-    appInfoTable.mj_header.automaticallyChangeAlpha = YES;
-    
-    appInfoTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        page++;
-        [self loadMore];
-    }];
+//    appInfoTable.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        
+//        [self requestAppInfo];
+//    }];
+//    
+//    // 设置自动切换透明度(在导航栏下面自动隐藏)
+//    appInfoTable.mj_header.automaticallyChangeAlpha = YES;
+//    
+//    appInfoTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        
+//    }];
      [self.view addSubview:appInfoTable];
 }
 
@@ -509,10 +503,9 @@
     {
         return;
     }
-    page = 1;
     if(isSearchOpenServerGame){
       SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
-        [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+//        [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
         [searchOpenRequest search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
             [listsearchItemArray removeAllObjects];
             if(opserverArray != nil){
@@ -532,7 +525,7 @@
     }
     
   SearchAppRequest *searchRequest  = [[SearchAppRequest alloc] init];
-    [searchRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+//    [searchRequest setLimit:[NSString stringWithFormat:@"%d",page]];
     [searchRequest gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
         [listItemArray removeAllObjects];
         //        result = nil;
@@ -550,51 +543,51 @@
         [appInfoTable.mj_header endRefreshing]; 
     }];
 }
--(void)loadMore
-{
-    if(isSearchOpenServerGame){
-        SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
-        [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
-        [searchOpenRequest search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
-//            [listsearchItemArray removeAllObjects];
-            if(opserverArray != nil){
-                listItemArray = opserverArray;
-                [listsearchItemArray addObjectsFromArray:opserverArray];
-                [appInfoTable reloadData];
-            }else{
-                
-            }
-            [appInfoTable.mj_footer endRefreshing];
-        } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-            [self addRecommentView:YES];
-            NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
-            NSLog(@"errorMsg:%@", errorMsg);
-            [appInfoTable.mj_footer endRefreshing];
-        }];
-        return;
-    }
-    
-    SearchAppRequest *searchRequest  = [[SearchAppRequest alloc] init];
-    [searchRequest setLimit:[NSString stringWithFormat:@"%d",page]];
-    [searchRequest gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
-//        [listItemArray removeAllObjects];
-        //        result = nil;
-        if(serverArray != nil){
-            serverArray = listItemArray;
-            [listItemArray addObjectsFromArray:serverArray];
-            [appInfoTable reloadData];
-        }else{
-           
-        }
-        [appInfoTable.mj_footer endRefreshing];
-    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        [self addRecommentView:YES];
-        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
-        NSLog(@"errorMsg:%@", errorMsg);
-        [appInfoTable.mj_footer endRefreshing];
-    }];
-
-}
+//-(void)loadMore
+//{
+//    if(isSearchOpenServerGame){
+//        SearchOpenServerRequest *searchOpenRequest =[[SearchOpenServerRequest alloc] init];
+////        [searchOpenRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+//        [searchOpenRequest search:searchKey FromOpenServerInfo:^(NSMutableArray *opserverArray) {
+////            [listsearchItemArray removeAllObjects];
+//            if(opserverArray != nil){
+//                listItemArray = opserverArray;
+//                [listsearchItemArray addObjectsFromArray:opserverArray];
+//                [appInfoTable reloadData];
+//            }else{
+//                
+//            }
+//            [appInfoTable.mj_footer endRefreshing];
+//        } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+//            [self addRecommentView:YES];
+//            NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+//            NSLog(@"errorMsg:%@", errorMsg);
+//            [appInfoTable.mj_footer endRefreshing];
+//        }];
+//        return;
+//    }
+//    
+//    SearchAppRequest *searchRequest  = [[SearchAppRequest alloc] init];
+////    [searchRequest setLimit:[NSString stringWithFormat:@"%d",page]];
+//    [searchRequest gamename:searchKey serverInfo:^(NSMutableArray *serverArray) {
+////        [listItemArray removeAllObjects];
+//        //        result = nil;
+//        if(serverArray != nil){
+//            serverArray = listItemArray;
+//            [listItemArray addObjectsFromArray:serverArray];
+//            [appInfoTable reloadData];
+//        }else{
+//           
+//        }
+//        [appInfoTable.mj_footer endRefreshing];
+//    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+//        [self addRecommentView:YES];
+//        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
+//        NSLog(@"errorMsg:%@", errorMsg);
+//        [appInfoTable.mj_footer endRefreshing];
+//    }];
+//
+//}
 //显示搜索
 -(void)setSearchContent:(UIButton *)sender{
     [self showSearchView];

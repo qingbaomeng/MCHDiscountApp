@@ -16,9 +16,6 @@ UITableViewDelegate,
 UITableViewDataSource,
 OpenServerSearchDelegate
 >
-{
-    int page;
-}
 @property (strong, nonatomic) NSMutableArray *listItemArray;
 @property (strong, nonatomic) NSMutableArray *listsearchItemArray;
 @property (strong,nonatomic) NSMutableArray *defaultItemArray;

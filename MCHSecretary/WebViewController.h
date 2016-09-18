@@ -12,7 +12,7 @@
 @interface WebViewController : UIViewController<UIWebViewDelegate,NJKWebViewProgressDelegate>
 {
     UIView *topview;
-    NJKWebViewProgress *progressProxy;
+//    NJKWebViewProgress *progressProxy;
     UIProgressView *progressView;
 }
 @property(nonatomic,copy)NSString *descriptStr;

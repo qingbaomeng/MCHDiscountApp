@@ -26,6 +26,7 @@
 @end
 
 UIImageView *imageView;
+ NSURL *url;
 
 @implementation WebViewController
 
@@ -44,21 +45,24 @@ UIImageView *imageView;
 }
 -(void)initView
 {
-    progressProxy = [[NJKWebViewProgress alloc]init];
+//    progressProxy = [[NJKWebViewProgress alloc]init];
     
     CGRect rect = CGRectMake(0, TopViewH, kScreenWidth, kScreenHeight-TopViewH);
     
     UIWebView *webView = [[UIWebView alloc]initWithFrame:rect];
-    webView.delegate = progressProxy;
-    progressProxy.webViewProxyDelegate = self;
-    progressProxy.progressDelegate = self;
+
+//    webView.delegate = progressProxy;
+//    progressProxy.webViewProxyDelegate = self;
+//    progressProxy.progressDelegate = self;
     
     
-    NSURL *url;
+   
     
     if ([self.descriptStr isEqualToString:@"安装工具"])
     {
-        url  = [[NSURL alloc]initWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"];
+        webView.delegate = self;
+         url  = [[NSURL alloc]initWithString:@"http://zhekou.vlcms.com/media.php?s=/Index/repair"];
+        [webView loadRequest:[NSURLRequest requestWithURL:url]];
         [self.view addSubview:webView];
     }
     else
@@ -68,11 +72,10 @@ UIImageView *imageView;
         [self.view addSubview:imageView];
         [self performSelector:@selector(requestForView) withObject:nil afterDelay:1.0f];
     }
-    [webView loadRequest:[NSURLRequest requestWithURL:url]];
-    progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
-    progressView.frame = CGRectMake(0, 65, self.view.frame.size.width, 3);
-    progressView.progressTintColor = [UIColor blueColor];
-    [self.view addSubview:progressView];
+//    progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
+//    progressView.frame = CGRectMake(0, 65, self.view.frame.size.width, 3);
+//    progressView.progressTintColor = [UIColor blueColor];
+//    [self.view addSubview:progressView];
 }
 -(void)requestForView
 {
@@ -123,7 +126,33 @@ UIImageView *imageView;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSLog(@"webViewDidStartLoad");
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+ NSLog(@"webViewDidFinishLoad");
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
+{
+ NSLog(@"didFailLoadWithError");
+}
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+//    if (didShowURL) { //Do not jump to URL when returning to app
+//        didShowURL = 0;
+//        return NO;
+//    }
+//    
+//    if (didLoad) { //Do not jump to URL when view first loads
+//        return YES;
+//    }
+    
+//    didShowURL = 1;
+//    [[UIApplication sharedApplication] openURL:url];
+    return YES;
+}
 /*
 #pragma mark - Navigation
 

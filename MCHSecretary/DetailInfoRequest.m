@@ -26,7 +26,7 @@
     
     NSLog(@"[DetailInfoRequest] URLStr : %@",urlStr);
     
-    [[BaseNetManager sharedInstance] get:urlStr success:^(NSDictionary *dic) {
+    [[BaseNetManager sharedInstance] noget:urlStr success:^(NSDictionary *dic) {
         NSLog(@"[DetailInfoRequest] resultStr : %@", dic);
         
         NSString *status = [NSString stringWithFormat:@"%@", [dic objectForKey:@"status"]];
