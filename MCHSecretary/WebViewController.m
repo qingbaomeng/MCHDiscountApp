@@ -88,7 +88,21 @@ UIImageView *imageView;
 }
 -(void)requestForDownTool
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"]];
+    [[[HelpRequest alloc]init]requestForToolDownWith:@"8888" success:^(NSDictionary *Dic) {
+        if ([Dic[@"status"]intValue] == 1)
+        {
+            NSLog(@"===%@",[Dic objectForKey:@"url"]);
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[Dic objectForKey:@"url"]]];
+//          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"]];
+        }
+        else
+        {
+            NSLog(@"失败了");
+        }
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+    }];
+    
 }
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress

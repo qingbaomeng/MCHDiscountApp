@@ -14,4 +14,6 @@
 -(void)postMessage:(NSDictionary *)dict success:(void(^)(NSString *resultStr))result failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
 -(void)requestForUpdata:(void(^)(NSDictionary *dict))result failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
+
+-(void)requestForToolDownWith:(NSString *)num success:(void(^)(NSDictionary *Dic))resultDic failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 @end
