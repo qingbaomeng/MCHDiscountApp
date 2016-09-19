@@ -49,20 +49,20 @@ UIImageView *imageView;
     
     CGRect rect = CGRectMake(0, TopViewH, kScreenWidth, kScreenHeight-TopViewH);
     
-    UIWebView *webView = [[UIWebView alloc]initWithFrame:rect];
+//    UIWebView *webView = [[UIWebView alloc]initWithFrame:rect];
 //    webView.delegate = progressProxy;
 //    progressProxy.webViewProxyDelegate = self;
 //    progressProxy.progressDelegate = self;
     if ([self.descriptStr isEqualToString:@"安装工具"])
     {
-        webView.delegate = self;
-         url  = [[NSURL alloc]initWithString:@"http://zhekou.vlcms.com/media.php?s=/Index/repair"];
-        [webView loadRequest:[NSURLRequest requestWithURL:url]];
-        [self.view addSubview:webView];
-//        ToolView *toolView = [[ToolView alloc]initWithFrame:rect];
-//        [toolView.downToolBtn addTarget:self action:@selector(requestForDownTool) forControlEvents:UIControlEventTouchUpInside];
-////        [toolView viewFrame];
-//        [self.view addSubview:toolView];
+//        webView.delegate = self;
+//         url  = [[NSURL alloc]initWithString:@"http://zhekou.vlcms.com/media.php?s=/Index/repair"];
+//        [webView loadRequest:[NSURLRequest requestWithURL:url]];
+//        [self.view addSubview:webView];
+        ToolView *toolView = [[ToolView alloc]initWithFrame:rect];
+        [toolView.downToolBtn addTarget:self action:@selector(requestForDownTool) forControlEvents:UIControlEventTouchUpInside];
+//        [toolView viewFrame];
+        [self.view addSubview:toolView];
     
     }
     else
@@ -132,14 +132,13 @@ UIImageView *imageView;
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-
      JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     
       context[@"test1"] = ^() {
         NSArray *args = [JSContext currentArguments];
         for (id obj in args) {
             NSLog(@"%@",obj);
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:obj]];
         }
     };
 }
