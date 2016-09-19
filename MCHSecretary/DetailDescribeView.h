@@ -17,6 +17,7 @@
     CGSize descMax;
     UIView *descriptLine;
     UIButton *moreButton;
+    UIView *bgView;
     
 }
 

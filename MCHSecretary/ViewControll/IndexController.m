@@ -200,6 +200,7 @@
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
     detailsView.appId = appid;
+//    detailsView.bundleId = 
     [self.navigationController pushViewController:detailsView animated:YES];
 }
 

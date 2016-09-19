@@ -84,7 +84,7 @@
     //折扣
     appDiscount = checkNull([dict objectForKey:@"discount"]);
     
-    appOS = checkNull([dict objectForKey:@"appos"]);
+    appOS = checkNull([dict objectForKey:@"sys_version"]);
     appUrl = checkNull([dict objectForKey:@"appurl"]);
     if ([StringUtils isBlankString:appUrl]) {
         appUrl = @"http://www.baidu.com";

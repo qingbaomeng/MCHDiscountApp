@@ -154,7 +154,7 @@
     self.lblName.text = packInfo.packetName;
     
     NSString *packetDown = [NSString stringWithFormat:@"%@", packInfo.game_type_name];
-    NSString *packetSize = [NSString stringWithFormat:@"%@MB", packInfo.gameSize];
+    NSString *packetSize = [NSString stringWithFormat:@"%@", packInfo.gameSize];
     self.lblMiddle.text = [NSString stringWithFormat:@"%@ | %@", packetSize, packetDown];
     
     self.lblDescribe.text = packInfo.gameDesc;

@@ -15,6 +15,7 @@
 #import "StringUtils.h"
 #import "InstallAppRequest.h"
 #import "CurrentAppUtils.h"
+#import "InstallAppInfo.h"
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -134,14 +135,42 @@
         if (info){
             if (self.open)
             {
-            NSLog(@"打开软件");
-            NSLog(@"bundleID===%@",self.bundleId);
             [CurrentAppUtils openAPPWithBundleID:self.bundleId];
             }
             else
             {
             [self requestDownloadUrl];
-            NSLog(@"下载软件");
+                
+                InstallAppInfo *appInfo = [[InstallAppInfo alloc] init];
+                appInfo.appid = info.gameID;
+                appInfo.iconUrl = info.gameIconUrl;
+                appInfo.gameName = info.gameName;
+                appInfo.gameSize = info.packetSize;
+                appInfo.gameType = info.game_type_name;
+                appInfo.gameDescribe = info.introduction;
+                appInfo.gameDiscount = info.appDiscount;
+                appInfo.gameBundleId = info.gameBundleID;
+                NSLog(@"BundleId: %@", appInfo.gameBundleId);
+                if([@"" isEqualToString:appInfo.gameBundleId]){
+                    NSLog(@"BundleId is null");
+                    return;
+                }
+                
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSArray *allInstalled = [InstallAppInfo findAll];
+                    BOOL isHave = false;
+                    for (int i = 0; i < allInstalled.count; i++) {
+                        InstallAppInfo *appinfo = allInstalled[i];
+                        if([appInfo.gameBundleId isEqualToString:appinfo.gameBundleId]){
+                            isHave = true;
+                            break;
+                        }
+                    }
+                    if(!isHave){
+                        [appInfo save];
+                    }
+                });
+
             }
         }
     }
@@ -150,9 +179,10 @@
     InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
     [installapprequest setGameAppId:appId];
     [installapprequest getAppList:^(NSString *resultStr) {
-        NSLog(@"resultStr : %@", resultStr);
-        if (![@"" isEqualToString:@""]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resultStr]];
+        
+        if (![@"" isEqualToString:resultStr]) {
+            NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",resultStr];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }
         
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {

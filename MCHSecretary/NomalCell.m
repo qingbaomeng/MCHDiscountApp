@@ -144,7 +144,7 @@
     
     NSString *middleTxt = @"";
     if(![StringUtils isBlankString:packInfo.packetSize]){
-        middleTxt = [middleTxt stringByAppendingString:[NSString stringWithFormat:@"%@B", packInfo.packetSize]];
+        middleTxt = [middleTxt stringByAppendingString:[NSString stringWithFormat:@"%@", packInfo.packetSize]];
     }
     if(![StringUtils isBlankString:packInfo.packetSize] &&
        ![StringUtils isBlankString:packInfo.game_type_name]){
