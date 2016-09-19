@@ -10,7 +10,7 @@
 #import "HelpRequest.h"
 #import "NJKWebViewProgress.h"
 #import "WebImage.h"
-
+#import "ToolView.h"
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -50,20 +50,20 @@ UIImageView *imageView;
     CGRect rect = CGRectMake(0, TopViewH, kScreenWidth, kScreenHeight-TopViewH);
     
     UIWebView *webView = [[UIWebView alloc]initWithFrame:rect];
-
 //    webView.delegate = progressProxy;
 //    progressProxy.webViewProxyDelegate = self;
 //    progressProxy.progressDelegate = self;
-    
-    
-   
-    
     if ([self.descriptStr isEqualToString:@"安装工具"])
     {
         webView.delegate = self;
          url  = [[NSURL alloc]initWithString:@"http://zhekou.vlcms.com/media.php?s=/Index/repair"];
         [webView loadRequest:[NSURLRequest requestWithURL:url]];
         [self.view addSubview:webView];
+//        ToolView *toolView = [[ToolView alloc]initWithFrame:rect];
+//        [toolView.downToolBtn addTarget:self action:@selector(requestForDownTool) forControlEvents:UIControlEventTouchUpInside];
+////        [toolView viewFrame];
+//        [self.view addSubview:toolView];
+    
     }
     else
     {
@@ -85,6 +85,10 @@ UIImageView *imageView;
         
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
     }];
+}
+-(void)requestForDownTool
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"]];
 }
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
@@ -126,17 +130,18 @@ UIImageView *imageView;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    NSLog(@"webViewDidStartLoad");
-}
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
- NSLog(@"webViewDidFinishLoad");
-}
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
-{
- NSLog(@"didFailLoadWithError");
+
+     JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    
+      context[@"test1"] = ^() {
+        NSArray *args = [JSContext currentArguments];
+        for (id obj in args) {
+            NSLog(@"%@",obj);
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://iosdemo.vlcms.com:8888/mchsdkdemo.mobileprovision"]];
+        }
+    };
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {

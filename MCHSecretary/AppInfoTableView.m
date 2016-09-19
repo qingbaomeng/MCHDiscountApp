@@ -229,8 +229,10 @@
     [installapprequest setGameAppId:[NSString stringWithFormat:@"%d", appid]];
     [installapprequest getAppList:^(NSString *resultStr) {
         NSLog(@"resultStr : %@", resultStr);
-        if (![@"" isEqualToString:@""]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resultStr]];
+        if (![@"" isEqualToString:resultStr]) {
+            NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",resultStr];
+            NSLog(@"url : %@", url);
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }
         
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
