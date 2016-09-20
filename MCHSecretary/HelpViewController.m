@@ -177,10 +177,16 @@
     }
     else
     {
-        NSLog(@"resultDict===%@",resultDict);
-        NSLog(@"groupID=%@,groupKey=%@",resultDict[@"service_group"],resultDict[@"service_group_key"]);
         
-        [self joinGroup:resultDict[@"service_group"] key:resultDict[@"service_group_key"]];
+        [[[HelpRequest alloc]init]getRequestForAddGroup:^(NSDictionary *dict) {
+            if ([dict[@"status"] intValue] == 1)
+            {
+                NSDictionary *dic = dict[@"list"];
+                [self joinGroup:dic[@"group_number"] key:dic[@"key"]];
+            }
+        } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+            
+        }];
     }
 }
 -(void)cellUS
@@ -196,22 +202,17 @@
     [self.view addSubview:callWebview];
 }
 
-- (BOOL)joinGroup:(NSString *)groupID key:(NSString *)key
-{
-    //一键添加QQ群
+- (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key{
     
-    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", groupID,key];
-//    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", @"580687890",@"ddd6433f481109643677839e21a17bf41a995e633a34fb8e4806075d676afe10"];
-    
+    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", groupUin,key];
+    NSLog(@"====%@",urlStr);
     NSURL *url = [NSURL URLWithString:urlStr];
-    
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
         return YES;
     }
     else return NO;
 }
-
 -(void)barImageTap
 {
     [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
@@ -292,6 +293,8 @@
         
         if ([dict[@"status"]intValue] == 1)
         {
+            NSLog(@"====%@",dict[@"url"]);
+            
             NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",dict[@"url"]];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }

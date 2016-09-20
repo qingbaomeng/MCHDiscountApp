@@ -39,10 +39,9 @@
     [ShareSDK registerApp:@"c45faff1e059"
      
           activePlatforms:@[
-                            @(SSDKPlatformTypeSinaWeibo),
                             @(SSDKPlatformSubTypeWechatTimeline),
                             @(SSDKPlatformSubTypeWechatSession),
-                            @(SSDKPlatformSubTypeQQFriend),]
+                            @(SSDKPlatformTypeQQ),]
                  onImport:^(SSDKPlatformType platformType)
      {
          switch (platformType)
@@ -53,9 +52,9 @@
              case SSDKPlatformTypeQQ:
                  [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
                  break;
-             case SSDKPlatformTypeSinaWeibo:
-                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
-                 break;
+//             case SSDKPlatformTypeSinaWeibo:
+//                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+//                 break;
              default:
                  break;
          }
@@ -67,11 +66,11 @@
          {
              case SSDKPlatformTypeSinaWeibo:
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-                 [appInfo SSDKSetupSinaWeiboByAppKey:@"3229053683"
-                                           appSecret:@"7e431bf6ea654bdb803cc04fae4a4863"
-                                         redirectUri:@"http://www.sharesdk.cn"
-                                            authType:SSDKAuthTypeSSO];
-                 break;
+//                 [appInfo SSDKSetupSinaWeiboByAppKey:@"2976302597"
+//                                           appSecret:@"5b4f1b0e3759e10c1acfb018f999aa7b"
+//                                         redirectUri:@"http://www.sharesdk.cn"
+//                                            authType:SSDKAuthTypeBoth];
+//                 break;
              case SSDKPlatformTypeWechat:
                  [appInfo SSDKSetupWeChatByAppId:@"wx8a996aa7cf249b83"
                                        appSecret:@"725d048e93fbcbe18f2c3b6fb3c9f52c"];

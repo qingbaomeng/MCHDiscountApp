@@ -246,7 +246,7 @@
 -(void) clickItem:(NSInteger)appid{
     NSLog(@"clickItem : %ld", (long)appid);
     if(_delegate){
-        [_delegate showAppInfo: [NSString stringWithFormat:@"%ld", appid]];
+        [_delegate showAppInfo: [NSString stringWithFormat:@"%ld", (long)appid]];
     }
 }
 

@@ -207,7 +207,7 @@
 
 -(void) submitStarNumber:(UIButton *)sender{
     if(selectStar != 0){
-        NSLog(@"DetailCommentView:%ld", selectStar);
+        NSLog(@"DetailCommentView:%ld", (long)selectStar);
     }
 }
 

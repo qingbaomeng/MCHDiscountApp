@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.dell.MCHShop</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleLocalizations</key>
@@ -40,16 +40,21 @@
 				<string>wx8a996aa7cf249b83</string>
 			</array>
 		</dict>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array/>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>sinaweibo</string>
-		<string>sinaweibohd</string>
-		<string>sinaweibosso</string>
-		<string>sinaweibohdsso</string>
+		<string>mqzoneopensdk</string>
+		<string>mqzoneopensdkapi</string>
+		<string>mqzoneopensdkapi19</string>
+		<string>mqzoneopensdkapiV2</string>
 		<string>wechat</string>
 		<string>weixin</string>
 		<string>mqqOpensdkSSoLogin</string>
@@ -58,6 +63,9 @@
 		<string>wtloginmqq2</string>
 		<string>mqq</string>
 		<string>mqqapi</string>
+		<string>mqqwpa</string>
+		<string>mqzone</string>
+		<string>mqqopensdkapiV4</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

@@ -169,10 +169,11 @@
     dispatch_group_notify(group, dispatch_get_global_queue(0, 0), ^{
         [listItemArray removeAllObjects];
         NSArray *infoArray =  [InstallAppInfo findAll];
-        NSLog(@"infos:%ld", infoArray.count);
+//        NSLog(@"infos:%ld", (unsigned long)infoArray.count);
         for (int i = 0; i < infoArray.count; i++) {
             InstallAppInfo *info = infoArray[i];
-            NSLog(@"infos:%@", info.gameBundleId);
+//            NSLog(@"info.gameBundleId:%@", info.gameBundleId);
+            
             
             if([CurrentAppUtils isContainBundle:allIDarray bundleid:info.gameBundleId]){
                 InstallAppFrame *infoFrame = [[InstallAppFrame alloc] init];

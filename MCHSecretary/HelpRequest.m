@@ -11,7 +11,8 @@
 #import "PreferencesUtils.h"
 #import "CurrentAppUtils.h"
 
-#define helpurl @"/app.php/server/get_help_info/type/2"
+#define helpurl @"/app.php/server/get_help_info"
+#define addGroupUrl @"/app.php/server/get_add_group/type/1"
 #define feedback @"/app.php/user/feedback"
 #define appupdataurl @"/app.php/server/ios_app_updata"
 #define tooldownurl @"/app.php/server/get_shan_url"
@@ -24,7 +25,15 @@
       failureBlock(response,error,dic);
   }];
 }
+-(void)getRequestForAddGroup:(void(^)(NSDictionary *dict))resultDic failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock
+{
+    [[[BaseNetManager alloc]init]noget:addGroupUrl success:^(NSDictionary *dic) {
+        resultDic(dic);
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        failureBlock(response,error,dic);
+    }];
 
+}
 -(void)postMessage:(NSDictionary *)dict success:(void(^)(NSString *resultStr))result failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock
 {
     [[BaseNetManager sharedInstance]httpPost:feedback datas:dict success:^(NSDictionary *dic) {
