@@ -80,7 +80,7 @@
 }
 -(void)requstForDefaultGameserverInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock
 {
-    [[BaseNetManager sharedInstance] noget:defaultserverurl success:^(NSDictionary *dic) {
+    [[BaseNetManager sharedInstance] get:defaultserverurl success:^(NSDictionary *dic) {
         int status = [dic[@"status"] intValue];
         if (status == 1)
         {

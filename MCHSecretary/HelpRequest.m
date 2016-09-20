@@ -19,7 +19,7 @@
 @implementation HelpRequest
 -(void)requestForHelp:(void(^)(NSDictionary *dict))resultDic failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock
 {
-  [[[BaseNetManager alloc]init]noget:helpurl success:^(NSDictionary *dic) {
+  [[[BaseNetManager alloc]init]get:helpurl success:^(NSDictionary *dic) {
       resultDic(dic);
   } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
       failureBlock(response,error,dic);
@@ -27,7 +27,7 @@
 }
 -(void)getRequestForAddGroup:(void(^)(NSDictionary *dict))resultDic failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock
 {
-    [[[BaseNetManager alloc]init]noget:addGroupUrl success:^(NSDictionary *dic) {
+    [[[BaseNetManager alloc]init]get:addGroupUrl success:^(NSDictionary *dic) {
         resultDic(dic);
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         failureBlock(response,error,dic);
@@ -59,7 +59,7 @@
     }
    
     
-    [[[BaseNetManager alloc]init]noget:urlstr success:^(NSDictionary *dic) {
+    [[[BaseNetManager alloc]init]get:urlstr success:^(NSDictionary *dic) {
               result(dic);
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         failureBlock(response,error,dic);
@@ -70,7 +70,7 @@
     //端口号
     NSString *url = [NSString stringWithFormat:@"%@/port/%@",tooldownurl,num];
     
-    [[[BaseNetManager alloc]init]noget:url success:^(NSDictionary *dic) {
+    [[[BaseNetManager alloc]init]get:url success:^(NSDictionary *dic) {
         resultDic(dic);
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         failureBlock(response,error,dic);

@@ -183,7 +183,7 @@ CGFloat LineY;
     UILabel *lblSize = [[UILabel alloc] initWithFrame:CGRectMake(15, firstY, LABWIDTH, ContentTextSize)];
     [lblSize setFont:TextFont];
     [lblSize setTextColor:TextColor];
-    lblSize.text = [NSString stringWithFormat:@"%@ : %@B",NSLocalizedString(@"AppSize", @""),info.packetSize];
+    lblSize.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AppSize", @""),info.packetSize];
     [bgView addSubview:lblSize];
     
     //版本信息
