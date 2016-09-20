@@ -78,11 +78,14 @@
     }
     versionInfo = checkNull([dict objectForKey:@"version"]);
     
+    
     _updateData = checkNull([dict objectForKey:@"create_time"]);
     language = checkNull([dict objectForKey:@"language"]);
     
     //折扣
     appDiscount = checkNull([dict objectForKey:@"discount"]);
+    
+    appOS = checkNull([dict objectForKey:@"sys_version"]);
 }
 
 -(NSString *) updateData{
