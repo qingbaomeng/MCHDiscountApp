@@ -169,7 +169,7 @@
     [appRequest setLimit:[NSString stringWithFormat:@"%d", page]];
     [appRequest getCycleAppInfo:^(NSMutableArray *result) {
         //        NSLog(@"success dic:%@", dic);
-        listItemArray = result;
+//        listItemArray = result;
         [listItemArray addObjectsFromArray:result];
         [appInfoTable reloadData];
         
@@ -228,10 +228,10 @@
     InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
     [installapprequest setGameAppId:[NSString stringWithFormat:@"%d", appid]];
     [installapprequest getAppList:^(NSString *resultStr) {
-//        NSLog(@"resultStr : %@", resultStr);
+        NSLog(@"resultStr : %@", resultStr);
         if (![@"" isEqualToString:resultStr]) {
             NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",resultStr];
-//            NSLog(@"url : %@", url);
+            NSLog(@"url : %@", url);
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }
         

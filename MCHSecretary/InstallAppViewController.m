@@ -160,6 +160,7 @@
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
     detailsView.appId = [NSString stringWithFormat:@"%d",infoFrame.installAppInfo.appid];
+    NSLog(@"infoFrame.installAppInfo.appid==%@",detailsView.appId);
     detailsView.open = YES;
     detailsView.bundleId = infoFrame.installAppInfo.gameBundleId;
     [self.navigationController pushViewController:detailsView animated:YES];

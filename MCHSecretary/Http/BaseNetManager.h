@@ -24,6 +24,7 @@
 
 - (void)get:(NSString *)urlstr success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
+- (void)getWithIndicator:(NSString *)urlstr success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 //-(NSString * _Nonnull) sortDicToString:(NSMutableDictionary * _Nonnull)dic;
 
 -(void) httpPost:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;

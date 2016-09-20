@@ -98,6 +98,67 @@ DialogTipView *dialogView;
     }];
     [dataTask resume];
 }
+- (void)getWithIndicator:(NSString *)urlstr success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
+    
+    //    [self showIndicatorView];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", urlpre, urlstr];
+    // 一些特殊字符编码
+    urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];
+    
+    NSURLSession *sharedSession = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *dataTask = [sharedSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        //        NSLog(@"%@",[NSThread currentThread]);
+        if (data && (error == nil)) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            long status = (long)httpResponse.statusCode;
+            if(status >= 200 && status < 299) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self removeIndicatorView];
+                    
+                    NSString *res = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+                    //                    NSLog(@"[BaseNetManager] resultStr : %@", res);
+                    if(![StringUtils isBlankString:res]){
+                        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        if(responseDictionary != nil){
+                            successblock(responseDictionary);
+                        }else{
+                            NSLog(@"[BaseNetManager] response json exception : %@", res);
+                            NSDictionary *resultDic = @{@"status":@"-1001", @"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
+                            failureBlock(response, error, resultDic);
+                        }
+                        
+                    }else{
+                        NSLog(@"[BaseNetManager] response is null : %@", res);
+                        NSDictionary *resultDic = @{@"status":@"-1001", @"return_msg":NSLocalizedString(@"HTTPDataException", @"")};
+                        failureBlock(response, error, resultDic);
+                    }
+                });
+            } else {
+                NSLog(@"[BaseNetManager] http response status : %ld",status);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self removeIndicatorView];
+                    
+                    failureBlock(response, error, @{@"status":@"-1000", @"return_msg":NSLocalizedString(@"HTTPStatusException", @"")});
+                });
+            }
+            
+        } else {
+            NSLog(@"[BaseNetManager] error=%@",error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self removeIndicatorView];
+                
+                failureBlock(response, error, @{@"status":@"-1000", @"return_msg":NSLocalizedString(@"HTTPError", @"")});
+            });
+        }
+    }];
+    [dataTask resume];
+}
+
 -(void) httpPost:(NSString *)urlstr datas:(NSDictionary *)dic success:(void(^)(NSDictionary * dic))successblock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{
     [self showIndicatorView];
     
