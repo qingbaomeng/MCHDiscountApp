@@ -16,4 +16,5 @@
 
 -(void)request:(void(^)(AppPacketInfo * appinfo))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock;
 
+
 @end

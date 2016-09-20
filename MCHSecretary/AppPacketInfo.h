@@ -48,8 +48,6 @@
 @property (nonatomic, copy) NSString *language;
 //系统
 @property (nonatomic, copy) NSString *appOS;
-//系统
-@property (nonatomic, copy) NSString *appUrl;
 
 
 

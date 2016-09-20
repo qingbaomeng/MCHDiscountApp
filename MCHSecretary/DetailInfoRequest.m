@@ -14,6 +14,7 @@
 #import "HomeGameInfo.h"
 #import "AppPacketInfo.h"
 
+
 #define appdetailinfourl @"/app.php?s=/server/get_game_info"
 
 @implementation DetailInfoRequest
@@ -57,5 +58,4 @@
     
     return appInfo;
 }
-
 @end

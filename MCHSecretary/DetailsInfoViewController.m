@@ -16,6 +16,7 @@
 #import "InstallAppRequest.h"
 #import "CurrentAppUtils.h"
 #import "InstallAppInfo.h"
+#import "PreferencesUtils.h"
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -64,7 +65,6 @@
     
     [self initData];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -125,8 +125,15 @@
     if (button.tag == 2)
     {
         if (info) {
-//            [Share shareWithTitle:info.gameName ImageUrl:@[info.gameIconUrl] Message:info.introduction URL:info.appUrl ViewControl:self];
-            [Share shareWithURLImageTitle:info.gameName ImageUrl:@[info.gameIconUrl] Message:info.introduction URL:info.appUrl ViewControl:self];
+            
+            NSString *promoreid = [PreferencesUtils getPromoteId];
+            if ([promoreid isEqualToString:@""])
+            {
+                promoreid = 0;
+            }
+            NSString *urlstr = [NSString stringWithFormat:@"http://zhekou.vlcms.com/media.php/index/game_download/gid/11//gid/%d/pid/%@",info.gameID,promoreid];
+            
+            [Share shareWithTitle:info.gameName ImageUrl:info.gameIconUrl Message:info.introduction URL:urlstr ViewControl:self];
         }
     }
     if (button.tag == 3)

@@ -28,6 +28,8 @@
 @interface IndexController (){
     UIButton *appBtn;
     UIButton *openServerBtn;
+    UIButton *button;
+    NSDictionary *shareDic;
 }
 
 @end
@@ -40,6 +42,18 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     
     [self initView];
+    
+    [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
+        
+        if ([dict[@"status"]intValue] == 1)
+        {
+            shareDic = dict[@"list"];
+        }
+        
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
+
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -90,7 +104,7 @@
     
     [self setTopBtnStatus:NO];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(kScreenWidth -20-BarWIDTH, 25, BarWIDTH, BarWIDTH);
     [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(barImageTap) forControlEvents:UIControlEventTouchUpInside];
@@ -99,23 +113,7 @@
 
 -(void)barImageTap {
     
-    [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
-        
-        if ([dict[@"status"]intValue] == 1)
-        {
-            NSLog(@"====%@",dict[@"list"]);
-            NSDictionary *dic = dict[@"list"];
-//
-            [Share shareWithTitle:dic[@"title"] ImageUrl:dic[@"icon"] Message:dic[@"introduction"]  URL:dic[@"url"]  ViewControl:self];
-            NSLog(@"SHARETitle=%@,ImageUrl=%@,Message=%@,URL=%@",dic[@"title"],
-                  dic[@"icon"],
-                  dic[@"introduction"],
-                  dic[@"url"]);
-        }
-        
-    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        
-    }];
+[Share shareWithTitle:shareDic[@"title"] ImageUrl:shareDic[@"icon"] Message:shareDic[@"introduction"]  URL:shareDic[@"url"]  ViewControl:self];
 }
 
 -(void)showGame{

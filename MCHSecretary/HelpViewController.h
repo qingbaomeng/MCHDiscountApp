@@ -10,8 +10,9 @@
 
 @interface HelpViewController : UIViewController
 {
-UIView *topview;
+    UIView *topview;
     NSDictionary *resultDict;
+    NSDictionary *shareDic;
 }
 @property(nonatomic,retain)UILabel *lab;
 @end

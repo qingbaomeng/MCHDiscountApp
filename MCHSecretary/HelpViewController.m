@@ -58,6 +58,16 @@
     
     [self addTopView];
     [self addSCrollView];
+    
+    [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
+        
+        if ([dict[@"status"]intValue] == 1)
+        {
+            shareDic = dict[@"list"];
+        }
+    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
+        
+    }];
    
 }
 -(void) addTopView{
@@ -191,7 +201,6 @@
 }
 -(void)cellUS
 {
-    NSLog(@"service_tel===%@",resultDict[@"service_tel"]);
     //拨电话
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",resultDict[@"service_tel"]];
     
@@ -205,7 +214,6 @@
 - (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key{
     
     NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", groupUin,key];
-    NSLog(@"====%@",urlStr);
     NSURL *url = [NSURL URLWithString:urlStr];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
@@ -215,23 +223,7 @@
 }
 -(void)barImageTap
 {
-    [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
-        
-        if ([dict[@"status"]intValue] == 1)
-        {
-            NSLog(@"====%@",dict[@"list"]);
-            NSDictionary *dic = dict[@"list"];
-            //
-            [Share shareWithTitle:dic[@"title"] ImageUrl:dic[@"icon"] Message:dic[@"introduction"]  URL:dic[@"url"]  ViewControl:self];
-            NSLog(@"SHARETitle=%@,ImageUrl=%@,Message=%@,URL=%@",dic[@"title"],
-                  dic[@"icon"],
-                  dic[@"introduction"],
-                  dic[@"url"]);
-        }
-        
-    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-        
-    }];
+    [Share shareWithTitle:shareDic[@"title"] ImageUrl:shareDic[@"icon"] Message:shareDic[@"introduction"]  URL:shareDic[@"url"]  ViewControl:self];
 }
 #pragma mark 手势
 -(void)handleTap1:(UITapGestureRecognizer *)tap
@@ -269,23 +261,7 @@
     [SVProgressHUD showWithStatus:@"检查更新中...."];
     [self performSelector:@selector(dismissSVPressHUD) withObject:nil afterDelay:3.0f];
         _lab.frame = LABORFRAME;
-    //    [self checkVersionUpdata];
 }
-//-(void) requestDownloadUrl{
-//    InstallAppRequest *installapprequest = [[InstallAppRequest alloc] init];
-//    [installapprequest setGameAppId:appId];
-//    [installapprequest getAppList:^(NSString *resultStr) {
-//        NSLog(@"resultStr : %@", resultStr);
-//        if (![@"" isEqualToString:@""]) {
-//            
-//        }
-//        
-//    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-//        NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
-//        NSLog(@"fun# errorMsg:%@", errorMsg);
-//    }];
-//}
-
 -(void)dismissSVPressHUD
 {
     [SVProgressHUD dismiss];

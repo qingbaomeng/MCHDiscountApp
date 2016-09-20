@@ -42,18 +42,19 @@
 {
 
     NSString *promoreid = [PreferencesUtils getPromoteId];
+    if ([promoreid isEqualToString:@""])
+    {
+        promoreid = 0;
+    }
     NSString *urlstr = [NSString stringWithFormat:@"%@/promote_id/%@",shareAPP,promoreid];
     [[BaseNetManager sharedInstance] get:urlstr success:^(NSDictionary *dic) {
-        NSLog(@"[ChoiceCycleAppRequest] takeTransUrl : %@", dic);
+        NSLog(@"[ChoiceCycleAppRequest] Share: %@", dic);
         resultBlock(dic);
         
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         //        NSLog(@"[ChoiceCycleAppRequest] error message : %@", dic);
         failureBlock(response, error, dic);
     }];
-    
-
-    
 }
 //轮番图
 -(void) getScrollViewInfo:(void(^)(NSMutableArray * array))resultBlock failure:(void(^)(NSURLResponse * response, NSError * error, NSDictionary * dic))failureBlock{

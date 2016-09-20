@@ -16,7 +16,7 @@
 @synthesize gameID,recommend_status;
 @synthesize gameIconUrl, gameName,gameBundleID, packetSize,game_type_name, introduction;
 @synthesize describeImages, contentDescribe, versionInfo;
-@synthesize language, appDiscount, appOS, appUrl;
+@synthesize language, appDiscount, appOS;
 
 -(id) init{
     if (self = [super init]) {
@@ -83,12 +83,6 @@
     
     //折扣
     appDiscount = checkNull([dict objectForKey:@"discount"]);
-    
-    appOS = checkNull([dict objectForKey:@"sys_version"]);
-    appUrl = checkNull([dict objectForKey:@"appurl"]);
-    if ([StringUtils isBlankString:appUrl]) {
-        appUrl = @"http://www.baidu.com";
-    }
 }
 
 -(NSString *) updateData{
