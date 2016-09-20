@@ -11,7 +11,7 @@
 #import "PreferencesUtils.h"
 #import "CurrentAppUtils.h"
 
-#define helpurl @"/app.php/server/get_help_info"
+#define helpurl @"/app.php/server/get_help_info/type/2"
 #define feedback @"/app.php/user/feedback"
 #define appupdataurl @"/app.php/server/ios_app_updata"
 #define tooldownurl @"/app.php/server/get_shan_url"

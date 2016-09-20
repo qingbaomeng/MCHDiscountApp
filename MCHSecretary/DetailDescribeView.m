@@ -64,7 +64,7 @@ CGFloat LineY;
     CGFloat contentW = 0;
     for (int i = 0; i < array.count; i++) {
         //        NSLog(@"image url(%d):%@", i, [array objectAtIndex:i]);
-        UIImageView *ivDesc = [[UIImageView alloc] initWithFrame:CGRectMake(10 + (10 + 160) * i, 10, 160, 284)];
+        UIImageView *ivDesc = [[UIImageView alloc] initWithFrame:CGRectMake(10 + (10 + 180) * i, 10, 180, 284)];
         [ivDesc sd_setImageWithURL:array[i] placeholderImage:[UIImage imageNamed:@"load_fail"]];
         contentW = CGRectGetMaxX(ivDesc.frame) + 10;
         [imageScroll addSubview:ivDesc];
@@ -159,6 +159,7 @@ CGFloat LineY;
     moreButton.hidden = YES;
     
     bgView.frame = CGRectMake(0,descriptLine.frame.origin.y + 15, kScreenWidth, ContentTextSize * 4 +100);
+
 }
 
 //版本信息
@@ -225,7 +226,7 @@ CGFloat LineY;
 
     
     //    NSLog(@"%@", NSStringFromCGRect(txtVerision.frame));
-    CGFloat detailY = CGRectGetMaxY(bgView.frame) + 10;
+    CGFloat detailY = CGRectGetMaxY(bgView.frame) + descMax.height;
     CGRect r = self.frame;
     r.size.height = detailY;
     [self setFrame:r];

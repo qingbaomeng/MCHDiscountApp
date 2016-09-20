@@ -81,7 +81,7 @@ UIImageView *imageView;
 {
     [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
         
-        [imageView sd_setImageWithURL:[NSURL URLWithString:dict[@"icon"]] placeholderImage:[UIImage imageNamed:@"load_fail"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:dict[@"icon"]]];
         
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
     }];

@@ -177,6 +177,7 @@
     }
     else
     {
+        NSLog(@"resultDict===%@",resultDict);
         NSLog(@"groupID=%@,groupKey=%@",resultDict[@"service_group"],resultDict[@"service_group_key"]);
         
         [self joinGroup:resultDict[@"service_group"] key:resultDict[@"service_group_key"]];
