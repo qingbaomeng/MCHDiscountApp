@@ -45,7 +45,6 @@
 		5A5E0E421D78287A00E60A46 /* OpenServerSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E0E411D78287A00E60A46 /* OpenServerSearchCell.m */; };
 		5A5E0E451D782E3500E60A46 /* OpenServerPostion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E0E441D782E3500E60A46 /* OpenServerPostion.m */; };
 		5A6E09CF1D8E78DF00D82308 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6E09CE1D8E78DF00D82308 /* ToolView.m */; };
-		5A6E09D11D8E798200D82308 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A6E09D01D8E798200D82308 /* img.png */; };
 		5A74C32E1D76D9E600CBC262 /* barBtn_home_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C31E1D76D9E600CBC262 /* barBtn_home_select@2x.png */; };
 		5A74C32F1D76D9E600CBC262 /* barBtn_home_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C31F1D76D9E600CBC262 /* barBtn_home_select@3x.png */; };
 		5A74C3301D76D9E600CBC262 /* barBtn_home_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C3201D76D9E600CBC262 /* barBtn_home_unselect@2x.png */; };
@@ -64,6 +63,7 @@
 		5A74C33D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A74C32D1D76D9E600CBC262 /* tabbtn_help_unselect@3x.png */; };
 		5ABA296A1D8105BE00B44ACE /* load_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA29691D8105BE00B44ACE /* load_fail.png */; };
 		5ABA296D1D81434F00B44ACE /* HomeGameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA296C1D81434F00B44ACE /* HomeGameInfo.m */; };
+		5ACBC9131D9132DD002D90B6 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACBC9121D9132DD002D90B6 /* img.png */; };
 		5AD614841D812FEE005E9406 /* apprepair.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD614831D812FEE005E9406 /* apprepair.png */; };
 		5AD614871D813A9E005E9406 /* TopCycleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD614861D813A9E005E9406 /* TopCycleImage.m */; };
 		5AD6148F1D814BCC005E9406 /* qidong.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD6148E1D814BCC005E9406 /* qidong.png */; };
@@ -293,7 +293,6 @@
 		5A5E0E441D782E3500E60A46 /* OpenServerPostion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenServerPostion.m; path = Entity/OpenServerPostion.m; sourceTree = "<group>"; };
 		5A6E09CD1D8E78DF00D82308 /* ToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolView.h; sourceTree = "<group>"; };
 		5A6E09CE1D8E78DF00D82308 /* ToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolView.m; sourceTree = "<group>"; };
-		5A6E09D01D8E798200D82308 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
 		5A74C31E1D76D9E600CBC262 /* barBtn_home_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "barBtn_home_select@2x.png"; path = "Images/tabbaritemImages/barBtn_home_select@2x.png"; sourceTree = "<group>"; };
 		5A74C31F1D76D9E600CBC262 /* barBtn_home_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "barBtn_home_select@3x.png"; path = "Images/tabbaritemImages/barBtn_home_select@3x.png"; sourceTree = "<group>"; };
 		5A74C3201D76D9E600CBC262 /* barBtn_home_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "barBtn_home_unselect@2x.png"; path = "Images/tabbaritemImages/barBtn_home_unselect@2x.png"; sourceTree = "<group>"; };
@@ -313,6 +312,7 @@
 		5ABA29691D8105BE00B44ACE /* load_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load_fail.png; sourceTree = "<group>"; };
 		5ABA296B1D81434F00B44ACE /* HomeGameInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeGameInfo.h; sourceTree = "<group>"; };
 		5ABA296C1D81434F00B44ACE /* HomeGameInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeGameInfo.m; sourceTree = "<group>"; };
+		5ACBC9121D9132DD002D90B6 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
 		5AD614831D812FEE005E9406 /* apprepair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apprepair.png; path = Images/apprepair.png; sourceTree = "<group>"; };
 		5AD614851D813A9E005E9406 /* TopCycleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopCycleImage.h; path = Entity/TopCycleImage.h; sourceTree = "<group>"; };
 		5AD614861D813A9E005E9406 /* TopCycleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopCycleImage.m; path = Entity/TopCycleImage.m; sourceTree = "<group>"; };
@@ -945,7 +945,7 @@
 		B7E758BD1D5836D7008C7ED8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				5A6E09D01D8E798200D82308 /* img.png */,
+				5ACBC9121D9132DD002D90B6 /* img.png */,
 				5AD6148E1D814BCC005E9406 /* qidong.png */,
 				5AD614831D812FEE005E9406 /* apprepair.png */,
 				5ABA29691D8105BE00B44ACE /* load_fail.png */,
@@ -1443,7 +1443,7 @@
 				5A74C33B1D76D9E600CBC262 /* tabbtn_help_select@3x.png in Resources */,
 				5A74C3301D76D9E600CBC262 /* barBtn_home_unselect@2x.png in Resources */,
 				5A5E0E3A1D78171F00E60A46 /* SVProgressHUD.bundle in Resources */,
-				5A6E09D11D8E798200D82308 /* img.png in Resources */,
+				5ACBC9131D9132DD002D90B6 /* img.png in Resources */,
 				B7E7598A1D5DA97E008C7ED8 /* choice_type.png in Resources */,
 				5A52312D1D743E8C00D01412 /* discount.png in Resources */,
 				B78FA1BF1D531E100092A043 /* Main.storyboard in Resources */,
@@ -1743,7 +1743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1772,7 +1772,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
