@@ -92,6 +92,7 @@
 -(void)addSCrollView
 {
     [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
+        NSLog(@"requestForHelpView:%@",dict);
         resultDict = dict;
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
     }];
@@ -126,6 +127,7 @@
         if (a == 3)
         {
             [vie addSmallLab];
+            
             NSString *version = [CurrentAppUtils appVersion];
             if (![version isEqualToString:@""])
             {
@@ -133,7 +135,6 @@
             }
             else
             {
-                
                 vie.titleLab.text = [NSString stringWithFormat:@"v%@",resultDict[@"version"]];
             }
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap4)];
@@ -269,7 +270,8 @@
         
         if ([dict[@"status"]intValue] == 1)
         {
-            NSLog(@"====%@",dict[@"url"]);
+            NSLog(@"requestForUpdata=====%@",dict);
+            NSLog(@"requestForUpdataURL====%@",dict[@"url"]);
             
             NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",dict[@"url"]];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
