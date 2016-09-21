@@ -188,6 +188,8 @@
         
         if (![@"" isEqualToString:resultStr]) {
             NSString *url = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",resultStr];
+            NSLog(@"InstallAppView-----url:%@",url);
+            
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }
         
