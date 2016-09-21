@@ -29,7 +29,7 @@
         url = [url stringByAppendingString:_limit];
     }
     
-    [[BaseNetManager sharedInstance] get:appdetailinfourl success:^(NSDictionary *dic) {
+    [[BaseNetManager sharedInstance] get:url success:^(NSDictionary *dic) {
         
         NSMutableArray *result = [self dicToArray:dic];
         

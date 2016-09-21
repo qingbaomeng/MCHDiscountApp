@@ -91,9 +91,9 @@
     }
     NSLog(@"[ChoiceCycleAppRequest] CycleAppInfo url : %@", url);
     
-    [[BaseNetManager sharedInstance] get:allGameInfoUrl success:^(NSDictionary *dic) {
+    [[BaseNetManager sharedInstance] get:url success:^(NSDictionary *dic) {
         
-        NSLog(@"[ChoiceCycleAppRequest] resultStr : %@", dic);
+        NSLog(@"-----------[ChoiceCycleAppRequest] resultStr : %@", dic);
         
         NSMutableArray *result = [self dicToArray:dic];
         
