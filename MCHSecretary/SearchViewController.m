@@ -324,7 +324,10 @@
         
         for (NSInteger i = appSearchHisArray.count - 1; i >= 0; i--) {
             CGRect frame = [self nextBtnFrame:appSearchHisArray[i] posX:preX posY:preY];
-            
+            if (frame.origin.y > 100)
+            {
+                return;
+            }
             UIButton *btn = [self createSearchButton:appSearchHisArray[i] frame:frame];
             btn.tag = i;
             [searchButtonView addSubview:btn];
@@ -402,7 +405,7 @@
 -(void) startSearchkey:(UIButton *)sender{
     NSInteger index = sender.tag;
     NSString *key = appSearchHisArray[index];
-//    NSLog(@"key:%@",key);
+    NSLog(@"index:%ld,key:%@",(long)sender.tag,key);
     searchKey = key;
     
     [self showSearchView];
@@ -670,6 +673,17 @@
 //开始搜索
 - (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {
     if(aTextfield){
+        if (aTextfield.text.length > 15)
+        {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"搜索框输入字数过长" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertVC addAction:action];
+            
+            [self presentViewController:alertVC animated:YES completion:nil];
+            return NO;
+        }
         [aTextfield resignFirstResponder];
     }
     [self saveSearchKey];
@@ -689,21 +703,6 @@
         [appInfoTable removeFromSuperview];
     }
     
-    return YES;
-}
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    if (range.location > 16)
-    {
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"超出字数限制" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-        
-        [alertVC addAction:action];
-        
-        [self presentViewController:alertVC animated:YES completion:nil];
-        return NO;
-    }
     return YES;
 }
 #pragma 触摸空白区域

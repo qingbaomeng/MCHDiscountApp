@@ -84,7 +84,7 @@
         int status = [dic[@"status"] intValue];
         if (status == 1)
         {
-            NSLog(@"[DefaultAppRequest] takeTransUrl : %@", dic);
+//            NSLog(@"[DefaultAppRequest] takeTransUrl : %@", dic);
             NSMutableArray *result = [self defaultDicToArray:dic];
             resultBlock(result);
         }
