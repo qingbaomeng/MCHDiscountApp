@@ -691,7 +691,21 @@
     
     return YES;
 }
-
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (range.location > 16)
+    {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"超出字数限制" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertVC addAction:action];
+        
+        [self presentViewController:alertVC animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
+}
 #pragma 触摸空白区域
 
 - (void)handleTap:(UITapGestureRecognizer *)tap {

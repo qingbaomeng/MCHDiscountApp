@@ -125,13 +125,12 @@
     if (button.tag == 2)
     {
         if (info) {
-            
             NSString *promoreid = [PreferencesUtils getPromoteId];
             if ([promoreid isEqualToString:@""])
             {
                 promoreid = 0;
             }
-            NSString *urlstr = [NSString stringWithFormat:@"http://zhekou.vlcms.com/media.php/index/game_download/gid/11//gid/%d/pid/%@",info.gameID,promoreid];
+            NSString *urlstr = [NSString stringWithFormat:@"http://zhekou.vlcms.com/media.php/index/game_download/gid/%@/pid/%@",self.appId,promoreid];
             
             [Share shareWithTitle:info.gameName ImageUrl:info.gameIconUrl Message:info.introduction URL:urlstr ViewControl:self];
         }

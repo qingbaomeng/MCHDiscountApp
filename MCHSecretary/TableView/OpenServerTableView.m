@@ -213,6 +213,14 @@
     [gameRequest setLimit:[NSString stringWithFormat:@"%d", page]];
     [gameRequest requestOpenServerGame:^(NSMutableArray *opserverArray) {
         
+        if (opserverArray.count == 0)
+        {
+            NSLog(@"没有更多数据");
+            [openserverTable.mj_footer endRefreshingWithNoMoreData];
+        }
+        else
+        {
+        
         listItemArray = opserverArray;
         
         [listItemArray addObjectsFromArray:opserverArray];
@@ -220,7 +228,7 @@
         [openserverTable reloadData];
         
         [openserverTable.mj_footer endRefreshing];
-        
+        }
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
         NSLog(@"errorMsg:%@", errorMsg);

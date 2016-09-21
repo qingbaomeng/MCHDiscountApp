@@ -168,12 +168,19 @@
     ChoiceCycleAppRequest *appRequest = [[ChoiceCycleAppRequest alloc] init];
     [appRequest setLimit:[NSString stringWithFormat:@"%d", page]];
     [appRequest getCycleAppInfo:^(NSMutableArray *result) {
-        //        NSLog(@"success dic:%@", dic);
-//        listItemArray = result;
-        [listItemArray addObjectsFromArray:result];
-        [appInfoTable reloadData];
-        
-        [appInfoTable.mj_footer endRefreshing];
+    
+    if (result.count == 0)
+    {
+        NSLog(@"没有更多数据");
+        [appInfoTable.mj_footer endRefreshingWithNoMoreData];
+    }
+        else
+        {
+            [listItemArray addObjectsFromArray:result];
+            [appInfoTable reloadData];
+            [appInfoTable.mj_footer endRefreshing];
+        }
+     
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
         NSLog(@"errorMsg:%@", errorMsg);
