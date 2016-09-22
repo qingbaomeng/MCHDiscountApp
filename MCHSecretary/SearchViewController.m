@@ -284,7 +284,7 @@
     [recommentView addSubview:lblSearchHis];
     
     clearBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 70, posy + iconW + nameW + 10, 70, 10)];
-    [clearBtn setImage:[UIImage imageNamed:@"clear_btn"] forState:UIControlStateNormal];
+    [clearBtn setImage:[UIImage imageNamed:@"btn_clear"] forState:UIControlStateNormal];
     [clearBtn setTitleColor:AppNameColor forState:UIControlStateNormal];
     [clearBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     clearBtn.titleLabel.font = ClearFont;
