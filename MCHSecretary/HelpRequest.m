@@ -47,7 +47,7 @@
      NSString *urlstr;
     
     NSString *promoreid = [PreferencesUtils getPromoteId];
-    if (![promoreid isEqualToString:@""])
+    if (![promoreid isEqualToString:@"0"])
     {
         NSString *version = [CurrentAppUtils appVersion];
         
@@ -55,10 +55,9 @@
     }
     else
     {
-        urlstr = [NSString stringWithFormat:@"%@/promote_id/0",appupdataurl];
+        urlstr = [NSString stringWithFormat:@"%@/promote_id/%@",appupdataurl,promoreid];
     }
    
-    
     [[[BaseNetManager alloc]init]get:urlstr success:^(NSDictionary *dic) {
               result(dic);
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
