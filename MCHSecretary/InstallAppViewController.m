@@ -175,7 +175,7 @@
             InstallAppInfo *info = infoArray[i];
 //            NSLog(@"info.gameBundleId:%@", info.gameBundleId);
             
-            
+//            NSLog(@"=====%@",allIDarray);
             if([CurrentAppUtils isContainBundle:allIDarray bundleid:info.gameBundleId]){
                 InstallAppFrame *infoFrame = [[InstallAppFrame alloc] init];
                 [infoFrame setInstallAppInfo:info];

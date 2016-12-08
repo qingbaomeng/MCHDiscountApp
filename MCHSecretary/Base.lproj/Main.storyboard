@@ -161,8 +161,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PL6-eI-mX0">
-                                <rect key="frame" x="0.0" y="45" width="600" height="505"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PL6-eI-mX0">
+                                <rect key="frame" x="0.0" y="47" width="600" height="505"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9o8-VD-F2A">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
@@ -284,8 +284,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="barBtn_home_select.png" width="22" height="34"/>
-        <image name="barBtn_home_unselect.png" width="22" height="34"/>
+        <image name="barBtn_home_select.png" width="22" height="22"/>
+        <image name="barBtn_home_unselect.png" width="22" height="22"/>
         <image name="barBtn_mine_select.png" width="22" height="34"/>
         <image name="barBtn_mine_unselect.png" width="22" height="34"/>
         <image name="choice_necessary.png" width="60" height="60"/>

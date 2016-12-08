@@ -122,7 +122,7 @@
             NSString *url = cyucleImage.imageUrl;
             if (imageView && [imageView isKindOfClass:[UIImageView class]] && ![StringUtils isBlankString:url])
             {
-                [imageView sd_setImageWithURL:[NSURL URLWithString:url]];
+                [imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"load_fail"]];
             }else{
                 NSLog(@"imageView is null");
             }

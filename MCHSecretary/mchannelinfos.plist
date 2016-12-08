@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>promoteid</key>
-	<string>1</string>
+	<string>0</string>
 	<key>promoteaccount</key>
-	<string>tui002</string>
+	<string>自然注册</string>
 	<key>gamename</key>
-	<string>花千骨</string>
+	<string>琅琊榜</string>
 	<key>gameappid</key>
-	<string>ECD78993FED4FC974</string>
+	<string>3C76D5D392E498F73</string>
 	<key>gameid</key>
-	<string>5</string>
+	<string>26</string>
 </dict>
 </plist>

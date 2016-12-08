@@ -221,7 +221,7 @@
         else
         {
         
-        listItemArray = opserverArray;
+//        listItemArray = opserverArray;
         
         [listItemArray addObjectsFromArray:opserverArray];
         

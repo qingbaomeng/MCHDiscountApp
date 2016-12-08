@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 //#define urlpre @"http://a2.vlcms.com/sdk.php"
-//#define urlpre @"https://iosdemo.vlcms.com:8888"
+//#define urlpre @"http://www.tym1.com"
 #define urlpre @"https://zhekou.vlcms.com"
 
 @interface BaseNetManager : NSObject{

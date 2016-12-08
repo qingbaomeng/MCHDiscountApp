@@ -15,7 +15,7 @@
 		<string>zh_CN</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>首充号手游</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,7 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ41E6CD10</string>
+				<string>QQ41E78F2D</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,7 +37,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx8a996aa7cf249b83</string>
+				<string>wxc399a0a165791e6d</string>
 			</array>
 		</dict>
 		<dict>

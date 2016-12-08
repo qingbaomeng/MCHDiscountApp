@@ -233,6 +233,7 @@ DialogTipView *dialogView;
     [self showIndicatorView];
     
     NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    
     NSString *param=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     
     NSString *strURL = [NSString stringWithFormat:@"%@%@",urlpre,urlstr];
