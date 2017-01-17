@@ -1302,7 +1302,7 @@
 					B78FA1B01D531E100092A043 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 6DS2EQ8R3E;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					B78FA1C91D531E100092A043 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1703,7 +1703,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6DS2EQ8R3E;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MCHSecretary/shareSDK",
@@ -1721,8 +1721,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dell.MCHShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "b7afe207-a1d0-4b23-8c7d-2b0a17c94c9a";
+				PROVISIONING_PROFILE_SPECIFIER = MCHShopDevelop;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1733,8 +1733,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 6DS2EQ8R3E;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MCHSecretary/shareSDK",
@@ -1752,8 +1752,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dell.MCHShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "51bb3adc-3d38-449a-b20b-85cf4cb6dcff";
+				PROVISIONING_PROFILE_SPECIFIER = "XC: com.dell.MCHShop";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

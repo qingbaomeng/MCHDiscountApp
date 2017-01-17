@@ -192,7 +192,7 @@
 #pragma mark - DownloadAppDelegate
 
 -(void) startDownloadApp:(NSInteger)section index:(NSInteger)index{
-    if(listItemArray.count <= section){
+    if(listItemArray.count < section){
         return;
     }
     

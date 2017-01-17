@@ -251,7 +251,7 @@ DialogTipView *dialogView;
     
     //    NSLog(@"%@",[param dataUsingEncoding:NSUTF8StringEncoding]);
     completionBlock = ^(NSData *data, NSURLResponse *response, NSError *error){
-        //             NSLog(@"response : %@", response);
+//                     NSLog(@"response : %@", response);
         if (data && (error == nil)) {
 //            NSLog(@"[BaseNetManager] data=%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             

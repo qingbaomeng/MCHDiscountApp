@@ -10,8 +10,8 @@
 
 //#define urlpre @"http://a2.vlcms.com/sdk.php"
 //#define urlpre @"http://www.tym1.com"
-#define urlpre @"https://zhekou.vlcms.com"
-
+//#define urlpre @"http://zhekou.vlcms.com"
+#define urlpre @"https://www.tym1.com/"
 @interface BaseNetManager : NSObject{
 }
 
