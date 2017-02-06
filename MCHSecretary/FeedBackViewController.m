@@ -40,6 +40,12 @@ UITextField *textField;
     
     [self addTtextViewAndTextField];
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    self.tabBarController.tabBar.hidden = YES;
+}
 -(void) addTopView{
     topview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, TopViewH)];
     [topview setBackgroundColor:TopBackColor];

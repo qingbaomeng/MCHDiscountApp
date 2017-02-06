@@ -226,7 +226,7 @@ CGFloat LineY;
 
     
     //    NSLog(@"%@", NSStringFromCGRect(txtVerision.frame));
-    CGFloat detailY = CGRectGetMaxY(bgView.frame) + descMax.height;
+    CGFloat detailY = CGRectGetMaxY(bgView.frame) + descMax.height/2;
     CGRect r = self.frame;
     r.size.height = detailY;
     [self setFrame:r];

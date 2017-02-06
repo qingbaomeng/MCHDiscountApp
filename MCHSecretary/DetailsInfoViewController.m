@@ -72,7 +72,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
-    [super.navigationController setToolbarHidden:YES animated:YES];
+//    [super.navigationController setToolbarHidden:YES animated:YES];
+    self.tabBarController.tabBar.hidden = YES;
     [super viewWillAppear:animated];
 }
 

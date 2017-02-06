@@ -7,6 +7,7 @@
 //
 
 #import "ToolView.h"
+#import "StringUtils.h"
 
 #define CENTERX self.center.x
 #define CENTERY self.center.y
@@ -23,25 +24,27 @@ UIImageView *imageV;
     {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img"]];
-        imageV.center = CGPointMake(CENTERX, CENTERY *0.5);
+        imageV.center = CGPointMake(CENTERX, CENTERY *0.4);
         imageV.bounds = CGRectMake(0, 0, WIDTH *0.5, WIDTH *0.5);
-        imageV.translatesAutoresizingMaskIntoConstraints = NO;
+//        imageV.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:imageV];
         
+        NSString *str =  @"点击下方按钮安装[首充号修复工具]。首充号手游发生闪退时，可用该工具进行修复。";
+        
+        CGSize strSize = [StringUtils sizeWithString:str font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(310, 300)];
+        
         UILabel *orangeLab = [[UILabel alloc]init];
-        orangeLab.center = CGPointMake(CENTERX,imageV.frame.origin.y + imageV.frame.size.height + 50);
-        orangeLab.bounds = CGRectMake(0, 0, 310, 60);
+        orangeLab.center = CGPointMake(CENTERX,imageV.frame.origin.y + imageV.frame.size.height + strSize.height/2+10);
+        orangeLab.bounds = CGRectMake(0, 0, 310, strSize.height);
         orangeLab.textColor = [UIColor orangeColor];
         orangeLab.font = [UIFont systemFontOfSize:17];
         orangeLab.textAlignment = NSTextAlignmentCenter;
-        orangeLab.text = @"点击下方按钮安装[折扣修复工具]。折扣手游发生闪退时，可用该工具进行修复。";
-        orangeLab.numberOfLines = 2;
-        
-
+        orangeLab.text = str;
+        orangeLab.numberOfLines = 0;
         [self addSubview:orangeLab];
         
         _downToolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _downToolBtn.center = CGPointMake(CENTERX, orangeLab.frame.origin.y + orangeLab.frame.size.height + 30);
+        _downToolBtn.center = CGPointMake(CENTERX, orangeLab.frame.origin.y + orangeLab.frame.size.height + 45);
         _downToolBtn.bounds = CGRectMake(0, 0, 260, 50);
         _downToolBtn.backgroundColor = [UIColor orangeColor];
         _downToolBtn.layer.cornerRadius = 5;
@@ -54,7 +57,7 @@ UIImageView *imageV;
         lable.bounds = CGRectMake(0, 0, 315, 60);
         lable.font = [UIFont systemFontOfSize:17];
         lable.textAlignment = NSTextAlignmentCenter;
-        lable.text = @"如不选择安装，发生闪退时请前往官网http://zhekou.vlcms.com安装新客户端。";
+        lable.text = @"如不选择安装，发生闪退时请前往官网www.tym1.com安装新客户端。";
         lable.numberOfLines = 2;
         [self addSubview:lable];
     }
