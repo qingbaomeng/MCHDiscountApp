@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NJKWebViewProgress.h"
+//#import "NJKWebViewProgress.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 
-@interface WebViewController : UIViewController<UIWebViewDelegate,NJKWebViewProgressDelegate>
+@interface WebViewController : UIViewController<UIWebViewDelegate>
+//NJKWebViewProgressDelegate
 {
     UIView *topview;
 //    NJKWebViewProgress *progressProxy;

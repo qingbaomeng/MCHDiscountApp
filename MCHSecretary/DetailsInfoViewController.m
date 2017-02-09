@@ -247,7 +247,20 @@
     [appSmallIcon sd_setImageWithURL:[NSURL URLWithString:info.gameIconUrl] placeholderImage:[UIImage imageNamed:@"load_fail"]];
     [appName setText:info.gameName];
     [_descriptLab setText:info.introduction];
-    [_zhekouBtn setTitle:[NSString stringWithFormat:@"%@折",info.appDiscount] forState:UIControlStateNormal];
+    
+    if ([StringUtils isBlankString:info.appDiscount])
+    {
+        [_zhekouBtn setHidden:YES];
+    }
+    else if ([info.appDiscount floatValue] > 0 || [info.appDiscount floatValue]<10)
+    {
+        NSString *leftdiscountStr = [NSString stringWithFormat:@"%@%@", info.appDiscount, NSLocalizedString(@"AppDiscount", @"")];
+        [_zhekouBtn setTitle:leftdiscountStr forState:UIControlStateNormal];
+    }
+    else{
+        [_zhekouBtn setHidden:YES];
+    }
+    
     CGSize nameSize = [StringUtils sizeWithString:info.gameName font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake([[UIScreen mainScreen] bounds].size.width - 160, 42)];
     CGRect nameRect = appName.frame;
     nameRect.size = nameSize;

@@ -11,6 +11,7 @@
 #import "NJKWebViewProgress.h"
 #import "WebImage.h"
 #import "ToolView.h"
+#import "SVProgressHUD.h"
 
 #define TopViewH 65
 #define BarWIDTH 30
@@ -25,7 +26,6 @@
 
 @end
 
-UIImageView *imageView;
  NSURL *url;
 
 @implementation WebViewController
@@ -46,20 +46,10 @@ UIImageView *imageView;
 }
 -(void)initView
 {
-//    progressProxy = [[NJKWebViewProgress alloc]init];
-    
     CGRect rect = CGRectMake(0, TopViewH, kScreenWidth, kScreenHeight-TopViewH);
     
-//    UIWebView *webView = [[UIWebView alloc]initWithFrame:rect];
-//    webView.delegate = progressProxy;
-//    progressProxy.webViewProxyDelegate = self;
-//    progressProxy.progressDelegate = self;
     if ([self.descriptStr isEqualToString:@"安装工具"])
     {
-//        webView.delegate = self;
-//         url  = [[NSURL alloc]initWithString:@"http://zhekou.vlcms.com/media.php?s=/Index/repair"];
-//        [webView loadRequest:[NSURLRequest requestWithURL:url]];
-//        [self.view addSubview:webView];
         ToolView *toolView = [[ToolView alloc]initWithFrame:rect];
         [toolView.downToolBtn addTarget:self action:@selector(requestForDownTool) forControlEvents:UIControlEventTouchUpInside];
 //        [toolView viewFrame];
@@ -68,24 +58,28 @@ UIImageView *imageView;
     }
     else
     {
-        imageView = [[UIImageView alloc]initWithFrame:rect];
+        [SVProgressHUD show];
+        UIWebView *webView = [[UIWebView alloc]initWithFrame:rect];
+        webView.delegate = self;
+        webView.scalesPageToFit = YES;
+//        progressProxy.webViewProxyDelegate = self;
+//        progressProxy.progressDelegate = self;
+        if ([self.descriptStr isEqualToString:@"充值中心"])
+        {
+        url  = [[NSURL alloc]initWithString:@"http://www.tym1.com/media.php?s=/Recharge/index.html"];
+        }
+        else if ([self.descriptStr isEqualToString:@"推广分成"])
+        {
+        url  = [[NSURL alloc]initWithString:@"http://www.tym1.com/index.php"];
+        }
+        [webView loadRequest:[NSURLRequest requestWithURL:url]];
+        [self.view addSubview:webView];
         
-        [self.view addSubview:imageView];
-        [self performSelector:@selector(requestForView) withObject:nil afterDelay:1.0f];
+//        progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
+//        progressView.frame = CGRectMake(0, 85, self.view.frame.size.width, 3);
+//        progressView.progressTintColor = [UIColor blueColor];
+//        [self.view addSubview:progressView];
     }
-//    progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
-//    progressView.frame = CGRectMake(0, 65, self.view.frame.size.width, 3);
-//    progressView.progressTintColor = [UIColor blueColor];
-//    [self.view addSubview:progressView];
-}
--(void)requestForView
-{
-    [[[HelpRequest alloc]init]requestForHelp:^(NSDictionary *dict) {
-        
-        [imageView sd_setImageWithURL:[NSURL URLWithString:dict[@"icon"]]];
-        
-    } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
-    }];
 }
 -(void)requestForDownTool
 {
@@ -105,23 +99,18 @@ UIImageView *imageView;
     }];
     
 }
-#pragma mark - NJKWebViewProgressDelegate
--(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if (progress == 0.0) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        progressView.progress = 0;
-        [UIView animateWithDuration:0.27 animations:^{
-            progressView.alpha = 1.0;
-        }];
-    }
-    if (progress == 1.0) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [UIView animateWithDuration:0.27 delay:progress - progressView.progress options:0 animations:^{
-            progressView.alpha = 0.0;
-        } completion:nil];
-    }
-    [progressView setProgress:progress animated:NO];
+//    [SVProgressHUD show];
+    return YES;
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [SVProgressHUD dismiss];
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:@"加载失败"];
 }
 -(void) addTopView{
     topview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, TopViewH)];
@@ -144,33 +133,6 @@ UIImageView *imageView;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-     JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    
-      context[@"test1"] = ^() {
-        NSArray *args = [JSContext currentArguments];
-        for (id obj in args) {
-            NSLog(@"%@",obj);
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:obj]];
-        }
-    };
-}
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-//    if (didShowURL) { //Do not jump to URL when returning to app
-//        didShowURL = 0;
-//        return NO;
-//    }
-//    
-//    if (didLoad) { //Do not jump to URL when view first loads
-//        return YES;
-//    }
-    
-//    didShowURL = 1;
-//    [[UIApplication sharedApplication] openURL:url];
-    return YES;
 }
 /*
 #pragma mark - Navigation

@@ -100,7 +100,7 @@
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, TopViewH, kScreenWidth, kScreenHeight - TopViewH)];
     scrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight - 60);
     [self.view addSubview:scrollView];
-    for (int a = 0;  a< 4; a ++)
+    for (int a = 0;  a< 5; a ++)
     {
         ListView *vie = [[ListView alloc]init];
         
@@ -125,7 +125,13 @@
             
             [vie addGestureRecognizer:tapRecognizer];
         }
-        if (a == 3)
+        if (a ==3)
+        {
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap4)];
+            
+            [vie addGestureRecognizer:tapRecognizer];
+        }
+        if (a == 4)
         {
             [vie addSmallLab];
             
@@ -138,7 +144,7 @@
             {
                 vie.titleLab.text = [NSString stringWithFormat:@"v%@",resultDict[@"version"]];
             }
-            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap4)];
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap5)];
             
             [vie addGestureRecognizer:tapRecognizer];
         }
@@ -244,12 +250,23 @@
     
     WebViewController *webVC = [[WebViewController alloc]init];
     
-    webVC.descriptStr = @"折扣";
+    webVC.descriptStr = @"充值中心";
     
     [self.navigationController pushViewController:webVC animated:YES];
     
 }
 -(void)handleTap3
+{
+    _lab.frame = CGRectMake(0, VIEHEIGHT,kScreenWidth, VIEHEIGHT);
+    
+    WebViewController *webVC = [[WebViewController alloc]init];
+    
+    webVC.descriptStr = @"推广分成";
+    
+    [self.navigationController pushViewController:webVC animated:YES];
+    
+}
+-(void)handleTap4
 {
     _lab.frame = CGRectMake(0, VIEHEIGHT *2,kScreenWidth, VIEHEIGHT);
     
@@ -257,7 +274,7 @@
     
     [self.navigationController pushViewController:feedVC animated:YES];
 }
--(void)handleTap4
+-(void)handleTap5
 {
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     [SVProgressHUD showWithStatus:@"检查更新中...."];

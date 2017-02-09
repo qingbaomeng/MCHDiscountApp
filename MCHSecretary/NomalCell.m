@@ -163,9 +163,14 @@
     
     if ([StringUtils isBlankString:packInfo.appDiscount]) {
         [self.btnDiscount setHidden:YES];
-    }else{
+    }
+    else if ([packInfo.appDiscount floatValue] > 0 || [packInfo.appDiscount floatValue]<10)
+    {
         NSString *leftdiscountStr = [NSString stringWithFormat:@"%@%@", packInfo.appDiscount, NSLocalizedString(@"AppDiscount", @"")];
         [self.btnDiscount setTitle:leftdiscountStr forState:UIControlStateNormal];
+    }
+    else{
+        [self.btnDiscount setHidden:YES];
     }
 }
 
