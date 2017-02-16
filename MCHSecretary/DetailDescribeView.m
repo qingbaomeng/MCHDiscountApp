@@ -190,7 +190,7 @@ CGFloat LineY;
     UILabel *lblVersionNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2, firstY, LABWIDTH, ContentTextSize)];
     [lblVersionNum setFont:TextFont];
     [lblVersionNum setTextColor:TextColor];
-    lblVersionNum.text = [NSString stringWithFormat:@"%@ : v%@",NSLocalizedString(@"VersionNumber", @""),info.versionInfo];
+    lblVersionNum.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"VersionNumber", @""),info.versionInfo];
     [bgView addSubview:lblVersionNum];
     
     //更新时间

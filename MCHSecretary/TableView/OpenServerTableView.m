@@ -216,7 +216,7 @@
         if (opserverArray.count == 0)
         {
             NSLog(@"没有更多数据");
-            [openserverTable.mj_footer endRefreshingWithNoMoreData];
+            [openserverTable.mj_footer endRefreshing];
         }
         else
         {

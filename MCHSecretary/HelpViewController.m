@@ -138,11 +138,11 @@
             NSString *version = [CurrentAppUtils appVersion];
             if (![version isEqualToString:@""])
             {
-                 vie.titleLab.text = [NSString stringWithFormat:@"v%@",version];
+                 vie.titleLab.text = [NSString stringWithFormat:@"%@",version];
             }
             else
             {
-                vie.titleLab.text = [NSString stringWithFormat:@"v%@",resultDict[@"version"]];
+                vie.titleLab.text = [NSString stringWithFormat:@"%@",resultDict[@"version"]];
             }
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap5)];
             

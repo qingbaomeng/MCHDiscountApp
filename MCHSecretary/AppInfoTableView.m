@@ -172,14 +172,14 @@
     if (result.count == 0)
     {
         NSLog(@"没有更多数据");
-        [appInfoTable.mj_footer endRefreshingWithNoMoreData];
+        [appInfoTable.mj_footer endRefreshing];
     }
-        else
-        {
-            [listItemArray addObjectsFromArray:result];
-            [appInfoTable reloadData];
-            [appInfoTable.mj_footer endRefreshing];
-        }
+    else
+    {
+        [listItemArray addObjectsFromArray:result];
+        [appInfoTable reloadData];
+        [appInfoTable.mj_footer endRefreshing];
+    }
      
     } failure:^(NSURLResponse *response, NSError *error, NSDictionary *dic) {
         NSString *errorMsg = [NSString stringWithFormat:@"%@", [dic objectForKey:@"return_msg"]];
