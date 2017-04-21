@@ -51,7 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     listItemArray = [[NSMutableArray alloc] init];
     allIDarray = [[NSMutableArray alloc] init];
     

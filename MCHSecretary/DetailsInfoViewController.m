@@ -57,6 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
     [self initView];
     
     [self addTopView];
@@ -128,7 +129,7 @@
         if (info) {
             NSString *promoreid = [PreferencesUtils getPromoteId];
 
-            NSString *urlstr = [NSString stringWithFormat:@"http://zhekou.vlcms.com/media.php/index/game_download/gid/%@/pid/%@",self.appId,promoreid];
+            NSString *urlstr = [NSString stringWithFormat:@"https://www.tym1.com/media.php/index/game_download/gid/%@/pid/%@",self.appId,promoreid];
             
             [Share shareWithTitle:info.gameName ImageUrl:info.gameIconUrl Message:info.introduction URL:urlstr ViewControl:self];
         }

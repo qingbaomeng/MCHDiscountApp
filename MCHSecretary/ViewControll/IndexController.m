@@ -40,7 +40,7 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = YES;
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     [self initView];
     
     [[[ChoiceCycleAppRequest alloc]init]requestForShare:^(NSDictionary *dict) {
@@ -198,6 +198,7 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     DetailsInfoViewController *detailsView = [mainStoryboard instantiateViewControllerWithIdentifier:@"detailsinfo"];
+//    DetailsInfoViewController *detailsView = [[DetailsInfoViewController alloc]init];
     detailsView.appId = appid;
 //    detailsView.bundleId = 
     [self.navigationController pushViewController:detailsView animated:YES];
@@ -206,11 +207,13 @@
 #pragma mark - OpenServerDelegate
 
 -(void) startSearchApp{
-    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-    SearchViewController *searchView = [mainStoryboard instantiateViewControllerWithIdentifier:@"searchapp"];
+//    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
+//    SearchViewController *searchView = [mainStoryboard instantiateViewControllerWithIdentifier:@"searchapp"];
+    SearchViewController *searchView = [[SearchViewController alloc]init];
+    
     [searchView searchOpenServerGame];
     
     [self.navigationController pushViewController:searchView animated:YES];
